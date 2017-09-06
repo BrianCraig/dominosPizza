@@ -11,4 +11,8 @@ class Ingrediente {
 		this.precio = p
 	}
 	
+	def getPrecio() {
+		this.precio
+	}
+	
 }

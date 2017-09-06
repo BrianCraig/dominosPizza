@@ -2,26 +2,28 @@ package ar.edu.unq.iu.modelo
 
 import java.util.List
 
+
+
 class Menu {
 	
-	List<Promocion> promos
+	List<Pizza> pizzas
 	List<Ingrediente> ingreExtras
 	
 	new (){
-		promos = newArrayList()
+		pizzas = newArrayList()
 		ingreExtras = newArrayList()
 	}
 	
-	def agregarPromo(Promocion promo) {
-		promos.add(promo)
+	def agregarPizza (Pizza p) {
+		pizzas.add(p)
 	}
 	
-	def quitarPromo(Promocion promo) {
-		promos.remove(promo)
+	def quitarPizza(Pizza p) {
+		pizzas.remove(p)
 	}
 	
-	def cantidadDePromos() {
-		promos.size()
+	def cantidadDePizzas() {
+		pizzas.size()
 	}
 	
 	def agregarIngredienteExtra(Ingrediente i) {
@@ -31,8 +33,8 @@ class Menu {
 	def quitarIngredienteExtra(Ingrediente i) {
 		ingreExtras.remove(i)
 	}
-	def tienePromo(Promocion promocion) {
-		promos.contains(promocion)
+	def tienePizza(Pizza p) {
+		pizzas.contains(p)
 	}
 	
 	def cantidadDeIngredientesExtras() {

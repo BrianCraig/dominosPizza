@@ -8,9 +8,9 @@ class MenuTest {
 	
 	Menu menu
 	
-	Promocion promo1
+	Pizza pizza1
 	
-	Promocion promo2
+	Pizza pizza2
 	
 	Ingrediente panceta
 	
@@ -19,31 +19,32 @@ class MenuTest {
 	@Before
 	def void setUp(){
 		menu = new Menu()
-		promo1 = new Promocion(null, 0.0)
-		promo2 = new Promocion(null, 0.0)
+		pizza1 = new Pizza(null, 0.0, null)
+		pizza2 = new Pizza(null, 0.0, null)
 		panceta = new Ingrediente("Panceta", 5.0)
 		aceitunas = new Ingrediente("Aceitunas", 3.5)
 	}
 	
 	@Test
     def void testAgregaUnaPromoAlMenu(){    	
-    	menu.agregarPromo(promo1)
+    	menu.agregarPizza(pizza1)
         
-        Assert.assertEquals(menu.cantidadDePromos(), 1)
-        Assert.assertTrue(menu.tienePromo(promo1))
+        Assert.assertEquals(menu.cantidadDePizzas(), 1)
+        Assert.assertTrue(menu.tienePizza(pizza1))
         
     }
     
     @Test
     def void testQuitarUnaPromoAlMenu(){
-    	menu.agregarPromo(promo1)
-    	menu.agregarPromo(promo2)
+    	menu.agregarPizza(pizza1)
+    	menu.agregarPizza(pizza2)
     	
-    	menu.quitarPromo(promo1)
+    	menu.quitarPizza(pizza1)
     	
-    	Assert.assertEquals(menu.cantidadDePromos(), 1)
-    	Assert.assertFalse(menu.tienePromo(promo1))
+    	Assert.assertEquals(menu.cantidadDePizzas(), 1)
+    	Assert.assertFalse(menu.tienePizza(pizza1))
     }
+    
     
     @Test
     def void testAgregarIngredienteExtraAlMenu() {
