@@ -29,3 +29,4 @@ target/
 #XTend
 /contents/
 xtend-gen
+/bin/

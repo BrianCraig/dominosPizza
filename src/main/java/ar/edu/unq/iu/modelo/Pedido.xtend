@@ -1,9 +1,12 @@
 package ar.edu.unq.iu.modelo
 
+import java.time.LocalDateTime
 import java.util.ArrayList
-import java.util.Date
+import java.util.Observable
+import org.eclipse.xtend.lib.annotations.Accessors
 
-class Pedido {
+@Accessors
+class Pedido extends Observable{
 	
 	ArrayList<Plato> platos
 	
@@ -11,7 +14,7 @@ class Pedido {
 	
 	Cliente cliente
 	
-	Date fechaHora
+	LocalDateTime fechaHora
 	
 	String aclaraciones
 	
@@ -22,7 +25,7 @@ class Pedido {
 	new (ArrayList<Plato> platos, Cliente cliente, String aclaraciones, TipoEnvio envio){
 		this.platos = platos
 		this.cliente = cliente
-		this.fechaHora = new Date() //TIME??
+		this.fechaHora = LocalDateTime.now() 
 		this.aclaraciones = aclaraciones
 		this.envio = envio
 		this.estado = new Preparando()
@@ -41,4 +44,36 @@ class Pedido {
 		this.monto
 	}
 
+	def cancelarPedido(){
+		this.estado = new Cerrado()
+	}
+	
+	def getEstado() {
+		estado
+	}
+	
+	def enviar() {
+		this.estado = new EnViaje()
+		this.notifyObservers("Su pedido esta en viaje")
+		
+	}
+	
+	def entregar(){
+		this.estado = new Entregado()
+		this.verificarTiempo()
+	}
+	
+	def verificarTiempo() {
+		if (LocalDateTime.now().minusMinutes(30) >= fechaHora){
+			this.notifyObservers("Enviar mail de disculpa")
+		} 
+		
+	}
+	
+	
+	
+	
+	
+	
+	
 }

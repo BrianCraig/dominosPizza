@@ -1,6 +1,6 @@
 package ar.edu.unq.iu.modelo
 
-class TipoFamiliar extends TipoTamanio{
+class TamanioFamiliar extends TipoTamanio{
 		double PRECIO = 1.25 
 	
 	override getPrecio(){

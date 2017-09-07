@@ -20,7 +20,7 @@ class Plato {
 	}
 	
 	def calcularPrecio() {
-		precio = pizza.getPrecioBase() * tamanio.getPrecio //EL UNO REPRESENTA AL PRECIO DEL TAMAÑO POR AHORA 
+		precio = pizza.getPrecioBase() * tamanio.getPrecio() //EL UNO REPRESENTA AL PRECIO DEL TAMAÑO POR AHORA 
 		for (i : ingrExtras) {
 			precio += i.getPrecio()
 		}

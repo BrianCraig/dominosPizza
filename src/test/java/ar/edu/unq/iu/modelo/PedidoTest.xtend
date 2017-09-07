@@ -44,7 +44,33 @@ class PedidoTest {
 	def void testDadoUnPedidoCalculoSuPrecio(){
 		pedido = new Pedido(platos, cliente, aclaraciones, envio1)
 		
-		Assert.assertTrue(pedido.getMonto() == 0.0)
+		Assert.assertTrue(pedido.getMonto() == 15.0)
 	}
 	
+	@Test
+	def void testDadoUnPedidoEsteEsCancelado(){
+		pedido = new Pedido(platos, cliente, aclaraciones, envio2)
+		pedido.cancelarPedido()
+		var estadoCerrado = new Cerrado()
+		
+		Assert.assertTrue(pedido.getEstado().class == estadoCerrado.class)
+	}
+	
+	@Test
+	def void testDadoUnPedidoEnViajeSeLeNotificaAlCliente(){
+		pedido = new Pedido(platos, cliente, aclaraciones, envio1)
+		pedido.enviar()
+		
+	}
+	
+	@Test
+	def void testDadoUnPedidoQueTardoMasDe30MinutosEnserEntregadoSeVerificaQueElClienteRecibaElMailCorrespondiente(){
+		pedido.
+	}
 }
+
+
+
+
+
+
