@@ -8,19 +8,19 @@ class Plato {
 	
 	Pizza pizza
 	
-	Object tamaño
+	TipoTamanio tamanio
 	
 	ArrayList<Ingrediente> ingrExtras
 	
-	new(Pizza p, Object tamaño, ArrayList<Ingrediente> extras) {
+	new(Pizza p, TipoTamanio tamanio, ArrayList<Ingrediente> extras) {
 		this.pizza = p
-		this.tamaño = tamaño
+		this.tamanio = tamanio
 		this.ingrExtras = extras
 		this.precio = this.calcularPrecio()
 	}
 	
 	def calcularPrecio() {
-		precio = pizza.getPrecioBase() * 1 //EL UNO REPRESENTA AL PRECIO DEL TAMAÑO POR AHORA 
+		precio = pizza.getPrecioBase() * tamanio.getPrecio //EL UNO REPRESENTA AL PRECIO DEL TAMAÑO POR AHORA 
 		for (i : ingrExtras) {
 			precio += i.getPrecio()
 		}
