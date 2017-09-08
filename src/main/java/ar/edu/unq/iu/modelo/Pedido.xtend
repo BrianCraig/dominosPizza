@@ -8,9 +8,7 @@ import java.util.List
 
 @Accessors
 class Pedido extends Observable{
-	
 	List<Plato> platos = new ArrayList()
-	double monto
 	Cliente cliente
 	LocalDateTime fechaHora
 	String aclaraciones = ""
@@ -22,33 +20,23 @@ class Pedido extends Observable{
 		this.fechaHora = LocalDateTime.now()
 		this.envio = envio
 		this.estado = new Preparando()
-		this.monto = this.calcularMonto()
-	}
-	
-	def calcularMonto() {
-		monto = envio.getCosto()
-		for (p : platos) {
-			monto += p.getPrecio() 
-		}
-		monto
 	}
 	
 	def getMonto() {
-		this.monto
+        var monto = envio.getCosto()
+        for (p : platos) {
+            monto += p.getPrecio()
+        }
+        monto
 	}
 
 	def cancelarPedido(){
 		this.estado = new Cerrado()
 	}
 	
-	def getEstado() {
-		estado
-	}
-	
 	def enviar() {
 		this.estado = new EnViaje()
 		this.notifyObservers("Su pedido esta en viaje")
-		
 	}
 	
 	def entregar(){
