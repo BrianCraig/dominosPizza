@@ -1,19 +1,24 @@
 package ar.edu.unq.iu.modelo
 
+import org.eclipse.xtend.lib.annotations.Accessors
+
+@Accessors
 class Agregado {
 	
 	Ingrediente ingrediente
-	Cubre cubre
+	Lado lado
 	
-	new(Ingrediente ingrediente, Cubre cubre) {
+	new(Ingrediente ingrediente, Lado cubre) {
 		this.ingrediente = ingrediente
-		this.cubre = cubre
+		this.lado = lado
 	}
 	
 }
 
-enum Cubre{
-	Izquierda,
-	Derecha,
-	Todo
-}
+class Lado{}
+
+class LadoIzquierdo extends Lado{}
+
+class LadoDerecho extends Lado{}
+
+class LadoAmbos extends Lado{}
