@@ -6,9 +6,7 @@ import org.junit.Before
 import java.util.ArrayList
 
 class PedidoTest {
-	
 	Pedido pedido
-	ArrayList<Plato> platos
 	Cliente cliente
 	String aclaraciones
 	Envio envio1
@@ -18,19 +16,19 @@ class PedidoTest {
 	
 	@Before
 	def void setUp(){
-		platos = newArrayList
-		platos.add(plato1)
-		platos.add(plato2)
 		cliente = new Cliente()
 		envio1 = new Delivery("Calle Falsa 123")
 		envio2 = new Retirar()
-
 		pedido = new Pedido(cliente, envio1)
+	}
+
+	def plato1(){
+
 	}
 	
 	@Test
 	def void testDadoUnPedidoCalculoSuPrecio(){
-		Assert.assertTrue(pedido.getMonto() == 15.0)
+		Assert.assertTrue(pedido.monto == 15.0)
 	}
 	
 	@Test

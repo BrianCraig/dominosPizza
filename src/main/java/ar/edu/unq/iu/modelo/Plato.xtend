@@ -1,34 +1,28 @@
 package ar.edu.unq.iu.modelo
 
 import java.util.ArrayList
+import org.eclipse.xtend.lib.annotations.Accessors
+import java.util.List
 
+@Accessors
 class Plato {
 	
 	double precio
-	
 	Pizza pizza
-	
 	Tamanio tamanio
+	List<Ingrediente> ingrExtras = new ArrayList()
 	
-	ArrayList<Ingrediente> ingrExtras
-	
-	new(Pizza p, Tamanio tamanio, ArrayList<Ingrediente> extras) {
+	new(Pizza p, Tamanio tamanio) {
 		this.pizza = p
 		this.tamanio = tamanio
-		this.ingrExtras = extras
-		this.precio = this.calcularPrecio()
-	}
-	
-	def calcularPrecio() {
-		precio = pizza.getPrecioBase() * tamanio.getPrecio() //EL UNO REPRESENTA AL PRECIO DEL TAMA�O POR AHORA 
-		for (i : ingrExtras) {
-			precio += i.getPrecio()
-		}
-		precio
 	}
 	
 	def getPrecio() {
-		this.precio
+		var total = pizza.getPrecioBase() * tamanio.getPrecio() //EL UNO REPRESENTA AL PRECIO DEL TAMA�O POR AHORA
+		for (i : ingrExtras) {
+			total += i.getPrecio()
+		}
+		total
 	}
 	
 }
