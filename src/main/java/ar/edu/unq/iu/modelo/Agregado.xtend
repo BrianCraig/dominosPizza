@@ -12,6 +12,10 @@ class Agregado {
 		this.ingrediente = ingrediente
 		this.lado = lado
 	}
+
+	def getPrecio() {
+		this.ingrediente.precio
+	}
 	
 }
 

@@ -10,7 +10,7 @@ class Plato {
 	double precio
 	Pizza pizza
 	Tamanio tamanio
-	List<Ingrediente> ingrExtras = new ArrayList()
+	List<Agregado> agregados = new ArrayList()
 	
 	new(Pizza p, Tamanio tamanio) {
 		this.pizza = p
@@ -19,7 +19,7 @@ class Plato {
 	
 	def getPrecio() {
 		var total = pizza.getPrecioBase() * tamanio.getPrecio() //EL UNO REPRESENTA AL PRECIO DEL TAMA�O POR AHORA
-		for (i : ingrExtras) {
+		for (i : agregados) {
 			total += i.getPrecio()
 		}
 		total
