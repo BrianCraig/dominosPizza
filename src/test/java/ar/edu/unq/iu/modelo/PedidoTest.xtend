@@ -65,7 +65,9 @@ class PedidoTest {
 	
 	@Test
 	def void testDadoUnPedidoQueTardoMasDe30MinutosEnserEntregadoSeVerificaQueElClienteRecibaElMailCorrespondiente(){
-		pedido.
+		// para implementar
+		// se podria implementar creando el pedido, escuchando al observer del pedido
+		// cambiando el tiempo del sistema, pasando el pedido a un estado entregado, y verificando el obs
 	}
 }
 
