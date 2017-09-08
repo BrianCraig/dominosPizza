@@ -1,22 +1,17 @@
 package ar.edu.unq.iu.modelo
 
 import java.util.ArrayList
+import java.util.List
+import org.eclipse.xtend.lib.annotations.Accessors
 
+@Accessors
 class Pizza {
 	String nombre
-	
-	ArrayList<Ingrediente> ingredientes
-	
+	List<Ingrediente> ingredientes = new ArrayList()
 	double precioBase
 	
-	new (String n, double p, ArrayList<Ingrediente> is) {
+	new (String n, double p) {
 		this.nombre = n
 		this.precioBase = p
-		this.ingredientes = is
 	}
-	
-	def getPrecioBase() {
-		this.precioBase
-	}
-	
 }

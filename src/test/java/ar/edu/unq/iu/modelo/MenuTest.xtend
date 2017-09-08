@@ -7,20 +7,16 @@ import org.junit.Before
 class MenuTest {
 	
 	Menu menu
-	
 	Pizza pizza1
-	
 	Pizza pizza2
-	
 	Ingrediente panceta
-	
 	Ingrediente aceitunas
 	
 	@Before
 	def void setUp(){
 		menu = new Menu()
-		pizza1 = new Pizza(null, 0.0, null)
-		pizza2 = new Pizza(null, 0.0, null)
+		pizza1 = new Pizza("Jamon y Morrones", 0.0)
+		pizza2 = new Pizza("Panceta", 0.0)
 		panceta = new Ingrediente("Panceta", 5.0)
 		aceitunas = new Ingrediente("Aceitunas", 3.5)
 	}
