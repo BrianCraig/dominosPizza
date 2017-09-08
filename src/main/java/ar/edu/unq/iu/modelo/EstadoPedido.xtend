@@ -1,9 +1,11 @@
 package ar.edu.unq.iu.modelo
 
-class EstadoPedido {
-	
-	new (){
-		
-	}
-	
-}
+class EstadoPedido {}
+
+class Cerrado extends EstadoPedido{}
+
+class Entregado extends EstadoPedido{}
+
+class EnViaje extends EstadoPedido {}
+
+class Preparando extends EstadoPedido {}
