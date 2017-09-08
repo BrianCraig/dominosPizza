@@ -15,9 +15,9 @@ class PedidoTest {
 	
 	String aclaraciones
 	
-	TipoEnvio envio1
+	Envio envio1
 	
-	TipoEnvio envio2
+	Envio envio2
 	
 	Plato plato1
 	

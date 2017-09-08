@@ -18,11 +18,11 @@ class Pedido extends Observable{
 	
 	String aclaraciones
 	
-	TipoEnvio envio
+	Envio envio
 	
 	EstadoPedido estado
 	
-	new (ArrayList<Plato> platos, Cliente cliente, String aclaraciones, TipoEnvio envio){
+	new (ArrayList<Plato> platos, Cliente cliente, String aclaraciones, Envio envio){
 		this.platos = platos
 		this.cliente = cliente
 		this.fechaHora = LocalDateTime.now() 
