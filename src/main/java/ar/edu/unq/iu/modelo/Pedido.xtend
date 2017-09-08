@@ -4,29 +4,22 @@ import java.time.LocalDateTime
 import java.util.ArrayList
 import java.util.Observable
 import org.eclipse.xtend.lib.annotations.Accessors
+import java.util.List
 
 @Accessors
 class Pedido extends Observable{
 	
-	ArrayList<Plato> platos
-	
+	List<Plato> platos = new ArrayList()
 	double monto
-	
 	Cliente cliente
-	
 	LocalDateTime fechaHora
-	
-	String aclaraciones
-	
+	String aclaraciones = ""
 	Envio envio
-	
 	EstadoPedido estado
 	
-	new (ArrayList<Plato> platos, Cliente cliente, String aclaraciones, Envio envio){
-		this.platos = platos
+	new (Cliente cliente, Envio envio){
 		this.cliente = cliente
-		this.fechaHora = LocalDateTime.now() 
-		this.aclaraciones = aclaraciones
+		this.fechaHora = LocalDateTime.now()
 		this.envio = envio
 		this.estado = new Preparando()
 		this.monto = this.calcularMonto()
@@ -69,11 +62,5 @@ class Pedido extends Observable{
 		} 
 		
 	}
-	
-	
-	
-	
-	
-	
 	
 }
