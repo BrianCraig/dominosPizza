@@ -8,10 +8,10 @@ import org.eclipse.xtend.lib.annotations.Accessors
 class Pizza {
 	String nombre
 	List<Ingrediente> ingredientes = new ArrayList()
-	double precioBase
+	double precio
 	
 	new (String n, double p) {
 		this.nombre = n
-		this.precioBase = p
+		this.precio = p
 	}
 }
