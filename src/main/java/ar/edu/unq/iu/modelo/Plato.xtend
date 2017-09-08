@@ -18,9 +18,9 @@ class Plato {
 	}
 	
 	def getPrecio() {
-		var total = pizza.precio * tamanio.getPrecio() //EL UNO REPRESENTA AL PRECIO DEL TAMA�O POR AHORA
+		var total = pizza.precio * tamanio.precio //EL UNO REPRESENTA AL PRECIO DEL TAMA�O POR AHORA
 		for (i : agregados) {
-			total += i.getPrecio()
+			total += i.precio
 		}
 		total
 	}
