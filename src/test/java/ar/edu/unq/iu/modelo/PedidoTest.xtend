@@ -51,7 +51,26 @@ class PedidoTest {
 	def void testUnPedidoParaRetirarPuedePasarAEstadoListoParaRetirar() {
 		pedidoConPlatos.envio = new Retirar()
 
-		Assert.assertTrue(pedidoConPlatos.posiblesEstados.stream.anyMatch([estado | estado.class == ListoParaRetirar]))
+		Assert.assertTrue(
+			pedidoConPlatos.posiblesEstados.stream.anyMatch(
+				[estado | estado.class == ListoParaRetirar]
+			)
+		)
+	}
+
+	@Test
+	def void testUnPedidoParaRetirarNoPuedePasarAEstadoListoParaEnviar() {
+		pedidoConPlatos.envio = new Retirar()
+		Assert.assertFalse(
+			pedidoConPlatos.posiblesEstados.stream.anyMatch(
+				[estado | estado.class == ListoParaEnviar]
+			)
+		)
+	}
+
+	@Test(expected=CambioDeEstadoException)
+	def void testUnPedidoEnEstadoPreparandoRompeSiLoPasamosAEstadoEntregado(){
+		pedidoConPlatos.estado = new Entregado
 	}
 }
 

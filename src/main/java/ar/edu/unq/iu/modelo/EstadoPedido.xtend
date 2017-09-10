@@ -45,3 +45,5 @@ class Cancelado extends EstadoPedido{
         #[]
     }
 }
+
+class CambioDeEstadoException extends Exception {}
