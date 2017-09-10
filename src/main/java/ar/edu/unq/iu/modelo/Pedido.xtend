@@ -31,7 +31,7 @@ class Pedido extends Observable{
 	}
 
 	def cancelarPedido(){
-		this.estado = new Cerrado()
+		this.estado = new Cancelado()
 	}
 	
 	def enviar() {
@@ -49,6 +49,10 @@ class Pedido extends Observable{
 			this.notifyObservers("Enviar mail de disculpa")
 		} 
 		
+	}
+
+	def getPosiblesEstados() {
+		estado.posiblesEstados
 	}
 	
 }

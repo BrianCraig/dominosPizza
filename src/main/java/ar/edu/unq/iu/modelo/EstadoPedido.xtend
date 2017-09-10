@@ -1,11 +1,47 @@
 package ar.edu.unq.iu.modelo
 
-class EstadoPedido {}
+import java.util.List
 
-class Cerrado extends EstadoPedido{}
+abstract class EstadoPedido {
+    abstract def List<EstadoPedido> getPosiblesEstados()
+}
 
-class Entregado extends EstadoPedido{}
+// Todos los pedidos empiezan en estado preparando
+class Preparando extends EstadoPedido {
+    override def getPosiblesEstados (){
+        #[new ListoParaEnviar, new ListoParaRetirar, new Cancelado]
+    }
+}
 
-class EnViaje extends EstadoPedido {}
+// Si es de delivery (ListoParaEnviar -> EnViaje -> Entregado)
+class ListoParaEnviar extends EstadoPedido {
+    override def getPosiblesEstados (){
+        #[new Preparando, new EnViaje, new Cancelado]
+    }
+}
 
-class Preparando extends EstadoPedido {}
+class EnViaje extends EstadoPedido {
+    def override getPosiblesEstados (){
+        #[new ListoParaEnviar, new Entregado, new Cancelado]
+    }
+}
+
+class Entregado extends EstadoPedido{
+    def override getPosiblesEstados (){
+        #[]
+    }
+}
+
+// Si es para retirar (ListoParaRetirar ->  Entregado)
+class ListoParaRetirar extends EstadoPedido {
+    def override getPosiblesEstados (){
+        #[new Preparando, new Entregado, new Cancelado]
+    }
+}
+
+// Se puede cancelar en cualquier estado menos Cancelado
+class Cancelado extends EstadoPedido{
+    def override getPosiblesEstados (){
+        #[]
+    }
+}
