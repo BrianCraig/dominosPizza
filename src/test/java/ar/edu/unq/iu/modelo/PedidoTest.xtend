@@ -10,16 +10,16 @@ class PedidoTest {
 	Pedido pedidoConPlatos
 	Cliente cliente
 	String aclaraciones
-	Envio envio1
-	Envio envio2
+	Envio delivery
+	Envio retiro
 	
 	@Before
 	def void setUp(){
 		cliente = new Cliente()
-		envio1 = new Delivery("Calle Falsa 123")
-		envio2 = new Retirar()
-		pedidoSinPlatos = new Pedido(cliente, new Delivery("Calle Falsa 123"))
-		pedidoConPlatos = new Pedido(cliente, new Retirar()) => [
+		delivery = new Delivery("Calle Falsa 123")
+		retiro = new Retirar()
+		pedidoSinPlatos = new Pedido(cliente, delivery)
+		pedidoConPlatos = new Pedido(cliente, retiro) => [
 			platos.add(new Plato(new Pizza("muzza", 70.0), new TamanioPorcion()))
 		]
 	}
@@ -49,7 +49,7 @@ class PedidoTest {
 
 	@Test
 	def void testUnPedidoParaRetirarPuedePasarAEstadoListoParaRetirar() {
-		pedidoConPlatos.envio = new Retirar()
+		pedidoConPlatos.envio = retiro
 
 		Assert.assertTrue(
 			pedidoConPlatos.posiblesEstados.stream.anyMatch(
@@ -60,7 +60,7 @@ class PedidoTest {
 
 	@Test
 	def void testUnPedidoParaRetirarNoPuedePasarAEstadoListoParaEnviar() {
-		pedidoConPlatos.envio = new Retirar()
+		pedidoConPlatos.envio = retiro
 		Assert.assertFalse(
 			pedidoConPlatos.posiblesEstados.stream.anyMatch(
 				[estado | estado.class == ListoParaEnviar]
@@ -70,6 +70,27 @@ class PedidoTest {
 
 	@Test(expected=CambioDeEstadoException)
 	def void testUnPedidoEnEstadoPreparandoRompeSiLoPasamosAEstadoEntregado(){
+		pedidoConPlatos.estado = new Entregado
+	}
+
+	@Test
+	def void testUnPedidoParaEnviarPasaDeEstados() {
+		pedidoConPlatos.envio = delivery
+
+		pedidoConPlatos.estado = new ListoParaEnviar
+		pedidoConPlatos.estado = new Preparando
+		pedidoConPlatos.estado = new ListoParaEnviar
+		pedidoConPlatos.estado = new EnViaje
+		pedidoConPlatos.estado = new Entregado
+	}
+
+	@Test
+	def void testUnPedidoParaRetirarPasaDeEstados() {
+		pedidoConPlatos.envio = retiro
+
+		pedidoConPlatos.estado = new ListoParaRetirar
+		pedidoConPlatos.estado = new Preparando
+		pedidoConPlatos.estado = new ListoParaRetirar
 		pedidoConPlatos.estado = new Entregado
 	}
 }
