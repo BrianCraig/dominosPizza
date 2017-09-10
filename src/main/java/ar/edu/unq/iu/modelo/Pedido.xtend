@@ -47,12 +47,17 @@ class Pedido extends Observable{
 	def verificarTiempo() {
 		if (LocalDateTime.now().minusMinutes(30) >= fechaHora){
 			this.notifyObservers("Enviar mail de disculpa")
-		} 
-		
+		}
 	}
 
 	def getPosiblesEstados() {
-		estado.posiblesEstados
+		estado.posiblesEstados(this)
+	}
+
+	def setEstado(EstadoPedido estado) {
+		if(! this.posiblesEstados.stream.anyMatch([e | e.class == estado.class]))
+			throw new CambioDeEstadoException()
+		this.estado = estado
 	}
 	
 }
