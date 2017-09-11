@@ -5,6 +5,11 @@ import org.eclipse.xtend.lib.annotations.Accessors
 @Accessors
 abstract class Envio {
 	protected double costo
+	
+	override equals(Object o) {
+		this.class == o.class
+	}
+	
 }
 
 class Retirar extends Envio {

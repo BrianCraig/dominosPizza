@@ -20,7 +20,7 @@ class PedidoTest {
 		retiro = new Retirar()
 		pedidoSinPlatos = new Pedido(cliente, delivery)
 		pedidoConPlatos = new Pedido(cliente, retiro) => [
-			platos.add(new Plato(new Pizza("muzza", 70.0), new TamanioPorcion()))
+			platos.add(new Plato(new Pizza("muzza", 70.0), new TamanioGrande()))
 		]
 	}
 
@@ -32,6 +32,7 @@ class PedidoTest {
 	@Test
 	def void testDadoUnPedidoCalculoSuPrecio(){
 		Assert.assertTrue(pedidoSinPlatos.monto == 15.0)
+		Assert.assertTrue(pedidoConPlatos.monto == 70.0)
 	}
 	
 	@Test
@@ -47,51 +48,85 @@ class PedidoTest {
 		// cambiando el tiempo del sistema, pasando el pedido a un estado entregado, y verificando el obs
 	}
 
-	@Test
-	def void testUnPedidoParaRetirarPuedePasarAEstadoListoParaRetirar() {
-		pedidoConPlatos.envio = retiro
-
-		Assert.assertTrue(
-			pedidoConPlatos.posiblesEstados.stream.anyMatch(
-				[estado | estado.class == ListoParaRetirar]
-			)
-		)
-	}
-
-	@Test
-	def void testUnPedidoParaRetirarNoPuedePasarAEstadoListoParaEnviar() {
-		pedidoConPlatos.envio = retiro
-		Assert.assertFalse(
-			pedidoConPlatos.posiblesEstados.stream.anyMatch(
-				[estado | estado.class == ListoParaEnviar]
-			)
-		)
-	}
+	
 
 	@Test(expected=CambioDeEstadoException)
-	def void testUnPedidoEnEstadoPreparandoRompeSiLoPasamosAEstadoEntregado(){
-		pedidoConPlatos.estado = new Entregado
+	def void testUnPedidoEnEstadoPreparandoRompeSiLoQueremosPasarAlAnterior(){
+		pedidoConPlatos.pasarAlEstadoAnterior()
+	}
+	
+	@Test(expected=CambioDeEstadoException)
+	def void testUnPedidoEnEstadoCanceladoRompeSiLoQueremosPasarAlAnterior(){
+		pedidoConPlatos.estado = new Cancelado()
+		pedidoConPlatos.pasarAlEstadoAnterior()
+	}
+	
+	@Test(expected=CambioDeEstadoException)
+	def void testUnPedidoEnEstadoEntregadoRompeSiLoQueremosPasarAlSiguiente(){
+		pedidoConPlatos.estado = new Entregado()
+		pedidoConPlatos.pasarAlSiguienteEstado()
+	}
+	
+	@Test(expected=CambioDeEstadoException)
+	def void testUnPedidoEnEstadoCanceladoRompeSiLoQueremosPasarAlSiguiente(){
+		pedidoConPlatos.estado = new Cancelado()
+		pedidoConPlatos.pasarAlSiguienteEstado()
 	}
 
 	@Test
-	def void testUnPedidoParaEnviarPasaDeEstados() {
-		pedidoConPlatos.envio = delivery
-
-		pedidoConPlatos.estado = new ListoParaEnviar
-		pedidoConPlatos.estado = new Preparando
-		pedidoConPlatos.estado = new ListoParaEnviar
-		pedidoConPlatos.estado = new EnViaje
-		pedidoConPlatos.estado = new Entregado
+	def void testUnPedidoParaEnviarPasaAEstadosSiguientes() {
+		pedidoSinPlatos.pasarAlSiguienteEstado()
+		
+		Assert.assertEquals(pedidoSinPlatos.estado, new ListoParaEnviar())
+		
+		pedidoSinPlatos.pasarAlSiguienteEstado()
+		
+		Assert.assertEquals(pedidoSinPlatos.estado, new EnViaje())
+		
+		pedidoSinPlatos.pasarAlSiguienteEstado()
+		
+		Assert.assertEquals(pedidoSinPlatos.estado, new Entregado())
+	}
+	
+	@Test
+	def void testUnPedidoParaEnviarPasaAEstadosAnteriores() {
+		pedidoSinPlatos.estado = new Entregado()
+		
+		pedidoSinPlatos.pasarAlEstadoAnterior()
+		
+		Assert.assertEquals(pedidoSinPlatos.estado, new EnViaje())
+		
+		pedidoSinPlatos.pasarAlEstadoAnterior()
+		
+		Assert.assertEquals(pedidoSinPlatos.estado, new ListoParaEnviar())
+		
+		pedidoSinPlatos.pasarAlEstadoAnterior()
+		
+		Assert.assertEquals(pedidoSinPlatos.estado, new Preparando())
 	}
 
 	@Test
-	def void testUnPedidoParaRetirarPasaDeEstados() {
-		pedidoConPlatos.envio = retiro
-
-		pedidoConPlatos.estado = new ListoParaRetirar
-		pedidoConPlatos.estado = new Preparando
-		pedidoConPlatos.estado = new ListoParaRetirar
-		pedidoConPlatos.estado = new Entregado
+	def void testUnPedidoParaRetirarPasaALosEstadosSiguientes() {
+		pedidoConPlatos.pasarAlSiguienteEstado()
+		
+		Assert.assertEquals(pedidoConPlatos.estado, new ListoParaRetirar())
+		
+		pedidoConPlatos.pasarAlSiguienteEstado()
+		
+		Assert.assertEquals(pedidoConPlatos.estado, new Entregado())
+	}
+	
+	@Test
+	def void testUnPedidoParaRetirarPasaALosEstadosAnteriores() {
+		pedidoConPlatos.estado = new Entregado()
+		
+		pedidoConPlatos.pasarAlEstadoAnterior()
+		
+		Assert.assertEquals(pedidoConPlatos.estado, new ListoParaRetirar())
+		
+		pedidoConPlatos.pasarAlEstadoAnterior()
+		
+		Assert.assertEquals(pedidoConPlatos.estado, new Preparando())
 	}
 }
 

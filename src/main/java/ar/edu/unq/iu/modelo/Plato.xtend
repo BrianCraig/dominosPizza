@@ -7,7 +7,7 @@ import java.util.List
 @Accessors
 class Plato {
 	
-	double precio
+	
 	Pizza pizza
 	Tamanio tamanio
 	List<Agregado> agregados = new ArrayList()
@@ -18,11 +18,14 @@ class Plato {
 	}
 	
 	def getPrecio() {
-		var total = pizza.precio * tamanio.precio //EL UNO REPRESENTA AL PRECIO DEL TAMA�O POR AHORA
-		for (i : agregados) {
-			total += i.precio
+		var p = pizza.precio * tamanio.precio
+		for (a : agregados){
+			p += a.getPrecio()
 		}
-		total
+		p
+	}
+		
 	}
 	
-}
+	
+	

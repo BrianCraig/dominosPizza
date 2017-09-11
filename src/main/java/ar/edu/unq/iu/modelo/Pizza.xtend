@@ -14,4 +14,17 @@ class Pizza {
 		this.nombre = n
 		this.precio = p
 	}
+	
+	def quitarIngrediente(Ingrediente ingrediente) {
+		ingredientes.remove(ingrediente)
+	}
+	
+	def agregarIngrediente(Ingrediente ingrediente) {
+		ingredientes.add(ingrediente)
+	}
+	
+	def getPrecio(){
+		precio
+	}
+	
 }

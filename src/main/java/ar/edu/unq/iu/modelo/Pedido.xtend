@@ -55,9 +55,15 @@ class Pedido extends Observable{
 	}
 
 	def setEstado(EstadoPedido estado) {
-		if(! this.posiblesEstados.stream.anyMatch([e | e.class == estado.class]))
-			throw new CambioDeEstadoException()
 		this.estado = estado
+	}
+	
+	def pasarAlSiguienteEstado() {
+		estado = estado.estadoSiguiente(envio)
+	}
+	
+	def pasarAlEstadoAnterior() {
+		estado = estado.estadoAnterior(envio)
 	}
 	
 }
