@@ -14,15 +14,21 @@ class Pedido extends Observable{
 	String aclaraciones = ""
 	Envio envio
 	EstadoPedido estado
+	int id
+	double monto
 	
-	new (Cliente cliente, Envio envio){
+	new (Cliente cliente, Envio envio, int id){
+		this.id = id
 		this.cliente = cliente
 		this.fechaHora = LocalDateTime.now()
 		this.envio = envio
-		this.estado = new Preparando()
+		this.estado = new Preparando
+		cliente.agregarPedido(this)
+		this.monto = calcularMonto()
+		
 	}
 	
-	def getMonto() {
+	def calcularMonto() {
         var monto = envio.getCosto()
         for (p : platos) {
             monto += p.getPrecio()

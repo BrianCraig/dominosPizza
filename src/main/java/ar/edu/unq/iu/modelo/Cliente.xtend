@@ -24,4 +24,6 @@ class Cliente {
 	def agregarPedido(Pedido pedido){
 		pedidos.add(pedido)
 	}
+	
+	
 }
