@@ -15,7 +15,7 @@ class PedidoTest {
 	
 	@Before
 	def void setUp(){
-		cliente = new Cliente()
+		cliente = new Cliente("nombre", "nick", "password", "mail", "direccion")
 		delivery = new Delivery("Calle Falsa 123")
 		retiro = new Retirar()
 		pedidoSinPlatos = new Pedido(cliente, delivery, 1)

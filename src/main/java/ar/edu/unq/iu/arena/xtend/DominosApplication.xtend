@@ -13,6 +13,7 @@ import ar.edu.unq.iu.modelo.TamanioPorcion
 import ar.edu.unq.iu.modelo.Pedido
 import ar.edu.unq.iu.modelo.DominosPizza
 import ar.edu.unq.iu.modelo.Retirar
+import ar.edu.unq.iu.modelo.Cliente
 
 class DominosApplication extends Application {
 
@@ -44,7 +45,9 @@ class DominosApplication extends Application {
 
         val plato2 = new Plato(yoNoPediriaEsto, new TamanioPorcion)
 
-        val pedido = new Pedido(null, new Retirar(), 0)
+        val pepito = new Cliente("nombre", "nick", "password", "mail", "direccion")
+
+        val pedido = new Pedido(pepito, new Retirar(), 0)
 
         val menu = new Menu => [
             agregarIngredienteExtra(panceta)
@@ -57,6 +60,7 @@ class DominosApplication extends Application {
 
         new DominosPizza(menu) => [
             agregarPedido(pedido)
+            clientes.add(pepito)
         ]
     }
 }

@@ -12,7 +12,7 @@ class Cliente {
 	String direccion
 	List<Pedido> pedidos
 	
-	def Cliente (String nombre, String  nick, String password, String mail, String direccion){
+	new(String nombre, String  nick, String password, String mail, String direccion){
 		this.nombre = nombre
 		this.nick = nick
 		this.password = password

@@ -6,6 +6,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.List
 
 @Accessors
+@org.uqbar.commons.model.annotations.Observable
 class DominosPizza implements Observer {
 	
 	Menu menu
@@ -27,7 +28,7 @@ class DominosPizza implements Observer {
 	}
 	
 	override update(Observable o, Object arg) {
-		var pedido = o as Pedido  
+		var pedido = o as Pedido
 		if(arg == "Su pedido esta en viaje"){
 			this.mandarMail(pedido.getCliente(), "Su pedido esta en viaje")
 		}
