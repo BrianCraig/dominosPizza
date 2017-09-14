@@ -9,14 +9,15 @@ import org.uqbar.arena.layout.VerticalLayout
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.widgets.Button
+import ar.edu.unq.iu.modelo.DominosPizza
 
 /**
  * Ventana de principal de Dominos Pizza <3
  */
-class DominosWindow extends SimpleWindow<Menu> {
+class DominosWindow extends SimpleWindow<DominosPizza> {
 
-    new(WindowOwner parent) {
-        super(parent, new Menu)
+    new(WindowOwner parent, DominosPizza m) {
+        super(parent, m)
     }
 
     override createContents(Panel panel) {

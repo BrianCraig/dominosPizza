@@ -9,12 +9,21 @@ import java.util.List
 class DominosPizza implements Observer {
 	
 	Menu menu
-	
 	List<Cliente> clientes
+	List<Pedido> pedidos
 	
 	new (Menu menu){
 		this.menu = menu
 		this.clientes = newArrayList()
+		this.pedidos = newArrayList()
+	}
+
+	def agregarPedido(Pedido p){
+		pedidos.add(p)
+	}
+
+	def quitarPedido(Pedido p){
+		pedidos.remove(p)
 	}
 	
 	override update(Observable o, Object arg) {
