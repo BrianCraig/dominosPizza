@@ -1,9 +1,10 @@
 package ar.edu.unq.iu.modelo
 
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.commons.model.Entity
 
 @Accessors
-class Ingrediente {
+class Ingrediente extends Entity{
 	String nombre
 	Double precio
 	

@@ -14,11 +14,15 @@ import org.uqbar.arena.bindings.NotNullObservable
 import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.windows.Dialog
 import org.uqbar.arena.windows.Window
+import ar.edu.unq.iu.appmodel.ListadoDePedidos
 
-class ListadoDePedidosAbiertosWindow extends SimpleWindow<Pedido> {
+import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
+
+class ListadoDePedidosAbiertosWindow extends SimpleWindow<ListadoDePedidos> {
 	
-	new(WindowOwner parent, Pedido model) {
-		super(parent, model)
+	new(WindowOwner parent) {
+		super(parent, new ListadoDePedidos)
+		modelObject.pedidosAbiertos
 		
 	}
 	
@@ -33,7 +37,7 @@ class ListadoDePedidosAbiertosWindow extends SimpleWindow<Pedido> {
 	}
 	
 	def createGridActions(Panel panel) {
-		// Deshabilitar los botones si no hay ningún elemento seleccionado en la grilla.
+		
 		val elementSelected = new NotNullObservable("pedidoSeleccionado")
 		
 		val actionsPanel = new Panel(panel).layout = new HorizontalLayout
@@ -64,9 +68,9 @@ class ListadoDePedidosAbiertosWindow extends SimpleWindow<Pedido> {
 	
 	def createResultsGrid(Panel panel) {
 		val table = new Table<Pedido>(panel, typeof(Pedido)) => [
-			//items <=> "resultados"
-			//value <=> "celularSeleccionado"
-			numberVisibleRows = 3
+			items <=> "pedidos"
+			value <=> "pedidoSeleccionado"
+			numberVisibleRows = 10
 		]
 		this.describeResultsGrid(table)
 	}
@@ -88,11 +92,11 @@ class ListadoDePedidosAbiertosWindow extends SimpleWindow<Pedido> {
 			onClick([|this.close])
 		]
 		
-		//TODO: Los botones para pasar a pagina siguiente y anterios
+		
 	}
 	
 	def pedidosCerrados() {
-		this.openWindow(new ListadoDePedidosCerrados(this, null))
+		this.openWindow(new ListadoDePedidosCerrados(this))
 	}
 	
 	def openWindow(Window<?> window) {
@@ -115,7 +119,7 @@ class ListadoDePedidosAbiertosWindow extends SimpleWindow<Pedido> {
 		new Column<Pedido>(table) => [
 			title = "Pedido"
 			fixedSize = 200
-			bindContentsToProperty("pedido id")
+			bindContentsToProperty("id")
 		]
 
 		new Column<Pedido>(table) => [

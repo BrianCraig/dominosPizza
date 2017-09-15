@@ -5,11 +5,12 @@ import org.uqbar.arena.windows.WindowOwner
 import org.uqbar.arena.widgets.Panel
 import ar.edu.unq.iu.modelo.Pedido
 import org.uqbar.arena.windows.SimpleWindow
+import ar.edu.unq.iu.appmodel.ListadoDePedidos
 
-class ListadoDePedidosCerrados extends SimpleWindow<Pedido>{
+class ListadoDePedidosCerrados extends SimpleWindow<ListadoDePedidos>{
 	
-	new(WindowOwner parent, Pedido model) {
-		super(parent, model)
+	new(WindowOwner parent) {
+		super(parent, new ListadoDePedidos)
 	}
 	
 	override protected addActions(Panel arg0) {

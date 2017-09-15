@@ -18,8 +18,8 @@ class PedidoTest {
 		cliente = new Cliente("nombre", "nick", "password", "mail", "direccion")
 		delivery = new Delivery("Calle Falsa 123")
 		retiro = new Retirar()
-		pedidoSinPlatos = new Pedido(cliente, delivery, 1)
-		pedidoConPlatos = new Pedido(cliente, retiro, 0) => [
+		pedidoSinPlatos = new Pedido(cliente, delivery)
+		pedidoConPlatos = new Pedido(cliente, retiro) => [
 			platos.add(new Plato(new Pizza("muzza", 70.0), new TamanioGrande()))
 		]
 	}

@@ -2,29 +2,31 @@ package ar.edu.unq.iu.modelo
 
 import java.time.LocalDateTime
 import java.util.ArrayList
-import java.util.Observable
 import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.List
+import org.uqbar.commons.model.Entity
+import org.uqbar.commons.model.annotations.Observable
 
+@Observable
 @Accessors
-class Pedido extends Observable{
+class Pedido extends Entity{
 	List<Plato> platos = new ArrayList()
 	Cliente cliente
 	LocalDateTime fechaHora
 	String aclaraciones = ""
 	Envio envio
 	EstadoPedido estado
-	int id
 	double monto
+	Integer id
 	
-	new (Cliente cliente, Envio envio, int id){
-		this.id = id
+	new (Cliente cliente, Envio envio, Integer id){
 		this.cliente = cliente
 		this.fechaHora = LocalDateTime.now()
 		this.envio = envio
 		this.estado = new Preparando
 		cliente.agregarPedido(this)
 		this.monto = calcularMonto()
+		this.id = id
 		
 	}
 	
@@ -70,6 +72,10 @@ class Pedido extends Observable{
 	
 	def pasarAlEstadoAnterior() {
 		estado = estado.estadoAnterior(envio)
+	}
+	
+	def tieneEstadoAbierto() {
+		estado.esAbierto()
 	}
 	
 }

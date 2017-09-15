@@ -9,7 +9,6 @@ import org.uqbar.arena.layout.VerticalLayout
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.widgets.Button
-import ar.edu.unq.iu.modelo.DominosPizza
 
 /**
  * Ventana de principal de Dominos Pizza <3
