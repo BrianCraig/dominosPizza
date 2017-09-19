@@ -31,7 +31,7 @@ class ListadoDePedidos implements Serializable {
 	}
 	
 	def RepoPedido getRepoPedido() {
-		ApplicationContext.instance.getSingleton(typeof(Pedido))
+		ApplicationContext.instance.getSingleton(Pedido) as RepoPedido
 	}
 	
 }

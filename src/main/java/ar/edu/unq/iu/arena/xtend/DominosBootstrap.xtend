@@ -74,17 +74,17 @@ class DominosBootstrap extends CollectionBasedBootstrap {
         val brian = repoCliente.create("Brian", "Bri", "password04", "mail04", "direccion04")
         val extra = repoCliente.create("Extra", "e", "password05", "mail05", "direccion05")
 
-        val pedidoM = new Pedido (micaela, new Retirar(), 01)
-        val pedidoL = new Pedido (luciana, new Delivery(luciana.direccion), 02) => [
+        val pedidoM = new Pedido (micaela, new Retirar())
+        val pedidoL = new Pedido (luciana, new Delivery(luciana.direccion)) => [
         	estado = new EnViaje()
         ]
-        val pedidoD = new Pedido(daniel, new Retirar, 03) => [
+        val pedidoD = new Pedido(daniel, new Retirar) => [
         	estado = new Cancelado
         ]
-        val pedidoB = new Pedido(brian, new Delivery(brian.direccion), 04) => [
+        val pedidoB = new Pedido(brian, new Delivery(brian.direccion)) => [
         	estado = new Entregado
         ]
-        val pedidoE = new Pedido(extra, new Retirar, 05)
+        val pedidoE = new Pedido(extra, new Retirar)
         
         repoPedido => [
         	create(pedidoM)

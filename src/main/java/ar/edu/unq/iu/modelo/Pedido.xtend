@@ -17,17 +17,14 @@ class Pedido extends Entity{
 	Envio envio
 	EstadoPedido estado
 	double monto
-	Integer id
 	
-	new (Cliente cliente, Envio envio, Integer id){
+	new (Cliente cliente, Envio envio){
 		this.cliente = cliente
 		this.fechaHora = LocalDateTime.now()
 		this.envio = envio
 		this.estado = new Preparando
 		cliente.agregarPedido(this)
 		this.monto = calcularMonto()
-		this.id = id
-		
 	}
 	
 	def calcularMonto() {
@@ -44,7 +41,7 @@ class Pedido extends Entity{
 	
 	def enviar() {
 		this.estado = new EnViaje()
-		this.notifyObservers("Su pedido esta en viaje")
+		//this.notifyObservers("Su pedido esta en viaje")
 	}
 	
 	def entregar(){
@@ -54,7 +51,7 @@ class Pedido extends Entity{
 	
 	def verificarTiempo() {
 		if (LocalDateTime.now().minusMinutes(30) >= fechaHora){
-			this.notifyObservers("Enviar mail de disculpa")
+			//this.notifyObservers("Enviar mail de disculpa")
 		}
 	}
 
