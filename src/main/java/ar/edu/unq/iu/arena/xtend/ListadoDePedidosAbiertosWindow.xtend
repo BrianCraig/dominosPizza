@@ -68,7 +68,7 @@ class ListadoDePedidosAbiertosWindow extends SimpleWindow<ListadoDePedidos> {
 	
 	def createResultsGrid(Panel panel) {
 		val table = new Table<Pedido>(panel, typeof(Pedido)) => [
-			items <=> "pedidos"
+			items <=> "pedidosAbiertos"
 			value <=> "pedidoSeleccionado"
 			numberVisibleRows = 10
 		]

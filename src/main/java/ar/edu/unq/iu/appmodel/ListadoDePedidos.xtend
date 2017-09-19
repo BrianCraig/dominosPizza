@@ -12,22 +12,14 @@ import org.uqbar.commons.applicationContext.ApplicationContext
 @Observable
 @Accessors
 class ListadoDePedidos implements Serializable {
-	
-	List<Pedido> pedidos
 	Pedido pedidoSeleccionado
-	
-	new(){
-		pedidos = this.getPedidosAbiertos()
-		pedidoSeleccionado = null
-	}
-	
+
 	def cancelarPedido() {
 		pedidoSeleccionado.estado = new Cancelado
 	}
 	
 	def List<Pedido> getPedidosAbiertos(){
-		val repo = this.getRepoPedido()
-		repo.getPedidosAbiertos()
+		repoPedido.getPedidosAbiertos()
 	}
 	
 	def RepoPedido getRepoPedido() {
