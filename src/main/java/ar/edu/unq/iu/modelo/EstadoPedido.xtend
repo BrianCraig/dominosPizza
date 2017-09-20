@@ -2,8 +2,9 @@ package ar.edu.unq.iu.modelo
 
 import java.util.List
 import java.util.ArrayList
+import org.uqbar.commons.model.Entity
 
-abstract class EstadoPedido {
+abstract class EstadoPedido extends Entity{
 	protected String nombre
 	
 	def List<EstadoPedido> posiblesEstados(Pedido p) {}

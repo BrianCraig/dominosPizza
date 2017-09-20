@@ -17,6 +17,8 @@ import org.uqbar.arena.windows.Window
 import ar.edu.unq.iu.appmodel.ListadoDePedidos
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
+import org.uqbar.arena.bindings.ObservableProperty
+import ar.edu.unq.iu.modelo.EstadoPedido
 
 class ListadoDePedidosAbiertosWindow extends SimpleWindow<ListadoDePedidos> {
 	
@@ -54,11 +56,32 @@ class ListadoDePedidosAbiertosWindow extends SimpleWindow<ListadoDePedidos> {
 			onClick([|this.editarPedido()])
 			bindEnabled(elementSelected)
 		]
-
+		
+		new Button(actionsPanel) => [
+			caption = "<<"
+			onClick([|this.estadoAnterior()])
+			bindEnabled(elementSelected)
+		]
+		
+		new Button(actionsPanel) => [
+			caption = ">>"
+			onClick([|this.estadoSiguiente()])
+			bindEnabled(elementSelected)
+		]
+		
+		
+	}
+	
+	def estadoSiguiente() {
+		throw new UnsupportedOperationException("TODO: auto-generated method stub")
+	}
+	
+	def estadoAnterior() {
+		throw new UnsupportedOperationException("TODO: auto-generated method stub")
 	}
 	
 	def editarPedido() {
-		this.openDialog(new EditarPedidoWindow(this, null))//EL NULL DEBERIA SER EL PEDIDO SELECCIONADO
+		this.openDialog(new EditarPedidoWindow(this, modelObject.pedidoSeleccionado))
 	}
 	
 	def openDialog(Dialog<?> dialog) {
@@ -91,7 +114,6 @@ class ListadoDePedidosAbiertosWindow extends SimpleWindow<ListadoDePedidos> {
 			caption = "Salir"
 			onClick([|this.close])
 		]
-		
 		
 	}
 	
@@ -126,7 +148,7 @@ class ListadoDePedidosAbiertosWindow extends SimpleWindow<ListadoDePedidos> {
 			title = "Estado"
 			fixedSize = 100
 			alignRight
-			bindContentsToProperty("estado")
+			bindContentsToProperty("estado")//TODO: Adaptar el estado para que no aparezca el objeto
 		]
 
 		new Column<Pedido>(table) => [
