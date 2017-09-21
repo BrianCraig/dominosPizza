@@ -36,25 +36,25 @@ class EditarPedidoWindow extends TransactionalDialog<Pedido> {
 	}
 
 	override protected createFormPanel(Panel mainPanel) {
-		val form = new Panel(mainPanel).layout = new ColumnLayout(2)
+		val form = new Panel(mainPanel).layout = new ColumnLayout(3)
 
 		new Label(form).text = "Estado:"
 
 		new Selector<EstadoPedido>(form) => [
 			allowNull(false)
 			value <=> "estado"
-			val propiedadModelos = bindItems(new ObservableProperty(repoEstados, "estados"))
-			propiedadModelos.adaptWith(typeof(EstadoPedido), "nombre") // opción A
+			val estados = bindItems(new ObservableProperty(repoEstados, "estados"))
+			estados.adaptWith(typeof(EstadoPedido), "nombre") // opción A
 			// propiedadModelos.adapter = new PropertyAdapter(typeof(Modelo), "descripcionEntera") // opción B
 		]
 
 		new Label(form).text = "Platos:"
 
-		this.crearTablaPlato(new Table<Plato>(this, typeof(Plato)))
+		this.crearTablaPlato(mainPanel)
 
 		new Label(form).text = "Aclaraciones:"
 
-		new NumericField(form) => [
+		new TextBox(form) => [
 			value <=> "aclaraciones"
 			width = 400
 		]
@@ -64,8 +64,8 @@ class EditarPedidoWindow extends TransactionalDialog<Pedido> {
 		// TODO: COMO HACER PARA QUE NO SE PUEDA EDITAR EL NOMBRE
 		new TextBox(form) => [
 			value <=> "nombre"
-			val propiedadModelos = bindValue(new ObservableProperty(Pedido, "pedido"))
-			propiedadModelos.adaptWith(typeof(Cliente), "nombre")
+			val pedido = bindValue(new ObservableProperty(Pedido, "pedido"))
+			pedido.adaptWith(typeof(Cliente), "nombre")
 			width = 200
 		]
 
@@ -74,8 +74,8 @@ class EditarPedidoWindow extends TransactionalDialog<Pedido> {
 		// TODO: COMO HACER PARA QUE NO SE PUEDA EDITAR EL NOMBRE
 		new TextBox(form) => [
 			value <=> "nombre"
-			val propiedadModelos = bindValue(new ObservableProperty(Pedido, "pedido"))
-			propiedadModelos.adaptWith(typeof(Envio), "costo")
+			val costo = bindValue(new ObservableProperty(Pedido, "pedido"))
+			costo.adaptWith(typeof(Envio), "costo")
 			width = 200
 		]
 
@@ -96,7 +96,13 @@ class EditarPedidoWindow extends TransactionalDialog<Pedido> {
 		]
 	}
 
-	def crearTablaPlato(Table<Plato> table) {
+	def crearTablaPlato(Panel panel) {
+		val table = new Table<Plato>(panel, typeof(Plato)) => [
+			items <=> "platos"
+			value <=> "platoSeleccionado"
+			numberVisibleRows = 10
+		]
+		
 		val elementSelected = new NotNullObservable("pedidoSeleccionado")
 		
 		new Column<Plato>(table) => [
@@ -130,7 +136,7 @@ class EditarPedidoWindow extends TransactionalDialog<Pedido> {
 		]
 
 		new Button(this) => [
-			caption = "Editar"
+			caption = "Eliminar"
 			onClick([|this.eliminarPlato()])
 			bindEnabled(elementSelected)
 		]

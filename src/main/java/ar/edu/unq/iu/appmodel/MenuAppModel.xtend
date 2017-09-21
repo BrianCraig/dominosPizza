@@ -13,6 +13,11 @@ import ar.edu.unq.iu.modelo.Ingrediente
 @Observable
 @Accessors
 class MenuAppModel implements Serializable {
+	
+	List<Pizza> pizzas
+	List<Ingrediente> ingredientes
+	Pizza pizzaSeleccionada
+	Ingrediente ingredienteSeleccionado
 
     def List<Pizza> getPizzas() {
         repoPizza.objects
@@ -29,5 +34,15 @@ class MenuAppModel implements Serializable {
     def RepoIngrediente getRepoIngrediente() {
         ApplicationContext.instance.getSingleton(Ingrediente) as RepoIngrediente
     }
+	
+	def eliminarIngredienteSeleccionado() {
+		getRepoIngrediente().delete(ingredienteSeleccionado)
+		ingredienteSeleccionado = null
+	}
+	
+	def eliminarPizzaSeleccionada() {
+		getRepoPizza().delete(pizzaSeleccionada)
+		pizzaSeleccionada = null
+	}
 
 }

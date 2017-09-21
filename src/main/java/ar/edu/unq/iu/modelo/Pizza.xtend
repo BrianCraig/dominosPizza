@@ -4,7 +4,9 @@ import java.util.ArrayList
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.Entity
+import org.uqbar.commons.model.annotations.TransactionalAndObservable
 
+@TransactionalAndObservable
 @Accessors
 class Pizza extends Entity{
 	String nombre
@@ -26,6 +28,10 @@ class Pizza extends Entity{
 	
 	def getPrecio(){
 		precio
+	}
+	
+	def tieneIngrediente(Ingrediente i) {
+		ingredientes.contains(i)
 	}
 	
 }

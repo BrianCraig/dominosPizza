@@ -127,7 +127,7 @@ class ListadoDePedidosAbiertosWindow extends SimpleWindow<ListadoDePedidos> {
 	}
 	
 	def abrirMenu() {
-		this.openWindow(new MenuWindow(null, null))
+		this.openWindow(new MenuWindow(this))
 	}
 	
 	override protected createFormPanel(Panel mainPanel) {
@@ -148,7 +148,7 @@ class ListadoDePedidosAbiertosWindow extends SimpleWindow<ListadoDePedidos> {
 			title = "Estado"
 			fixedSize = 100
 			alignRight
-			bindContentsToProperty("estado")//TODO: Adaptar el estado para que no aparezca el objeto
+			bindContentsToProperty("estado")
 		]
 
 		new Column<Pedido>(table) => [
