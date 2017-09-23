@@ -23,4 +23,8 @@ class RepoIngrediente extends CollectionBasedRepo<Ingrediente>{
 		throw new UnsupportedOperationException("TODO: auto-generated method stub")
 	}
 	
+	def getAllIngredientes() {
+		allInstances
+	}
+	
 }

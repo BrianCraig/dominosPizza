@@ -12,10 +12,10 @@ import org.uqbar.commons.applicationContext.ApplicationContext
 @Observable
 @Accessors
 class ListadoDePedidos implements Serializable {
-	Pedido pedidoSeleccionado
+	PedidoAppModel pedidoSeleccionado
 
 	def cancelarPedido() {
-		pedidoSeleccionado.estado = new Cancelado
+		pedidoSeleccionado.pedido.estado = new Cancelado
 	}
 	
 	def List<Pedido> getPedidosAbiertos(){

@@ -26,6 +26,10 @@ import ar.edu.unq.iu.repo.RepoEstados
 import ar.edu.unq.iu.modelo.Preparando
 import ar.edu.unq.iu.modelo.ListoParaRetirar
 import ar.edu.unq.iu.modelo.ListoParaEnviar
+import ar.edu.unq.iu.modelo.Tamanio
+import ar.edu.unq.iu.repo.RepoTamanio
+import ar.edu.unq.iu.modelo.TamanioChica
+import ar.edu.unq.iu.modelo.TamanioGrande
 
 class DominosBootstrap extends CollectionBasedBootstrap {
 	
@@ -36,7 +40,9 @@ class DominosBootstrap extends CollectionBasedBootstrap {
 		ApplicationContext.instance.configureSingleton(typeof(Ingrediente), new RepoIngrediente)
 		ApplicationContext.instance.configureSingleton(typeof(Pizza), new RepoPizza)
 		ApplicationContext.instance.configureSingleton(typeof(EstadoPedido), new RepoEstados)
+		ApplicationContext.instance.configureSingleton(typeof(Tamanio), new RepoTamanio)
 	}
+	
 	
 	override run() {
 		
@@ -45,6 +51,7 @@ class DominosBootstrap extends CollectionBasedBootstrap {
 		val repoCliente = ApplicationContext.instance.getSingleton(typeof(Cliente)) as RepoCliente
 		val repoPizza = ApplicationContext.instance.getSingleton(typeof(Pizza)) as RepoPizza
 		val repoEstados = ApplicationContext.instance.getSingleton(typeof(EstadoPedido)) as RepoEstados
+		val repoTamanio = ApplicationContext.instance.getSingleton(typeof(Tamanio)) as RepoTamanio
 		
 		val panceta = repoIngrediente.create("Panceta", 5.0)
         val morrones = repoIngrediente.create("Morrones", 3.5)
@@ -68,12 +75,17 @@ class DominosBootstrap extends CollectionBasedBootstrap {
         	create(jym)
         	create(pizzaPanceta)
         ]
+        
+        val tF = repoTamanio.create2(new TamanioFamiliar ())
+        val tP = repoTamanio.create2(new TamanioPorcion())
+        repoTamanio.create(new TamanioChica())
+        repoTamanio.create(new TamanioGrande())
 
-        val plato1 = new Plato(jym, new TamanioFamiliar) => [
+        val plato1 = new Plato(jym, tF) => [
             agregados.add(new Agregado(morrones, new LadoIzquierdo))
         ]
 
-        val plato2 = new Plato(pizzaPanceta, new TamanioPorcion)
+        val plato2 = new Plato(pizzaPanceta, tP)
 
         val micaela = repoCliente.create("Micaela", "Mica", "password01", "mail01", "direccion01")
         val luciana = repoCliente.create("Luciana", "Luli", "password02", "mail02", "direccion02")

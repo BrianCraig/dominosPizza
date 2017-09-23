@@ -23,10 +23,11 @@ import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.windows.Dialog
 import org.uqbar.arena.bindings.NotNullObservable
+import ar.edu.unq.iu.appmodel.PedidoAppModel
 
-class EditarPedidoWindow extends TransactionalDialog<Pedido> {
+class EditarPedidoWindow extends TransactionalDialog<PedidoAppModel> {
 
-	new(WindowOwner owner, Pedido model) {
+	new(WindowOwner owner, PedidoAppModel model) {
 		super(owner, model)
 		title = defaultTitle
 	}
@@ -157,7 +158,7 @@ class EditarPedidoWindow extends TransactionalDialog<Pedido> {
 	}
 
 	def eliminarPlato() {
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
+		modelObject.eliminarPlato()
 	}
 
 	override protected void addActions(Panel actions) {

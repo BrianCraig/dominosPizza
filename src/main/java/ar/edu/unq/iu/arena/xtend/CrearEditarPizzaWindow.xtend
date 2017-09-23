@@ -8,15 +8,15 @@ import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.widgets.TextBox
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
-import ar.edu.unq.iu.appmodel.PizzaAppModel
 import org.uqbar.commons.applicationContext.ApplicationContext
 import ar.edu.unq.iu.modelo.Ingrediente
 import ar.edu.unq.iu.repo.RepoIngrediente
 import org.uqbar.arena.widgets.CheckBox
+import org.uqbar.arena.widgets.Button
 
-class CrearEditarPizzaWindow extends TransactionalDialog<PizzaAppModel> {
+class CrearEditarPizzaWindow extends TransactionalDialog<Pizza> {
 	
-	new(WindowOwner owner, PizzaAppModel model) {
+	new(WindowOwner owner, Pizza model) {
 		super(owner, model)
 		title = "Editar Pizza"
 	}
@@ -42,7 +42,7 @@ class CrearEditarPizzaWindow extends TransactionalDialog<PizzaAppModel> {
 	}
 	
 	def mostrarIngredientes(Panel panel) {
-		var is = repoIngrediente.getAllIngredientes()
+		var is = repoIngrediente.getAllIngredientes() //TODO: hacer el mensaje.
 		
 		for (ingrediente : is){
 			new Label(panel).text = ingrediente.getNombre() //TODO: adapt
@@ -51,7 +51,7 @@ class CrearEditarPizzaWindow extends TransactionalDialog<PizzaAppModel> {
 			enabled <=> [ Pizza p | p.agregarIngrediente(ingrediente) ]
 			value <=> [ Pizza p | p.tieneIngrediente(ingrediente) ]
 		]	
-			//TODO: poner los circulos de la distribucion de ingredientes
+			//TODO: poner los circulos de la distribucion de ingredientes y bloquear los circulitos del ingrediente que no este seleccionado
 		}
 	}
 	
@@ -59,4 +59,19 @@ class CrearEditarPizzaWindow extends TransactionalDialog<PizzaAppModel> {
 		ApplicationContext.instance.getSingleton(typeof(Ingrediente)) as RepoIngrediente
 	}
 	
+		override protected void addActions(Panel actions) {
+		new Button(actions) => [
+			caption = "Aceptar"
+			onClick [|this.accept]
+			setAsDefault
+			disableOnError
+		]
+
+		new Button(actions) => [
+			caption = "Cancelar"
+			onClick [|
+				this.cancel
+			]
+		]
+	}
 }
