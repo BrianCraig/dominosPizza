@@ -24,10 +24,12 @@ import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.windows.Dialog
 import org.uqbar.arena.bindings.NotNullObservable
 import ar.edu.unq.iu.appmodel.PedidoAppModel
+import org.uqbar.arena.layout.VerticalLayout
+import org.uqbar.arena.bindings.PropertyAdapter
 
-class EditarPedidoWindow extends TransactionalDialog<PedidoAppModel> {
+class EditarPedidoWindow extends TransactionalDialog<Pedido> {
 
-	new(WindowOwner owner, PedidoAppModel model) {
+	new(WindowOwner owner, Pedido model) {
 		super(owner, model)
 		title = defaultTitle
 	}
@@ -45,13 +47,11 @@ class EditarPedidoWindow extends TransactionalDialog<PedidoAppModel> {
 			allowNull(false)
 			value <=> "estado"
 			val estados = bindItems(new ObservableProperty(repoEstados, "estados"))
-			estados.adaptWith(typeof(EstadoPedido), "nombre") // opción A
-			// propiedadModelos.adapter = new PropertyAdapter(typeof(Modelo), "descripcionEntera") // opción B
+			//estados.adaptWith(typeof(EstadoPedido), "nombre") // opción A
+			 estados.adapter = new PropertyAdapter(typeof(EstadoPedido), "nombre") // opción B
 		]
 
-		new Label(form).text = "Platos:"
-
-		this.crearTablaPlato(mainPanel)
+		this.panelDePlatos(mainPanel)
 
 		new Label(form).text = "Aclaraciones:"
 
@@ -62,7 +62,7 @@ class EditarPedidoWindow extends TransactionalDialog<PedidoAppModel> {
 
 		new Label(form).text = "Cliente:"
 
-		// TODO: COMO HACER PARA QUE NO SE PUEDA EDITAR EL NOMBRE
+		// TODO: COMO HACER PARA QUE NO SE PUEDA EDITAR EL CONTENIDO
 		new TextBox(form) => [
 			value <=> "nombre"
 			val pedido = bindValue(new ObservableProperty(Pedido, "pedido"))
@@ -72,7 +72,7 @@ class EditarPedidoWindow extends TransactionalDialog<PedidoAppModel> {
 
 		new Label(form).text = "Costo de envio:"
 
-		// TODO: COMO HACER PARA QUE NO SE PUEDA EDITAR EL NOMBRE
+		// TODO: COMO HACER PARA QUE NO SE PUEDA EDITAR EL CONTENIDO
 		new TextBox(form) => [
 			value <=> "nombre"
 			val costo = bindValue(new ObservableProperty(Pedido, "pedido"))
@@ -82,7 +82,7 @@ class EditarPedidoWindow extends TransactionalDialog<PedidoAppModel> {
 
 		new Label(form).text = "Monto total:"
 
-		// TODO: COMO HACER PARA QUE NO SE PUEDA EDITAR EL NOMBRE
+		// TODO: COMO HACER PARA QUE NO SE PUEDA EDITAR EL CONTENIDO
 		new TextBox(form) => [
 			value <=> "monto"
 			width = 200
@@ -90,56 +90,74 @@ class EditarPedidoWindow extends TransactionalDialog<PedidoAppModel> {
 
 		new Label(form).text = "Fecha:"
 
-		// TODO: COMO HACER PARA QUE NO SE PUEDA EDITAR EL NOMBRE
+		// TODO: COMO HACER PARA QUE NO SE PUEDA EDITAR EL CONTENIDO
 		new TextBox(form) => [
 			value <=> "fechaHora"
 			width = 200
 		]
 	}
 
+	def panelDePlatos(Panel panel) {
+		{
+			val p = new Panel(panel, new PedidoAppModel(modelObject.platos))
+			
+			new Label(p).text = "Platos:"
+
+			this.crearTablaPlato(p)
+			this.crearAccionesTabla(p)
+		}
+	}
+
 	def crearTablaPlato(Panel panel) {
+		
 		val table = new Table<Plato>(panel, typeof(Plato)) => [
 			items <=> "platos"
 			value <=> "platoSeleccionado"
 			numberVisibleRows = 10
 		]
-		
-		val elementSelected = new NotNullObservable("pedidoSeleccionado")
-		
+	
 		new Column<Plato>(table) => [
 			title = "Nombre"
 			fixedSize = 200
-			bindContentsToProperty("pizza")
+			bindContentsToProperty("pizza") // TODO: Adapt 
 		]
 
 		new Column<Plato>(table) => [
 			title = "Tamaño"
 			fixedSize = 200
-			bindContentsToProperty("tamanio")
+			bindContentsToProperty("tamanio") // TODO: Adapt 
 		]
 
 		new Column<Plato>(table) => [
 			title = "Precio"
 			fixedSize = 200
-			bindContentsToProperty("getPrecio")
+			bindContentsToProperty("precio")
 		]
 
-		new Button(this) => [
+	}
+
+	def crearAccionesTabla(Panel panel) {
+		val elementSelected = new NotNullObservable("pedidoSeleccionado")
+
+		val actionsPanel = new Panel(panel).layout = new VerticalLayout
+
+		new Button(actionsPanel) => [
 			caption = "Agregar"
-			onClick([|this.agregarPlato(table)])
-
+			onClick([|this.agregarPlato(null)])
+		// TODO: Agregarlo fisicamente a la tabla
 		]
 
-		new Button(this) => [
+		new Button(actionsPanel) => [
 			caption = "Editar"
-			onClick([|this.editarPlato()])
+			onClick([|this.editarPlato(panel.modelObject)])
 			bindEnabled(elementSelected)
 		]
 
-		new Button(this) => [
+		new Button(actionsPanel) => [
 			caption = "Eliminar"
-			onClick([|this.eliminarPlato()])
+			onClick([|this.eliminarPlato(panel.modelObject)])
 			bindEnabled(elementSelected)
+
 		]
 	}
 
@@ -147,8 +165,9 @@ class EditarPedidoWindow extends TransactionalDialog<PedidoAppModel> {
 		this.openDialog(new AgregarEditarPlatoWindow(this, null))
 	}
 
-	def editarPlato() {
-		this.openDialog(new AgregarEditarPlatoWindow(this, modelObject.platoSeleccionado))
+	def editarPlato(Object o) {
+		var p = o as PedidoAppModel
+		this.openDialog(new AgregarEditarPlatoWindow(this, p.platoSeleccionado))
 	}
 
 	def openDialog(Dialog<?> dialog) {
@@ -157,8 +176,9 @@ class EditarPedidoWindow extends TransactionalDialog<PedidoAppModel> {
 
 	}
 
-	def eliminarPlato() {
-		modelObject.eliminarPlato()
+	def eliminarPlato(Object o) {
+		var p = o as PedidoAppModel
+		p.eliminarPlato()
 	}
 
 	override protected void addActions(Panel actions) {

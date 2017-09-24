@@ -42,10 +42,10 @@ class CrearEditarPizzaWindow extends TransactionalDialog<Pizza> {
 	}
 	
 	def mostrarIngredientes(Panel panel) {
-		var is = repoIngrediente.getAllIngredientes() //TODO: hacer el mensaje.
+		var is = repoIngrediente.getAllIngredientes() 
 		
 		for (ingrediente : is){
-			new Label(panel).text = ingrediente.getNombre() //TODO: adapt
+			new Label(panel).text = ingrediente.getNombre() //TODO: adapt??
 	
 		new CheckBox(panel) => [
 			enabled <=> [ Pizza p | p.agregarIngrediente(ingrediente) ]

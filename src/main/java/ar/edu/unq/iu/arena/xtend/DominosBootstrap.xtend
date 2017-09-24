@@ -60,7 +60,7 @@ class DominosBootstrap extends CollectionBasedBootstrap {
         
         
 
-        val jym = new Pizza("Jamon y Morrones", 70.0) => [
+        val jym = new Pizza("Jamon y Morrones", 50.0) => [
             agregarIngrediente(jamon)
             agregarIngrediente(morrones)
             agregarIngrediente(queso)
@@ -102,17 +102,25 @@ class DominosBootstrap extends CollectionBasedBootstrap {
         val c = repoEstados.create2(new Cancelado())
 
 
-        val pedidoM = new Pedido (micaela, new Retirar())
+        val pedidoM = new Pedido (micaela, new Delivery(micaela.direccion)) => [
+        	platos.add(plato1)
+        	platos.add(plato2)
+        ]
         val pedidoL = new Pedido (luciana, new Delivery(luciana.direccion)) => [
         	estado = ev
+        	platos.add(plato2)
         ]
         val pedidoD = new Pedido(daniel, new Retirar) => [
         	estado = c
+        	platos.add(plato1)
         ]
         val pedidoB = new Pedido(brian, new Delivery(brian.direccion)) => [
         	estado = e
+        	platos.add(plato1)
         ]
-        val pedidoE = new Pedido(extra, new Retirar)
+        val pedidoE = new Pedido(extra, new Retirar) => [
+        	platos.add(plato1)
+        ]
         
         repoPedido => [
         	create(pedidoM)

@@ -27,6 +27,8 @@ class MenuWindow extends SimpleWindow<MenuAppModel>{
 	
 	new(WindowOwner parent) {
 		super(parent, new MenuAppModel)
+		modelObject.getPizzas
+		modelObject.getIngredientes
 	}
 	
 	
@@ -35,9 +37,6 @@ class MenuWindow extends SimpleWindow<MenuAppModel>{
 		
 		super.createMainTemplate(mainPanel)
 		
-
-		//this.createResultsGrid(mainPanel)
-		//this.createGridActions(mainPanel)
 	}
 	
 	override protected addActions(Panel actionsPanel) {
@@ -48,7 +47,7 @@ class MenuWindow extends SimpleWindow<MenuAppModel>{
 	}
 	
 	override protected createFormPanel(Panel mainPanel) {
-		//val form = new Panel(mainPanel).layout = new ColumnLayout(2)
+		
 		val form = new Panel(mainPanel) => [
 			layout = new ColumnLayout(4)
 		]
@@ -57,10 +56,12 @@ class MenuWindow extends SimpleWindow<MenuAppModel>{
 		new Label(form).text = "Pizzas:"
 		
 		this.crearTablaPizzas(form)
+		this.crearAccionesPizza(form)
 		
 		new Label(form).text = "Ingredientes Disponibles:"
 		
 		this.crearTablaIngredientes(form)
+		this.crearAccionesIngrediente(form)
 		
 	}
 	
@@ -87,7 +88,7 @@ class MenuWindow extends SimpleWindow<MenuAppModel>{
 			
 		]
 		
-		this.crearAccionesIngrediente(panel)
+		
 
 		
 	}
@@ -165,7 +166,7 @@ class MenuWindow extends SimpleWindow<MenuAppModel>{
 			
 		]
 
-		this.crearAccionesPizza(panel)
+		
 		
 	}
 	

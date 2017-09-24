@@ -6,16 +6,10 @@ import ar.edu.unq.iu.modelo.Tamanio
 
 class RepoTamanio extends CollectionBasedRepo<Tamanio> {
 	
-	override protected getCriterio(Tamanio arg0) {
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
-	}
-	
-	override createExample() {
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
-	}
+
 	
 	override getEntityType() {
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
+		typeof(Tamanio)
 	}
 	
 	def create2(Tamanio t) {
@@ -37,7 +31,15 @@ class RepoTamanio extends CollectionBasedRepo<Tamanio> {
 		realValue.toString().toLowerCase().contains(expectedValue.toString().toLowerCase())
 	}
 	
-	//TODO: Faltan los circulitos y bloquear los que no deben estar activados
+	override protected getCriterio(Tamanio example) {
+		throw new UnsupportedOperationException("TODO: auto-generated method stub")
+	}
+	
+	override createExample() {
+		throw new UnsupportedOperationException("TODO: auto-generated method stub")
+	}
+	
+	
 	
 	
 	

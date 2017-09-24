@@ -5,7 +5,7 @@ import java.util.ArrayList
 import org.uqbar.commons.model.Entity
 
 abstract class EstadoPedido extends Entity{
-	protected String nombre
+	public String nombre
 	
 	def List<EstadoPedido> posiblesEstados(Pedido p) {}
 

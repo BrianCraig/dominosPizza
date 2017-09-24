@@ -19,6 +19,8 @@ import ar.edu.unq.iu.appmodel.ListadoDePedidos
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import org.uqbar.arena.bindings.ObservableProperty
 import ar.edu.unq.iu.modelo.EstadoPedido
+import org.uqbar.arena.layout.VerticalLayout
+import ar.edu.unq.iu.appmodel.PedidoAppModel
 
 class ListadoDePedidosAbiertosWindow extends SimpleWindow<ListadoDePedidos> {
 	
@@ -59,25 +61,25 @@ class ListadoDePedidosAbiertosWindow extends SimpleWindow<ListadoDePedidos> {
 		
 		new Button(actionsPanel) => [
 			caption = "<<"
-			onClick([|this.estadoAnterior()])
+			onClick([|this.estadoAnterior(modelObject.pedidoSeleccionado)])
 			bindEnabled(elementSelected)
 		]
 		
 		new Button(actionsPanel) => [
 			caption = ">>"
-			onClick([|this.estadoSiguiente()])
+			onClick([|this.estadoSiguiente(modelObject.pedidoSeleccionado)])
 			bindEnabled(elementSelected)
 		]
 		
 		
 	}
 	
-	def estadoSiguiente() {
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
+	def estadoSiguiente(Pedido p) {
+		p.pasarAlSiguienteEstado
 	}
 	
-	def estadoAnterior() {
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
+	def estadoAnterior(Pedido p) {
+		p.pasarAlEstadoAnterior
 	}
 	
 	def editarPedido() {
@@ -93,7 +95,7 @@ class ListadoDePedidosAbiertosWindow extends SimpleWindow<ListadoDePedidos> {
 		val table = new Table<Pedido>(panel, typeof(Pedido)) => [
 			items <=> "pedidosAbiertos"
 			value <=> "pedidoSeleccionado"
-			numberVisibleRows = 10
+			numberVisibleRows = 5
 		]
 		this.describeResultsGrid(table)
 	}
@@ -140,8 +142,9 @@ class ListadoDePedidosAbiertosWindow extends SimpleWindow<ListadoDePedidos> {
 	def void describeResultsGrid(Table<Pedido> table) {
 		new Column<Pedido>(table) => [
 			title = "Pedido"
-			fixedSize = 200
+			fixedSize = 50
 			bindContentsToProperty("id")
+			
 		]
 
 		new Column<Pedido>(table) => [
@@ -149,17 +152,18 @@ class ListadoDePedidosAbiertosWindow extends SimpleWindow<ListadoDePedidos> {
 			fixedSize = 100
 			alignRight
 			bindContentsToProperty("estado")
+			//TODO: adaptar
 		]
 
 		new Column<Pedido>(table) => [
 			title = "Monto"
-			fixedSize = 200
+			fixedSize = 50
 			bindContentsToProperty("monto")
 		]
 
 		new Column<Pedido>(table) => [
 			title = "Hora"
-			fixedSize = 50
+			fixedSize = 100
 			bindContentsToProperty("fechaHora")
 			
 		]

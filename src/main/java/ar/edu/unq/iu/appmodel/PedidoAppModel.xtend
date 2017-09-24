@@ -9,17 +9,19 @@ import ar.edu.unq.iu.modelo.Pedido
 @Accessors
 class PedidoAppModel {
 	Plato platoSeleccionado
-	Pedido pedido
+	
 	
 	List<Plato> platos
 	
-	new(Pedido pedido, List<Plato> ps){
+	
+	new(List<Plato> ps) {
 		platos = ps
 	}
 	
 	def eliminarPlato() {
 		platos.remove(platoSeleccionado)
 	}
+	
 	
 
 	

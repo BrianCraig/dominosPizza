@@ -17,6 +17,9 @@ class Pedido extends Entity{
 	Envio envio
 	EstadoPedido estado
 	double monto
+	LocalDateTime tiempoEspera
+	
+	
 	
 	new (Cliente cliente, Envio envio){
 		this.cliente = cliente
@@ -25,6 +28,7 @@ class Pedido extends Entity{
 		this.estado = new Preparando
 		cliente.agregarPedido(this)
 		this.monto = calcularMonto()
+		this.tiempoEspera = null
 	}
 	
 	def calcularMonto() {
@@ -47,6 +51,7 @@ class Pedido extends Entity{
 	def entregar(){
 		this.estado = new Entregado()
 		this.verificarTiempo()
+		this.calcularTiempoEspera()
 	}
 	
 	def verificarTiempo() {
@@ -74,5 +79,13 @@ class Pedido extends Entity{
 	def tieneEstadoAbierto() {
 		estado.esAbierto()
 	}
+	
+	def calcularTiempoEspera() {
+		//tiempoEspera = LocalDateTime.now().hour - fechaHora.hour
+		//TODO: Comparar las fechas
+		
+	}
+	
+	
 	
 }

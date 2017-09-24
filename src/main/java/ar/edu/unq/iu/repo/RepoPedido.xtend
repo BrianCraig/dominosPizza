@@ -29,4 +29,14 @@ class RepoPedido extends CollectionBasedRepo<Pedido>{
 		p
 	}
 	
+	def getPedidosCerrados() {
+		var p = newArrayList
+		for (o : objects){
+			if (!o.tieneEstadoAbierto()){
+				p.add(o)
+			}
+		}
+		p
+	}
+	
 }

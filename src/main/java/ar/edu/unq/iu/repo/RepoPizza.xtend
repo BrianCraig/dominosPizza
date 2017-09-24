@@ -10,11 +10,11 @@ class RepoPizza extends CollectionBasedRepo<Pizza> {
 	}
 	
 	override createExample() {
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
+		new Pizza("Muzzarela", 75.0)
 	}
 	
 	override getEntityType() {
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
+		typeof(Pizza)
 	}
 	
 	def getPizza(Pizza p) {

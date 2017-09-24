@@ -14,8 +14,7 @@ import ar.edu.unq.iu.modelo.Ingrediente
 @Accessors
 class MenuAppModel implements Serializable {
 	
-	List<Pizza> pizzas
-	List<Ingrediente> ingredientes
+	
 	Pizza pizzaSeleccionada
 	Ingrediente ingredienteSeleccionado
 
@@ -23,7 +22,7 @@ class MenuAppModel implements Serializable {
         repoPizza.objects
     }
 
-    def List<Ingrediente> getIngredientess() {
+    def List<Ingrediente> getIngredientes() {
         repoIngrediente.objects
     }
 

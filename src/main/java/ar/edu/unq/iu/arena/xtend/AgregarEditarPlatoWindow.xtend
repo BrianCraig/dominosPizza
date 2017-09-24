@@ -37,13 +37,13 @@ class AgregarEditarPlatoWindow extends TransactionalDialog<Plato> {
 			allowNull(false)
 			value <=> "pizza"
 			val pizza = bindItems(new ObservableProperty(repoPizza.getPizza(modelObject.pizza),"pizza"))
-			pizza.adaptWith(typeof(Pizza), "nombre")
+			pizza.adaptWith(typeof(Pizza), "nombre" + "precio")
 			
 		]
 		
 		new Label(form).text = "Tamaño:"
 
-		new Selector<Tamanio>(form) => [ //Es de tipo tamaño? son clases.
+		new Selector<Tamanio>(form) => [ 
 			allowNull(false)
 			value <=> "tamaño"
 			val tamaño = bindItems(new ObservableProperty(repoTamanio.getTamanio(modelObject.tamanio), "tamaño"))
@@ -71,7 +71,7 @@ class AgregarEditarPlatoWindow extends TransactionalDialog<Plato> {
 	}
 	
 		def mostrarIngredientes(Panel panel) {
-		var is = repoIngrediente.getAllIngredientes() //TODO: hacer el mensaje.
+		var is = repoIngrediente.getAllIngredientes() 
 		
 		for (ingrediente : is){
 			new Label(panel).text = ingrediente.getNombre() //TODO: adapt
@@ -80,7 +80,7 @@ class AgregarEditarPlatoWindow extends TransactionalDialog<Plato> {
 			enabled <=> [ Pizza p | p.agregarIngrediente(ingrediente) ]
 			value <=> [ Pizza p | p.tieneIngrediente(ingrediente) ]
 		]	
-			//TODO: poner los circulos de la distribucion de ingredientes y bloquear los circulitos del ingrediente que no este seleccionado
+			//TODO: poner los circulos de la distribucion de ingredientes 
 		}
 	
 	}
