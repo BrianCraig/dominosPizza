@@ -13,6 +13,9 @@ import ar.edu.unq.iu.modelo.Ingrediente
 import ar.edu.unq.iu.repo.RepoIngrediente
 import org.uqbar.arena.widgets.CheckBox
 import org.uqbar.arena.widgets.Button
+import java.util.List
+import org.uqbar.arena.bindings.ObservableProperty
+import ar.edu.unq.iu.repo.RepoPizza
 
 class CrearEditarPizzaWindow extends TransactionalDialog<Pizza> {
 	
@@ -42,24 +45,29 @@ class CrearEditarPizzaWindow extends TransactionalDialog<Pizza> {
 	}
 	
 	def mostrarIngredientes(Panel panel) {
-		var is = repoIngrediente.getAllIngredientes() 
-		
+		val is = repoIngredientes.getAllIngredientes()
+
+		/*
 		for (ingrediente : is){
-			new Label(panel).text = ingrediente.getNombre() //TODO: adapt??
+			new Label(panel).text = ingrediente.getNombre()
 	
-		new CheckBox(panel) => [
-			enabled <=> [ Pizza p | p.agregarIngrediente(ingrediente) ]
-			value <=> [ Pizza p | p.tieneIngrediente(ingrediente) ]
-		]	
-			//TODO: poner los circulos de la distribucion de ingredientes y bloquear los circulitos del ingrediente que no este seleccionado
-		}
+			new CheckBox(panel) => [
+				enabled <=> [ Pizza p | p.agregarIngrediente(ingrediente) ]
+				value <=> [ Pizza p | p.tieneIngrediente(ingrediente) ]
+			]
+		}*/
+		new Label(panel).text = "Placeholder de el editor de sabores"
 	}
 	
-	def getRepoIngrediente() {
+	def getRepoIngredientes() {
 		ApplicationContext.instance.getSingleton(typeof(Ingrediente)) as RepoIngrediente
 	}
-	
-		override protected void addActions(Panel actions) {
+
+	def RepoPizza getRepoPizza() {
+		ApplicationContext.instance.getSingleton(Pizza) as RepoPizza
+	}
+
+	override protected void addActions(Panel actions) {
 		new Button(actions) => [
 			caption = "Aceptar"
 			onClick [|this.accept]
@@ -73,5 +81,14 @@ class CrearEditarPizzaWindow extends TransactionalDialog<Pizza> {
 				this.cancel
 			]
 		]
+	}
+
+	override executeTask() {
+		if (modelObject.isNew) {
+			repoPizza.create(modelObject)
+		} else {
+			repoPizza.update(modelObject)
+		}
+		super.executeTask()
 	}
 }

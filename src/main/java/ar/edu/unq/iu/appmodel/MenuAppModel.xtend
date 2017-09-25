@@ -9,6 +9,7 @@ import java.io.Serializable
 import java.util.List
 import ar.edu.unq.iu.repo.RepoIngrediente
 import ar.edu.unq.iu.modelo.Ingrediente
+import org.uqbar.commons.model.utils.ObservableUtils
 
 @Observable
 @Accessors
@@ -43,5 +44,10 @@ class MenuAppModel implements Serializable {
 		getRepoPizza().delete(pizzaSeleccionada)
 		pizzaSeleccionada = null
 	}
+
+    def actualizar(){
+        ObservableUtils.firePropertyChanged(this, "pizzas", this.repoPizza)
+        ObservableUtils.firePropertyChanged(this, "ingredientes", this.repoPizza)
+    }
 
 }
