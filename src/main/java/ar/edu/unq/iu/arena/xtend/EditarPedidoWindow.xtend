@@ -44,11 +44,11 @@ class EditarPedidoWindow extends TransactionalDialog<Pedido> {
 		new Label(form).text = "Estado:"
 
 		new Selector<EstadoPedido>(form) => [
-			allowNull(false)
-			value <=> "estado"
-			val estados = bindItems(new ObservableProperty(repoEstados, "estados"))
-			//estados.adaptWith(typeof(EstadoPedido), "nombre") // opción A
-			 estados.adapter = new PropertyAdapter(typeof(EstadoPedido), "nombre") // opción B
+			//allowNull(false)
+			//value <=> "estado"
+			//val estados = bindItems(new ObservableProperty(repoEstados, "estados"))
+			//estados.adaptWith(typeof(EstadoPedido), "nombre") // opciï¿½n A
+			// estados.adapter = new PropertyAdapter(typeof(EstadoPedido), "nombre") // opciï¿½n B
 		]
 
 		this.panelDePlatos(mainPanel)
@@ -64,9 +64,9 @@ class EditarPedidoWindow extends TransactionalDialog<Pedido> {
 
 		// TODO: COMO HACER PARA QUE NO SE PUEDA EDITAR EL CONTENIDO
 		new TextBox(form) => [
-			value <=> "nombre"
-			val pedido = bindValue(new ObservableProperty(Pedido, "pedido"))
-			pedido.adaptWith(typeof(Cliente), "nombre")
+			value <=> "cliente.nombre"
+			//val pedido = bindValue(new ObservableProperty(Pedido, "pedido"))
+			//pedido.adaptWith(typeof(Cliente), "nombre")
 			width = 200
 		]
 
@@ -74,9 +74,9 @@ class EditarPedidoWindow extends TransactionalDialog<Pedido> {
 
 		// TODO: COMO HACER PARA QUE NO SE PUEDA EDITAR EL CONTENIDO
 		new TextBox(form) => [
-			value <=> "nombre"
-			val costo = bindValue(new ObservableProperty(Pedido, "pedido"))
-			costo.adaptWith(typeof(Envio), "costo")
+			value <=> "envio.costo"
+			//val costo = bindValue(new ObservableProperty(Pedido, "pedido"))
+			//costo.adaptWith(typeof(Envio), "costo")
 			width = 200
 		]
 
@@ -123,7 +123,7 @@ class EditarPedidoWindow extends TransactionalDialog<Pedido> {
 		]
 
 		new Column<Plato>(table) => [
-			title = "Tamaño"
+			title = "Tamaï¿½o"
 			fixedSize = 200
 			bindContentsToProperty("tamanio") // TODO: Adapt 
 		]

@@ -1,8 +1,10 @@
 package ar.edu.unq.iu.modelo
 
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.commons.model.annotations.TransactionalAndObservable
 
 @Accessors
+@TransactionalAndObservable
 abstract class Envio {
 	protected double costo
 	

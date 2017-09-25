@@ -148,7 +148,6 @@ class ListadoDePedidosAbiertosWindow extends SimpleWindow<ListadoDePedidos> {
 			fixedSize = 120
 			alignRight
 			bindContentsToProperty("estado")
-			//TODO: adaptar
 		]
 
 		new Column<Pedido>(table) => [
