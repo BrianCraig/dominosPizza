@@ -108,7 +108,7 @@ class MenuWindow extends SimpleWindow<MenuAppModel>{
     }
 
     def crearPizza() {
-        this.openDialog(new CrearEditarPizzaWindow(this, null))
+        this.openDialog(new CrearEditarPizzaWindow(this, new Pizza("", 0.0)))
     }
 
     def editarPizza() {
@@ -117,6 +117,7 @@ class MenuWindow extends SimpleWindow<MenuAppModel>{
 
     def eliminarPizza() {
         modelObject.eliminarPizzaSeleccionada()
+        modelObject.actualizar
     }
 
     /* Ingredientes */
@@ -181,7 +182,7 @@ class MenuWindow extends SimpleWindow<MenuAppModel>{
 	}
 
     def crearIngrediente() {
-        this.openDialog(new CrearEditarIngredienteWindow(this, null))
+        this.openDialog(new CrearEditarIngredienteWindow(this, new Ingrediente("", 0.0)))
     }
 
     def editarIngrediente() {
@@ -190,10 +191,11 @@ class MenuWindow extends SimpleWindow<MenuAppModel>{
 
     def eliminarIngrediente() {
         modelObject.eliminarIngredienteSeleccionado()
+        modelObject.actualizar
     }
 
 	def openDialog(Dialog<?> dialog) {
-		dialog.onAccept[|modelObject] // ??
+		dialog.onAccept[|modelObject.actualizar]
 		dialog.open
 	}
 }

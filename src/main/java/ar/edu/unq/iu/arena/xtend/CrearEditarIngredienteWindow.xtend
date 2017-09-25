@@ -7,8 +7,11 @@ import ar.edu.unq.iu.modelo.Ingrediente
 import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.widgets.TextBox
-import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import org.uqbar.arena.widgets.Button
+
+import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
+import org.uqbar.commons.applicationContext.ApplicationContext
+import ar.edu.unq.iu.repo.RepoIngrediente
 
 class CrearEditarIngredienteWindow extends TransactionalDialog<Ingrediente> {
 	
@@ -49,5 +52,18 @@ class CrearEditarIngredienteWindow extends TransactionalDialog<Ingrediente> {
 				this.cancel
 			]
 		]
+	}
+
+	def getRepoIngredientes() {
+		ApplicationContext.instance.getSingleton(typeof(Ingrediente)) as RepoIngrediente
+	}
+
+	override executeTask() {
+		if (modelObject.isNew) {
+			repoIngredientes.create(modelObject)
+		} else {
+			repoIngredientes.update(modelObject)
+		}
+		super.executeTask()
 	}
 }
