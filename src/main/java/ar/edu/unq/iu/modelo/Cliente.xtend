@@ -3,8 +3,10 @@ package ar.edu.unq.iu.modelo
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.Entity
+import org.uqbar.commons.model.annotations.TransactionalAndObservable
 
 @Accessors
+@TransactionalAndObservable
 class Cliente extends Entity {
 	String nombre
 	String nick
