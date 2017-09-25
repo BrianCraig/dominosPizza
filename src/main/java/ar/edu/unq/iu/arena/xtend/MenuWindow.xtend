@@ -17,23 +17,22 @@ import org.uqbar.commons.applicationContext.ApplicationContext
 import ar.edu.unq.iu.repo.RepoPizza
 import org.uqbar.arena.bindings.ObservableProperty
 import ar.edu.unq.iu.repo.RepoIngrediente
-
-import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.layout.VerticalLayout
 import org.uqbar.arena.windows.Dialog
+
+import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
+
 
 class MenuWindow extends SimpleWindow<MenuAppModel>{
 	
 	new(WindowOwner parent) {
 		super(parent, new MenuAppModel)
-		modelObject.getPizzas
-		modelObject.getIngredientes
 	}
 	
 	
 	override def createMainTemplate(Panel mainPanel) {
-		title = "DominosPizza - Menú"
+		title = "DominosPizza - Menï¿½"
 		
 		super.createMainTemplate(mainPanel)
 		
@@ -49,19 +48,36 @@ class MenuWindow extends SimpleWindow<MenuAppModel>{
 	override protected createFormPanel(Panel mainPanel) {
 		
 		val form = new Panel(mainPanel) => [
-			layout = new ColumnLayout(4)
+			layout = new VerticalLayout()
 		]
 		
 		
-		new Label(form).text = "Pizzas:"
-		
-		this.crearTablaPizzas(form)
-		this.crearAccionesPizza(form)
-		
-		new Label(form).text = "Ingredientes Disponibles:"
-		
-		this.crearTablaIngredientes(form)
-		this.crearAccionesIngrediente(form)
+		new Label(form) => [
+			text = "Pizzas:"
+			alignLeft
+			fontSize = 12
+		]
+
+
+		val pizzas = new Panel(form) => [
+			layout = new HorizontalLayout()
+		]
+
+		this.crearTablaPizzas(pizzas)
+		this.crearAccionesPizza(pizzas)
+
+		new Label(form) => [
+			text = "Ingredientes:"
+			alignLeft
+			fontSize = 12
+		]
+
+		val ingredientes = new Panel(form) => [
+			layout = new HorizontalLayout()
+		]
+
+		this.crearTablaIngredientes(ingredientes)
+		this.crearAccionesIngrediente(ingredientes)
 		
 	}
 	
@@ -71,8 +87,7 @@ class MenuWindow extends SimpleWindow<MenuAppModel>{
 			value <=> "ingredienteSeleccionado"
 			numberVisibleRows = 5
 		]
-		
-		val elementSelected = new NotNullObservable("pedidoSeleccionado")
+
 		
 		new Column<Ingrediente>(table) => [
 			title = "Nombre"
@@ -98,19 +113,19 @@ class MenuWindow extends SimpleWindow<MenuAppModel>{
 		
 		val actionsPanel = new Panel(panel).layout = new VerticalLayout
 		
-		new Button(this) => [
+		new Button(actionsPanel) => [
 			caption = "Crear"
 			onClick([|this.crearIngrediente()])
 
 		]
 
-		new Button(this) => [
+		new Button(actionsPanel) => [
 			caption = "Editar"
 			onClick([|this.editarIngrediente()])
 			bindEnabled(elementSelected)
 		]
 
-		new Button(this) => [
+		new Button(actionsPanel) => [
 			caption = "Eliminar"
 			onClick([|this.eliminarIngrediente()])
 			bindEnabled(elementSelected)
@@ -148,10 +163,8 @@ class MenuWindow extends SimpleWindow<MenuAppModel>{
 		val table = new Table<Pizza>(panel, typeof(Pizza)) => [
 			items <=> "pizzas"
 			value <=> "pizzaSeleccionada"
-			numberVisibleRows = 10
+			numberVisibleRows = 4
 		]
-		
-		val elementSelected = new NotNullObservable("pizzaSeleccionada")
 		
 		new Column<Pizza>(table) => [
 			title = "Nombre"
@@ -175,19 +188,19 @@ class MenuWindow extends SimpleWindow<MenuAppModel>{
 		
 		val actionsPanel = new Panel(panel).layout = new VerticalLayout
 		
-		new Button(this) => [
+		new Button(actionsPanel) => [
 			caption = "Crear"
 			onClick([|this.crearPizza()])
 
 		]
 
-		new Button(this) => [
+		new Button(actionsPanel) => [
 			caption = "Editar"
 			onClick([|this.editarPizza()])
 			bindEnabled(elementSelected)
 		]
 
-		new Button(this) => [
+		new Button(actionsPanel) => [
 			caption = "Eliminar"
 			onClick([|this.eliminarPizza()])
 			bindEnabled(elementSelected)
