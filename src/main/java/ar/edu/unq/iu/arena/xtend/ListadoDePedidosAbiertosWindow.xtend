@@ -21,6 +21,9 @@ import org.uqbar.arena.bindings.ObservableProperty
 import ar.edu.unq.iu.modelo.EstadoPedido
 import org.uqbar.arena.layout.VerticalLayout
 import ar.edu.unq.iu.appmodel.PedidoAppModel
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class ListadoDePedidosAbiertosWindow extends SimpleWindow<ListadoDePedidos> {
 	
@@ -33,42 +36,42 @@ class ListadoDePedidosAbiertosWindow extends SimpleWindow<ListadoDePedidos> {
 	override def createMainTemplate(Panel mainPanel) {
 		title = "DominosPizza"
 		taskDescription = "Pedidos abiertos"
-
 		super.createMainTemplate(mainPanel)
+	}
 
-		this.createResultsGrid(mainPanel)
-		this.createGridActions(mainPanel)
+	override protected createFormPanel(Panel mainPanel) {
+		val horLayout = new Panel(mainPanel).layout = new HorizontalLayout
+		this.createResultsGrid(horLayout)
+		this.createGridActions(horLayout)
 	}
 	
 	def createGridActions(Panel panel) {
-		
-		val elementSelected = new NotNullObservable("pedidoSeleccionado")
-		
-		val actionsPanel = new Panel(panel).layout = new HorizontalLayout
-		
+		val actionsPanel = new Panel(panel).layout = new VerticalLayout
 		
 		new Button(actionsPanel) => [
 			caption = "Cancelar"
 			onClick([|modelObject.cancelarPedido()])
-			bindEnabled(elementSelected)
+			bindEnabled(new NotNullObservable("pedidoSeleccionado"))
 		]
 		
 		new Button(actionsPanel) => [
 			caption = "Editar"
 			onClick([|this.editarPedido()])
-			bindEnabled(elementSelected)
+			bindEnabled(new NotNullObservable("pedidoSeleccionado"))
 		]
-		
-		new Button(actionsPanel) => [
+
+		val horLayout = new Panel(actionsPanel).layout = new HorizontalLayout
+
+		new Button(horLayout) => [
 			caption = "<<"
 			onClick([|this.estadoAnterior(modelObject.pedidoSeleccionado)])
-			bindEnabled(elementSelected)
+			bindEnabled(new NotNullObservable("pedidoSeleccionado"))
 		]
 		
-		new Button(actionsPanel) => [
+		new Button(horLayout) => [
 			caption = ">>"
 			onClick([|this.estadoSiguiente(modelObject.pedidoSeleccionado)])
-			bindEnabled(elementSelected)
+			bindEnabled(new NotNullObservable("pedidoSeleccionado"))
 		]
 		
 		
@@ -132,13 +135,6 @@ class ListadoDePedidosAbiertosWindow extends SimpleWindow<ListadoDePedidos> {
 		this.openWindow(new MenuWindow(this))
 	}
 	
-	override protected createFormPanel(Panel mainPanel) {
-		val searchFormPanel = new Panel(mainPanel) => [
-			layout = new ColumnLayout(4)
-		]
-
-	}
-	
 	def void describeResultsGrid(Table<Pedido> table) {
 		new Column<Pedido>(table) => [
 			title = "Pedido"
@@ -149,7 +145,7 @@ class ListadoDePedidosAbiertosWindow extends SimpleWindow<ListadoDePedidos> {
 
 		new Column<Pedido>(table) => [
 			title = "Estado"
-			fixedSize = 100
+			fixedSize = 120
 			alignRight
 			bindContentsToProperty("estado")
 			//TODO: adaptar
@@ -163,9 +159,8 @@ class ListadoDePedidosAbiertosWindow extends SimpleWindow<ListadoDePedidos> {
 
 		new Column<Pedido>(table) => [
 			title = "Hora"
-			fixedSize = 100
-			bindContentsToProperty("fechaHora")
-			
+			fixedSize = 120
+			bindContentsToProperty("fechaHora").transformer = [ LocalDateTime fecha | DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm").format(fecha)]
 		]
 	}
 	
