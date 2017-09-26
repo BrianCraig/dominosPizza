@@ -39,17 +39,18 @@ class EditarPedidoWindow extends TransactionalDialog<Pedido> {
 	}
 
 	override protected createFormPanel(Panel mainPanel) {
-		val form = new Panel(mainPanel).layout = new ColumnLayout(3)
+		val form = new Panel(mainPanel).layout = new ColumnLayout(1)
 
 		new Label(form).text = "Estado:"
 
-		new Selector<EstadoPedido>(form) => [
-			//allowNull(false)
-			//value <=> "estado"
-			//val estados = bindItems(new ObservableProperty(repoEstados, "estados"))
-			//estados.adaptWith(typeof(EstadoPedido), "nombre") // opci�n A
-			// estados.adapter = new PropertyAdapter(typeof(EstadoPedido), "nombre") // opci�n B
-		]
+		/*new Selector<EstadoPedido>(form) => [
+			allowNull(false)
+			value <=> "estado"
+			val estados = bindItems(new ObservableProperty(repoEstados, "estados"))
+			estados.adaptWith(typeof(EstadoPedido), "nombre") // opci�n A
+		
+			//estados.adapter = new PropertyAdapter(typeof(EstadoPedido), "nombre") // opci�n B
+		]*/
 
 		this.panelDePlatos(mainPanel)
 
@@ -123,7 +124,7 @@ class EditarPedidoWindow extends TransactionalDialog<Pedido> {
 		]
 
 		new Column<Plato>(table) => [
-			title = "Tama�o"
+			title = "Tamanio"
 			fixedSize = 200
 			bindContentsToProperty("tamanio") // TODO: Adapt 
 		]
@@ -137,14 +138,14 @@ class EditarPedidoWindow extends TransactionalDialog<Pedido> {
 	}
 
 	def crearAccionesTabla(Panel panel) {
-		val elementSelected = new NotNullObservable("pedidoSeleccionado")
+		val elementSelected = new NotNullObservable("platoSeleccionado")
 
 		val actionsPanel = new Panel(panel).layout = new VerticalLayout
 
 		new Button(actionsPanel) => [
 			caption = "Agregar"
-			onClick([|this.agregarPlato(null)])
-		// TODO: Agregarlo fisicamente a la tabla
+			onClick([|this.agregarPlato()])
+		
 		]
 
 		new Button(actionsPanel) => [
@@ -161,8 +162,9 @@ class EditarPedidoWindow extends TransactionalDialog<Pedido> {
 		]
 	}
 
-	def agregarPlato(Table<Plato> table) {
-		this.openDialog(new AgregarEditarPlatoWindow(this, null))
+	def agregarPlato() {
+		
+		this.openDialog(new AgregarEditarPlatoWindow(this, new Plato(null,null)))
 	}
 
 	def editarPlato(Object o) {
@@ -191,9 +193,9 @@ class EditarPedidoWindow extends TransactionalDialog<Pedido> {
 
 		new Button(actions) => [
 			caption = "Cancelar"
-			onClick [|
-				this.cancel
-			]
+			onClick [|this.cancel]
+			setAsDefault
+			disableOnError
 		]
 	}
 

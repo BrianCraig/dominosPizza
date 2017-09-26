@@ -3,8 +3,12 @@ package ar.edu.unq.iu.modelo
 import java.util.List
 import java.util.ArrayList
 import org.uqbar.commons.model.Entity
+import org.uqbar.commons.model.annotations.Observable
 
+@Observable
 abstract class EstadoPedido extends Entity{
+	public String nombre
+	
 	def List<EstadoPedido> posiblesEstados(Pedido p) {}
 
 	def EstadoPedido estadoSiguiente(Envio envio) {}
@@ -16,11 +20,17 @@ abstract class EstadoPedido extends Entity{
 	}
 
 	def Boolean esAbierto()
+	
+	override toString()
 
 }
 
 // Todos los pedidos empiezan en estado preparando
 class Preparando extends EstadoPedido {
+	new(){
+		nombre = "Preparando"
+	}
+	
 	override estadoSiguiente(Envio e) {
 		if (e == new Retirar()) {
 			return new ListoParaRetirar()
@@ -44,6 +54,10 @@ class Preparando extends EstadoPedido {
 
 // Si es de delivery (ListoParaEnviar -> EnViaje -> Entregado)
 class ListoParaEnviar extends EstadoPedido {
+	new(){
+		nombre = "Listo Para Enviar"
+	}
+	
 	override estadoSiguiente(Envio e) {
 		new EnViaje()
 	}
@@ -62,6 +76,10 @@ class ListoParaEnviar extends EstadoPedido {
 }
 
 class EnViaje extends EstadoPedido {
+	new(){
+		nombre = "En Viaje"
+	}
+	
 	override estadoSiguiente(Envio e) {
 		new Entregado()
 	}
@@ -80,6 +98,10 @@ class EnViaje extends EstadoPedido {
 }
 
 class Entregado extends EstadoPedido {
+	new(){
+		nombre = "Entregado"
+	}
+	
 	override estadoSiguiente(Envio e) {
 		throw new CambioDeEstadoException()
 	}
@@ -103,6 +125,10 @@ class Entregado extends EstadoPedido {
 
 // Si es para retirar (ListoParaRetirar ->  Entregado)
 class ListoParaRetirar extends EstadoPedido {
+	new(){
+		nombre = "Listo Para Retirar"
+	}
+	
 	override estadoSiguiente(Envio e) {
 		new Entregado()
 	}
@@ -122,6 +148,10 @@ class ListoParaRetirar extends EstadoPedido {
 
 // Se puede cancelar en cualquier estado menos Cancelado
 class Cancelado extends EstadoPedido {
+	new(){
+		nombre = "Cancelado"
+	}
+	
 	override estadoSiguiente(Envio e) {
 		throw new CambioDeEstadoException()
 	}
@@ -140,4 +170,5 @@ class Cancelado extends EstadoPedido {
 }
 
 class CambioDeEstadoException extends RuntimeException {
+	
 }
