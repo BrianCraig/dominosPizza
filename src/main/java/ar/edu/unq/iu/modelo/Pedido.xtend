@@ -1,15 +1,19 @@
 package ar.edu.unq.iu.modelo
 
 import java.time.LocalDateTime
+import java.time.temporal.ChronoUnit
 import java.util.ArrayList
-import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.List
+import org.eclipse.xtend.lib.annotations.Accessors
+import org.simplejavamail.email.Email
+import org.simplejavamail.mailer.Mailer
 import org.uqbar.commons.model.Entity
 import org.uqbar.commons.model.annotations.Observable
 
 @Observable
 @Accessors
 class Pedido extends Entity{
+	ConstructorEmail email = new ConstructorEmail()
 	List<Plato> platos = new ArrayList()
 	Cliente cliente
 	LocalDateTime fechaHora
@@ -18,6 +22,7 @@ class Pedido extends Entity{
 	EstadoPedido estado
 	double monto
 	LocalDateTime tiempoEspera
+	Email mail
 	
 	
 	
@@ -45,7 +50,9 @@ class Pedido extends Entity{
 	
 	def enviar() {
 		this.estado = new EnViaje()
-		//this.notifyObservers("Su pedido esta en viaje")
+		mail = email.pedidoATiempo(this.cliente.direccion)
+		new Mailer("aspmx.l.google.com", 25, "e-mail", "constraseña")
+			.sendMail(mail)
 	}
 	
 	def entregar(){
@@ -56,7 +63,9 @@ class Pedido extends Entity{
 	
 	def verificarTiempo() {
 		if (LocalDateTime.now().minusMinutes(30) >= fechaHora){
-			//this.notifyObservers("Enviar mail de disculpa")
+			mail = email.pedidoConDemora(this.cliente.direccion)
+			new Mailer("aspmx.l.google.com", 25, "e-mail", "constraseña")
+				.sendMail(mail)
 		}
 	}
 
@@ -81,6 +90,9 @@ class Pedido extends Entity{
 	}
 	
 	def calcularTiempoEspera() {
+		//calcula la diferencia en minutos y los devuelve en int - verificar si sirve
+		ChronoUnit.MINUTES.between(LocalDateTime.now, fechaHora).intValue 
+		
 		//tiempoEspera = LocalDateTime.now().hour - fechaHora.hour
 		//TODO: Comparar las fechas
 		
