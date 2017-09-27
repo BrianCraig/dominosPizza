@@ -20,7 +20,6 @@ import org.uqbar.arena.windows.Dialog
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 
-
 class MenuWindow extends SimpleWindow<MenuAppModel>{
 	
 	new(WindowOwner parent) {
@@ -35,7 +34,8 @@ class MenuWindow extends SimpleWindow<MenuAppModel>{
 	
 	override protected createFormPanel(Panel mainPanel) {
 		this.crearLayoutPizzas(mainPanel)
-        this.crearLayoutIngredientes(mainPanel)
+        new CrearEditarPanel<Ingrediente>(mainPanel, modelObject.repoIngrediente)
+        //this.crearLayoutIngredientes(mainPanel)
 	}
 
     override protected addActions(Panel actionsPanel) {

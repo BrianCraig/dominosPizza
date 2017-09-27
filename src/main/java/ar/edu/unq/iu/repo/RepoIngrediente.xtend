@@ -20,7 +20,7 @@ class RepoIngrediente extends CollectionBasedRepo<Ingrediente>{
 	}
 	
 	override getEntityType() {
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
+		Ingrediente
 	}
 	
 	def getAllIngredientes() {
