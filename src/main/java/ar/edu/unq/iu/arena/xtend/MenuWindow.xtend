@@ -1,41 +1,30 @@
 package ar.edu.unq.iu.arena.xtend
 
+import ar.edu.unq.iu.appmodel.MenuAppModel
+import ar.edu.unq.iu.modelo.Ingrediente
+import ar.edu.unq.iu.modelo.Pizza
+import org.uqbar.arena.widgets.Button
+import org.uqbar.arena.widgets.Panel
+import org.uqbar.arena.widgets.tables.Column
+import org.uqbar.arena.windows.Dialog
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
-import org.uqbar.arena.widgets.Panel
-import ar.edu.unq.iu.appmodel.MenuAppModel
-import org.uqbar.arena.widgets.Button
-import org.uqbar.arena.widgets.Label
-import org.uqbar.arena.widgets.tables.Table
-import ar.edu.unq.iu.modelo.Pizza
-import ar.edu.unq.iu.modelo.Ingrediente
-import org.uqbar.arena.bindings.NotNullObservable
-import org.uqbar.arena.widgets.tables.Column
-import org.uqbar.commons.applicationContext.ApplicationContext
-import ar.edu.unq.iu.repo.RepoPizza
-import ar.edu.unq.iu.repo.RepoIngrediente
-import org.uqbar.arena.layout.HorizontalLayout
-import org.uqbar.arena.layout.VerticalLayout
-import org.uqbar.arena.windows.Dialog
-
-import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
-
+import org.uqbar.commons.model.CollectionBasedRepo
 
 class MenuWindow extends SimpleWindow<MenuAppModel>{
 	
 	new(WindowOwner parent) {
 		super(parent, new MenuAppModel)
 	}
-	
-	
+
 	override def createMainTemplate(Panel mainPanel) {
 		title = "DominosPizza - Menú"
 		super.createMainTemplate(mainPanel)
 	}
 	
 	override protected createFormPanel(Panel mainPanel) {
-		this.crearLayoutPizzas(mainPanel)
-        this.crearLayoutIngredientes(mainPanel)
+        new CrearEditarPizza(mainPanel, modelObject.repoPizza, this)
+        new CrearEditarIngrediente(mainPanel, modelObject.repoIngrediente, this)
 	}
 
     override protected addActions(Panel actionsPanel) {
@@ -44,158 +33,80 @@ class MenuWindow extends SimpleWindow<MenuAppModel>{
             onClick([|this.close])
         ]
     }
+}
 
-    /* Pizzas */
+class CrearEditarPizza extends CrearEditarPanel<Pizza> {
+    WindowOwner window
 
-    def crearLayoutPizzas(Panel parent) {
-        new Label(parent) => [
-            text = "Pizzas:"
-            alignLeft
-            fontSize = 12
-        ]
-
-        val sub = new Panel(parent) => [
-            layout = new HorizontalLayout()
-        ]
-
-        this.crearTablaPizzas(sub)
-        this.crearAccionesPizza(sub)
+    new(Panel parent,CollectionBasedRepo repo, WindowOwner win){
+        super(parent, repo)
+        this.window = win
+        this.titulo = "Pizzas:"
+        this.modificaciones()
     }
 
-    def crearTablaPizzas(Panel panel) {
-        val table = new Table<Pizza>(panel, typeof(Pizza)) => [
-            items <=> "pizzas"
-            value <=> "pizzaSeleccionada"
-            numberVisibleRows = 4
-        ]
-
-        new Column<Pizza>(table) => [
+    def modificaciones() {
+        new Column<Pizza>(this.tabla) => [
             title = "Nombre"
             fixedSize = 200
             bindContentsToProperty("nombre")
         ]
 
-        new Column<Pizza>(table) => [
+        new Column<Pizza>(this.tabla) => [
             title = "Precio"
             fixedSize = 200
             bindContentsToProperty("precio")
-
         ]
     }
 
-    def crearAccionesPizza(Panel panel) {
-        val elementSelected = new NotNullObservable("pizzaSeleccionada")
+    override crear() {
+        this.openDialog(new CrearEditarPizzaWindow(window, new Pizza("", 0.0)))
+    }
 
-        val actionsPanel = new Panel(panel).layout = new VerticalLayout
+    override editar(Pizza modelo) {
+        this.openDialog(new CrearEditarPizzaWindow(window, modelo))
+    }
 
-        new Button(actionsPanel) => [
-            caption = "Crear"
-            onClick([|this.crearPizza()])
+    def openDialog(Dialog<?> dialog) {
+        dialog.onAccept[|modelObject.actualizar]
+        dialog.open
+    }
+}
 
+class CrearEditarIngrediente extends CrearEditarPanel<Ingrediente> {
+    WindowOwner window
+
+    new(Panel parent,CollectionBasedRepo repo, WindowOwner win){
+        super(parent, repo)
+        this.window = win
+        this.titulo = "Ingredientes:"
+        this.modificaciones()
+    }
+
+    def modificaciones() {
+        new Column<Ingrediente>(this.tabla) => [
+            title = "Nombre"
+            fixedSize = 200
+            bindContentsToProperty("nombre")
         ]
 
-        new Button(actionsPanel) => [
-            caption = "Editar"
-            onClick([|this.editarPizza()])
-            bindEnabled(elementSelected)
-        ]
-
-        new Button(actionsPanel) => [
-            caption = "Eliminar"
-            onClick([|this.eliminarPizza()])
-            bindEnabled(elementSelected)
+        new Column<Ingrediente>(this.tabla) => [
+            title = "Precio"
+            fixedSize = 200
+            bindContentsToProperty("precio")
         ]
     }
 
-    def crearPizza() {
-        this.openDialog(new CrearEditarPizzaWindow(this, new Pizza("", 0.0)))
+    override crear() {
+        this.openDialog(new CrearEditarIngredienteWindow(window, new Ingrediente("", 0.0)))
     }
 
-    def editarPizza() {
-        this.openDialog(new CrearEditarPizzaWindow(this, modelObject.pizzaSeleccionada))
+    override editar(Ingrediente modelo) {
+        this.openDialog(new CrearEditarIngredienteWindow(window, modelo))
     }
 
-    def eliminarPizza() {
-        modelObject.eliminarPizzaSeleccionada()
-        modelObject.actualizar
+    def openDialog(Dialog<?> dialog) {
+        dialog.onAccept[|modelObject.actualizar]
+        dialog.open
     }
-
-    /* Ingredientes */
-
-    def crearLayoutIngredientes(Panel parent) {
-        new Label(parent) => [
-            text = "Ingredientes:"
-            alignLeft
-            fontSize = 12
-        ]
-
-        val sub = new Panel(parent) => [
-            layout = new HorizontalLayout()
-        ]
-
-        this.crearTablaIngredientes(sub)
-        this.crearAccionesIngrediente(sub)
-    }
-	
-	def crearTablaIngredientes(Panel panel) {
-		val table = new Table<Ingrediente>(panel, typeof(Ingrediente)) => [
-			items <=> "ingredientes"
-			value <=> "ingredienteSeleccionado"
-			numberVisibleRows = 5
-		]
-
-		
-		new Column<Ingrediente>(table) => [
-			title = "Nombre"
-			fixedSize = 200
-			bindContentsToProperty("nombre")
-		]
-
-		new Column<Ingrediente>(table) => [
-			title = "Precio"
-			fixedSize = 200
-			bindContentsToProperty("precio")
-		]
-	}
-	
-	def crearAccionesIngrediente(Panel panel) {
-		val elementSelected = new NotNullObservable("ingredienteSeleccionado")
-		
-		val actionsPanel = new Panel(panel).layout = new VerticalLayout
-		
-		new Button(actionsPanel) => [
-			caption = "Crear"
-			onClick([|this.crearIngrediente()])
-		]
-
-		new Button(actionsPanel) => [
-			caption = "Editar"
-			onClick([|this.editarIngrediente()])
-			bindEnabled(elementSelected)
-		]
-
-		new Button(actionsPanel) => [
-			caption = "Eliminar"
-			onClick([|this.eliminarIngrediente()])
-			bindEnabled(elementSelected)
-		]
-	}
-
-    def crearIngrediente() {
-        this.openDialog(new CrearEditarIngredienteWindow(this, new Ingrediente("", 0.0)))
-    }
-
-    def editarIngrediente() {
-        this.openDialog(new CrearEditarIngredienteWindow(this, modelObject.ingredienteSeleccionado))
-    }
-
-    def eliminarIngrediente() {
-        modelObject.eliminarIngredienteSeleccionado()
-        modelObject.actualizar
-    }
-
-	def openDialog(Dialog<?> dialog) {
-		dialog.onAccept[|modelObject.actualizar]
-		dialog.open
-	}
 }

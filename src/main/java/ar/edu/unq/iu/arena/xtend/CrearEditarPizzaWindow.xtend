@@ -7,15 +7,18 @@ import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.widgets.TextBox
-import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import org.uqbar.commons.applicationContext.ApplicationContext
 import ar.edu.unq.iu.modelo.Ingrediente
 import ar.edu.unq.iu.repo.RepoIngrediente
 import org.uqbar.arena.widgets.CheckBox
 import org.uqbar.arena.widgets.Button
 import java.util.List
-import org.uqbar.arena.bindings.ObservableProperty
 import ar.edu.unq.iu.repo.RepoPizza
+import org.uqbar.arena.layout.HorizontalLayout
+import org.uqbar.arena.bindings.ValueTransformer
+
+import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
+import org.uqbar.common.transaction.Collection.TransacionalList
 
 class CrearEditarPizzaWindow extends TransactionalDialog<Pizza> {
 	
@@ -45,18 +48,15 @@ class CrearEditarPizzaWindow extends TransactionalDialog<Pizza> {
 	}
 	
 	def mostrarIngredientes(Panel panel) {
-		val is = repoIngredientes.getAllIngredientes()
+		for (ingrediente : repoIngredientes.getAllIngredientes()){
 
-		/*
-		for (ingrediente : is){
-			new Label(panel).text = ingrediente.getNombre()
-	
-			new CheckBox(panel) => [
-				enabled <=> [ Pizza p | p.agregarIngrediente(ingrediente) ]
-				value <=> [ Pizza p | p.tieneIngrediente(ingrediente) ]
+			val selector = new Panel(panel).layout = new HorizontalLayout()
+
+			new CheckBox(selector) => [
+				bindValueToProperty("ingredientes").setTransformer(new ContainsTransformer<Ingrediente>(ingrediente));
 			]
-		}*/
-		new Label(panel).text = "Placeholder de el editor de sabores"
+			new Label(selector).text = ingrediente.getNombre()
+		}
 	}
 	
 	def getRepoIngredientes() {
@@ -90,5 +90,36 @@ class CrearEditarPizzaWindow extends TransactionalDialog<Pizza> {
 			repoPizza.update(modelObject)
 		}
 		super.executeTask()
+	}
+}
+
+class ContainsTransformer<T> implements ValueTransformer<TransacionalList<T>, Boolean> {
+	TransacionalList<T> list
+	T model
+
+	new(T model) {
+		this.model = model
+	}
+
+	override TransacionalList<T> viewToModel(Boolean onList) {
+		if(onList){
+			list.add(model)
+		} else {
+			list.remove(model)
+		}
+		list
+	}
+
+	override Boolean modelToView(TransacionalList<T> list) {
+		this.list = list
+		list.contains(model)
+	}
+
+	override Class getModelType() {
+		List
+	}
+
+	override Class<Boolean> getViewType() {
+		Boolean
 	}
 }
