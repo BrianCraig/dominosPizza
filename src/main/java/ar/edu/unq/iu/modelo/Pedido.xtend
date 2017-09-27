@@ -20,7 +20,6 @@ class Pedido extends Entity{
 	String aclaraciones = ""
 	Envio envio
 	EstadoPedido estado
-	double monto
 	LocalDateTime tiempoEspera
 	Email mail
 	
@@ -32,11 +31,10 @@ class Pedido extends Entity{
 		this.envio = envio
 		this.estado = new Preparando
 		cliente.agregarPedido(this)
-		this.monto = calcularMonto()
 		this.tiempoEspera = null
 	}
 	
-	def calcularMonto() {
+	def getMonto() {
         var monto = envio.getCosto()
         for (p : platos) {
             monto += p.getPrecio()
@@ -51,7 +49,7 @@ class Pedido extends Entity{
 	def enviar() {
 		this.estado = new EnViaje()
 		mail = email.pedidoATiempo(this.cliente.direccion)
-		new Mailer("aspmx.l.google.com", 25, "e-mail", "constraseña")
+		new Mailer("aspmx.l.google.com", 25, "e-mail", "constraseï¿½a")
 			.sendMail(mail)
 	}
 	
@@ -64,7 +62,7 @@ class Pedido extends Entity{
 	def verificarTiempo() {
 		if (LocalDateTime.now().minusMinutes(30) >= fechaHora){
 			mail = email.pedidoConDemora(this.cliente.direccion)
-			new Mailer("aspmx.l.google.com", 25, "e-mail", "constraseña")
+			new Mailer("aspmx.l.google.com", 25, "e-mail", "constraseï¿½a")
 				.sendMail(mail)
 		}
 	}
