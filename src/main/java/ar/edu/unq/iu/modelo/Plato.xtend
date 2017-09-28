@@ -26,8 +26,28 @@ class Plato {
 		}
 		p
 	}
-		
+
+	def agregarAgregado(Agregado a){
+		if(! contieneAgregadoDe(a.ingrediente)){
+			agregados.add(a)
+		}
 	}
+
+	def quitarAgregado(Agregado a){
+		if(contieneAgregadoDe(a.ingrediente)){
+			agregados.remove(agregadoDe(a.ingrediente))
+		}
+	}
+
+	def boolean contieneAgregadoDe(Ingrediente i){
+		agregados.stream.anyMatch([Agregado a | a.ingrediente == i])
+	}
+
+	def Agregado agregadoDe(Ingrediente i){
+		agregados.stream.filter([Agregado a | a.ingrediente == i]).findFirst.get
+	}
+		
+}
 	
 	
 	
