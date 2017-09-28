@@ -29,6 +29,7 @@ import org.uqbar.arena.bindings.PropertyAdapter
 import ar.edu.unq.iu.modelo.Pizza
 import ar.edu.unq.iu.repo.RepoPedido
 import org.uqbar.arena.layout.HorizontalLayout
+import ar.edu.unq.iu.modelo.TamanioGrande
 
 class EditarPedidoWindow extends TransactionalDialog<PedidoAppModel> {
 
@@ -170,11 +171,11 @@ class EditarPedidoWindow extends TransactionalDialog<PedidoAppModel> {
 	}
 
 	def agregarPlato() {
-		this.openDialog(new AgregarEditarPlatoWindow(this, new Plato(null, null)))
+		this.openDialog(new AgregarEditarPlatoWindow(this, modelObject.pedido, new Plato(modelObject.repoPizza.objects.get(0), new TamanioGrande)))
 	}
 
 	def editarPlato() {
-		this.openDialog(new AgregarEditarPlatoWindow(this, modelObject.platoSeleccionado))
+		this.openDialog(new AgregarEditarPlatoWindow(this, modelObject.pedido, modelObject.platoSeleccionado))
 	}
 
 	def openDialog(Dialog<?> dialog) {
@@ -214,7 +215,7 @@ class EditarPedidoWindow extends TransactionalDialog<PedidoAppModel> {
 		}
 		super.executeTask()
 	}
-	
+
 	def getRepoPedido() {
 		ApplicationContext.instance.getSingleton(typeof(Pedido)) as RepoPedido
 	}

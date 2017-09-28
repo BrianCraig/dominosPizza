@@ -101,7 +101,10 @@ class Pedido extends Entity{
 		//TODO: Comparar las fechas
 		
 	}
-	
-	
-	
+
+	def agregarPlato(Plato plato){
+		if(! platos.contains(plato)){
+			platos.add(plato)
+		}
+	}
 }

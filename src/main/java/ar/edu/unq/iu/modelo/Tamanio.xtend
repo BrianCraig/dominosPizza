@@ -11,6 +11,10 @@ abstract class Tamanio extends Entity {
 	override toString(){
 		nombre
 	}
+
+	override equals(Object o) {
+		this.class == o.class
+	}
 }
 
 class TamanioPorcion extends Tamanio {

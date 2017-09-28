@@ -21,11 +21,12 @@ import ar.edu.unq.iu.repo.RepoPizza
 import org.uqbar.arena.widgets.Button
 import ar.edu.unq.iu.appmodel.PlatoAppModel
 import org.uqbar.arena.bindings.PropertyAdapter
+import ar.edu.unq.iu.modelo.Pedido
 
 class AgregarEditarPlatoWindow extends TransactionalDialog<PlatoAppModel> {
 
-	new(WindowOwner owner, Plato model) {
-		super(owner, new PlatoAppModel(model))
+	new(WindowOwner owner, Pedido pedido, Plato plato) {
+		super(owner, new PlatoAppModel(pedido, plato))
 		title = "Editar Plato"
 	}
 
@@ -84,16 +85,17 @@ class AgregarEditarPlatoWindow extends TransactionalDialog<PlatoAppModel> {
 		new Button(actions) => [
 			caption = "Aceptar"
 			onClick [|this.accept]
-			setAsDefault
-			disableOnError
 		]
 
 		new Button(actions) => [
 			caption = "Cancelar"
-			onClick [|
-				this.cancel
-			]
+			onClick [|this.cancel]
 		]
+	}
+
+	override executeTask() {
+		modelObject.pedido.agregarPlato(modelObject.plato)
+		super.executeTask()
 	}
 
 }

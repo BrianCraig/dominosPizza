@@ -13,14 +13,18 @@ import org.uqbar.commons.applicationContext.ApplicationContext
 import ar.edu.unq.iu.modelo.Pizza
 import ar.edu.unq.iu.repo.RepoPizza
 import ar.edu.unq.iu.modelo.Plato
+import org.uqbar.commons.model.annotations.Dependencies
+import ar.edu.unq.iu.modelo.Pedido
 
 @TransactionalAndObservable
 @Accessors
 class PlatoAppModel implements Serializable {
     Plato plato
+    Pedido pedido
 
-    new(Plato plato) {
+    new(Pedido pedido, Plato plato) {
         this.plato = plato
+        this.pedido = pedido
     }
 
     def getRepoPizza() {
