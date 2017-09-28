@@ -28,7 +28,7 @@ class CrearEditarPizzaWindow extends TransactionalDialog<Pizza> {
 	}
 	
 	override protected createFormPanel(Panel mainPanel) {
-		val form = new Panel(mainPanel).layout = new ColumnLayout(2)
+		val form = new Panel(mainPanel).layout = new ColumnLayout(1)
 		
 		new Label(form).text = "Nombre:"
 
@@ -48,14 +48,18 @@ class CrearEditarPizzaWindow extends TransactionalDialog<Pizza> {
 	}
 	
 	def mostrarIngredientes(Panel panel) {
+			
 		for (ingrediente : repoIngredientes.getAllIngredientes()){
 
-			val selector = new Panel(panel).layout = new HorizontalLayout()
+			//val selector = new Panel(panel).layout = new HorizontalLayout()
 
-			new CheckBox(selector) => [
+			new Label(panel).text = ingrediente.getNombre()
+			new CheckBox(panel) => [
 				bindValueToProperty("ingredientes").setTransformer(new ContainsTransformer<Ingrediente>(ingrediente));
 			]
-			new Label(selector).text = ingrediente.getNombre()
+			
+			
+			//this.ubicacion(selector)
 		}
 	}
 	

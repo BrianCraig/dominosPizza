@@ -18,7 +18,7 @@ class MenuWindow extends SimpleWindow<MenuAppModel>{
 	}
 
 	override def createMainTemplate(Panel mainPanel) {
-		title = "DominosPizza - Menú"
+		title = "DominosPizza - Menu"
 		super.createMainTemplate(mainPanel)
 	}
 	

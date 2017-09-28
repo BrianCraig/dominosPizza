@@ -26,6 +26,8 @@ import org.uqbar.arena.bindings.NotNullObservable
 import ar.edu.unq.iu.appmodel.PedidoAppModel
 import org.uqbar.arena.layout.VerticalLayout
 import org.uqbar.arena.bindings.PropertyAdapter
+import ar.edu.unq.iu.modelo.Pizza
+import ar.edu.unq.iu.repo.RepoPedido
 
 class EditarPedidoWindow extends TransactionalDialog<Pedido> {
 
@@ -44,14 +46,14 @@ class EditarPedidoWindow extends TransactionalDialog<Pedido> {
 		new Label(form).text = "Estado:"
 
 		/*new Selector<EstadoPedido>(form) => [
-			allowNull(false)
-			value <=> "estado"
-			val estados = bindItems(new ObservableProperty(repoEstados, "estados"))
-			estados.adaptWith(typeof(EstadoPedido), "nombre") // opci�n A
-		
-			//estados.adapter = new PropertyAdapter(typeof(EstadoPedido), "nombre") // opci�n B
-		]*/
-
+		  	allowNull(false)
+		  	value <=> "estado"
+		  	val estados = bindItems(new ObservableProperty(repoEstados, "estados"))
+		  	//estados.adaptWith(typeof(EstadoPedido), "nombre") // opci�n A
+		  
+		  	estados.adapter = new PropertyAdapter(typeof(EstadoPedido), "nombre") // opci�n B
+		 ]*/
+		 
 		this.panelDePlatos(mainPanel)
 
 		new Label(form).text = "Aclaraciones:"
@@ -63,27 +65,23 @@ class EditarPedidoWindow extends TransactionalDialog<Pedido> {
 
 		new Label(form).text = "Cliente:"
 
-		// TODO: COMO HACER PARA QUE NO SE PUEDA EDITAR EL CONTENIDO
 		new TextBox(form) => [
 			value <=> "cliente.nombre"
-			//val pedido = bindValue(new ObservableProperty(Pedido, "pedido"))
-			//pedido.adaptWith(typeof(Cliente), "nombre")
+			
 			width = 200
 		]
 
 		new Label(form).text = "Costo de envio:"
 
-		// TODO: COMO HACER PARA QUE NO SE PUEDA EDITAR EL CONTENIDO
 		new TextBox(form) => [
 			value <=> "envio.costo"
-			//val costo = bindValue(new ObservableProperty(Pedido, "pedido"))
-			//costo.adaptWith(typeof(Envio), "costo")
+			
 			width = 200
 		]
 
 		new Label(form).text = "Monto total:"
 
-		// TODO: COMO HACER PARA QUE NO SE PUEDA EDITAR EL CONTENIDO
+		
 		new TextBox(form) => [
 			value <=> "monto"
 			width = 200
@@ -91,7 +89,7 @@ class EditarPedidoWindow extends TransactionalDialog<Pedido> {
 
 		new Label(form).text = "Fecha:"
 
-		// TODO: COMO HACER PARA QUE NO SE PUEDA EDITAR EL CONTENIDO
+		
 		new TextBox(form) => [
 			value <=> "fechaHora"
 			width = 200
@@ -101,7 +99,7 @@ class EditarPedidoWindow extends TransactionalDialog<Pedido> {
 	def panelDePlatos(Panel panel) {
 		{
 			val p = new Panel(panel, new PedidoAppModel(modelObject.platos))
-			
+
 			new Label(p).text = "Platos:"
 
 			this.crearTablaPlato(p)
@@ -110,23 +108,24 @@ class EditarPedidoWindow extends TransactionalDialog<Pedido> {
 	}
 
 	def crearTablaPlato(Panel panel) {
-		
+
 		val table = new Table<Plato>(panel, typeof(Plato)) => [
 			items <=> "platos"
 			value <=> "platoSeleccionado"
 			numberVisibleRows = 10
 		]
-	
+
 		new Column<Plato>(table) => [
 			title = "Nombre"
 			fixedSize = 200
-			bindContentsToProperty("pizza") // TODO: Adapt 
+			alignRight
+			bindContentsToProperty("pizza.nombre") // TODO: Adapt 
 		]
 
 		new Column<Plato>(table) => [
 			title = "Tamanio"
 			fixedSize = 200
-			bindContentsToProperty("tamanio") // TODO: Adapt 
+			bindContentsToProperty("tamanio.nombre") // TODO: Adapt 
 		]
 
 		new Column<Plato>(table) => [
@@ -145,7 +144,7 @@ class EditarPedidoWindow extends TransactionalDialog<Pedido> {
 		new Button(actionsPanel) => [
 			caption = "Agregar"
 			onClick([|this.agregarPlato()])
-		
+
 		]
 
 		new Button(actionsPanel) => [
@@ -163,8 +162,8 @@ class EditarPedidoWindow extends TransactionalDialog<Pedido> {
 	}
 
 	def agregarPlato() {
-		
-		this.openDialog(new AgregarEditarPlatoWindow(this, new Plato(null,null)))
+
+		this.openDialog(new AgregarEditarPlatoWindow(this, new Plato(null, null)))
 	}
 
 	def editarPlato(Object o) {
@@ -201,6 +200,19 @@ class EditarPedidoWindow extends TransactionalDialog<Pedido> {
 
 	def getRepoEstados() {
 		ApplicationContext.instance.getSingleton(typeof(EstadoPedido)) as RepoEstados
+	}
+	
+	override executeTask() {
+		if (modelObject.isNew) {
+			repoPedido.create(modelObject)
+		} else {
+			repoPedido.update(modelObject)
+		}
+		super.executeTask()
+	}
+	
+	def getRepoPedido() {
+		ApplicationContext.instance.getSingleton(typeof(Pedido)) as RepoPedido
 	}
 
 }

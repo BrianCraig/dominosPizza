@@ -9,6 +9,7 @@ import org.simplejavamail.email.Email
 import org.simplejavamail.mailer.Mailer
 import org.uqbar.commons.model.Entity
 import org.uqbar.commons.model.annotations.Observable
+import org.uqbar.commons.model.annotations.Dependencies
 
 @Observable
 @Accessors
@@ -41,11 +42,12 @@ class Pedido extends Entity{
         }
         monto
 	}
-
+	@Dependencies("estado")
 	def cancelarPedido(){
 		this.estado = new Cancelado()
 	}
 	
+	@Dependencies("estado")
 	def enviar() {
 		this.estado = new EnViaje()
 		mail = email.pedidoATiempo(this.cliente.direccion)
@@ -53,6 +55,7 @@ class Pedido extends Entity{
 			.sendMail(mail)
 	}
 	
+	@Dependencies("estado")
 	def entregar(){
 		this.estado = new Entregado()
 		this.verificarTiempo()
@@ -71,14 +74,17 @@ class Pedido extends Entity{
 		estado.posiblesEstados(this)
 	}
 
+	@Dependencies("estado")
 	def setEstado(EstadoPedido estado) {
 		this.estado = estado
 	}
 	
+	@Dependencies("estado")
 	def pasarAlSiguienteEstado() {
 		estado = estado.estadoSiguiente(envio)
 	}
 	
+	@Dependencies("estado")
 	def pasarAlEstadoAnterior() {
 		estado = estado.estadoAnterior(envio)
 	}

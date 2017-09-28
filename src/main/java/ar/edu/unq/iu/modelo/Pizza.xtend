@@ -5,6 +5,7 @@ import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.Entity
 import org.uqbar.commons.model.annotations.TransactionalAndObservable
+import org.uqbar.commons.model.annotations.Dependencies
 
 @TransactionalAndObservable
 @Accessors
@@ -18,10 +19,12 @@ class Pizza extends Entity{
 		this.precio = p
 	}
 	
+	@Dependencies("ingredientes")
 	def quitarIngrediente(Ingrediente ingrediente) {
 		ingredientes.remove(ingrediente)
 	}
 	
+	@Dependencies("ingredientes")
 	def agregarIngrediente(Ingrediente ingrediente) {
 		ingredientes.add(ingrediente)
 	}
@@ -33,5 +36,6 @@ class Pizza extends Entity{
 	def tieneIngrediente(Ingrediente i) {
 		ingredientes.contains(i)
 	}
+	
 	
 }

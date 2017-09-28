@@ -4,10 +4,11 @@ import java.util.List
 import java.util.ArrayList
 import org.uqbar.commons.model.Entity
 import org.uqbar.commons.model.annotations.Observable
+import org.uqbar.commons.model.annotations.TransactionalAndObservable
 
-@Observable
+@TransactionalAndObservable
 abstract class EstadoPedido extends Entity{
-	public String nombre
+	
 	
 	def List<EstadoPedido> posiblesEstados(Pedido p) {}
 
@@ -21,14 +22,14 @@ abstract class EstadoPedido extends Entity{
 
 	def Boolean esAbierto()
 	
-	override toString()
+	override def toString()
 
 }
 
 // Todos los pedidos empiezan en estado preparando
 class Preparando extends EstadoPedido {
 	new(){
-		nombre = "Preparando"
+		
 	}
 	
 	override estadoSiguiente(Envio e) {
@@ -47,15 +48,18 @@ class Preparando extends EstadoPedido {
 		true
 	}
 
-	override toString (){
+	def nombre(){
 		"Preparando"
+	}
+
+	override def toString (){
+		nombre
 	}
 }
 
 // Si es de delivery (ListoParaEnviar -> EnViaje -> Entregado)
 class ListoParaEnviar extends EstadoPedido {
 	new(){
-		nombre = "Listo Para Enviar"
 	}
 	
 	override estadoSiguiente(Envio e) {
@@ -70,14 +74,23 @@ class ListoParaEnviar extends EstadoPedido {
 		true
 	}
 
-	override toString (){
-		"Listo para enviar"
+	override def toString (){
+		nombre
 	}
+	
+	def nombre() {
+		"Listo Para Enviar"
+	}
+	
 }
 
 class EnViaje extends EstadoPedido {
 	new(){
-		nombre = "En Viaje"
+		
+	}
+	
+	def nombre(){
+		"En Viaje"
 	}
 	
 	override estadoSiguiente(Envio e) {
@@ -92,14 +105,17 @@ class EnViaje extends EstadoPedido {
 		true
 	}
 
-	override toString (){
-		"En viaje"
+	override def toString (){
+		nombre
 	}
 }
 
 class Entregado extends EstadoPedido {
 	new(){
-		nombre = "Entregado"
+	}
+	
+	def nombre(){
+		"Entregado"
 	}
 	
 	override estadoSiguiente(Envio e) {
@@ -118,15 +134,18 @@ class Entregado extends EstadoPedido {
 		false
 	}
 
-	override toString (){
-		"Entregado"
+	override def toString (){
+		nombre
 	}
 }
 
 // Si es para retirar (ListoParaRetirar ->  Entregado)
 class ListoParaRetirar extends EstadoPedido {
 	new(){
-		nombre = "Listo Para Retirar"
+	}
+	
+	def nombre(){
+		"Listo Para Retirar"
 	}
 	
 	override estadoSiguiente(Envio e) {
@@ -141,15 +160,18 @@ class ListoParaRetirar extends EstadoPedido {
 		true
 	}
 
-	override toString (){
-		"Listo para retirar"
+	override def toString (){
+		nombre
 	}
 }
 
 // Se puede cancelar en cualquier estado menos Cancelado
 class Cancelado extends EstadoPedido {
 	new(){
-		nombre = "Cancelado"
+	}
+	
+	def nombre(){
+		"Cancelado"
 	}
 	
 	override estadoSiguiente(Envio e) {
@@ -164,8 +186,8 @@ class Cancelado extends EstadoPedido {
 		false
 	}
 
-	override toString (){
-		"Cancelado"
+	override def toString (){
+		nombre
 	}
 }
 
