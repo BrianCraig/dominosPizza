@@ -18,6 +18,7 @@ import org.uqbar.common.transaction.Collection.TransacionalList
 import org.uqbar.commons.applicationContext.ApplicationContext
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
+import org.uqbar.arena.layout.HorizontalLayout
 
 class CrearEditarPizzaWindow extends TransactionalDialog<Pizza> {
 	
@@ -47,18 +48,14 @@ class CrearEditarPizzaWindow extends TransactionalDialog<Pizza> {
 	}
 	
 	def mostrarIngredientes(Panel panel) {
-			
 		for (ingrediente : repoIngredientes.getAllIngredientes()){
 
-			//val selector = new Panel(panel).layout = new HorizontalLayout()
+			val selector = new Panel(panel).layout = new HorizontalLayout()
 
-			new Label(panel).text = ingrediente.getNombre()
-			new CheckBox(panel) => [
+			new CheckBox(selector) => [
 				bindValueToProperty("ingredientes").setTransformer(new ContainsTransformer<Ingrediente>(ingrediente));
 			]
-			
-			
-			//this.ubicacion(selector)
+			new Label(selector).text = ingrediente.getNombre()
 		}
 	}
 	
