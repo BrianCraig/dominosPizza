@@ -4,15 +4,16 @@ import java.util.ArrayList
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.TransactionalAndObservable
+import java.util.HashMap
+import java.util.Map
 
 @TransactionalAndObservable
 @Accessors
 class Plato {
-	
-	
+
 	Pizza pizza
 	Tamanio tamanio
-	List<Agregado> agregados = new ArrayList()
+	Map<Ingrediente, Agregado> agregados = new HashMap()
 	
 	new(Pizza p, Tamanio tamanio) {
 		this.pizza = p
@@ -21,30 +22,26 @@ class Plato {
 	
 	def getPrecio() {
 		var p = pizza.precio * tamanio.precio
-		for (a : agregados){
+		for (a : agregados.values){
 			p += a.getPrecio()
 		}
 		p
 	}
 
 	def agregarAgregado(Agregado a){
-		if(! contieneAgregadoDe(a.ingrediente)){
-			agregados.add(a)
-		}
+		agregados.put(a.ingrediente, a)
 	}
 
 	def quitarAgregado(Agregado a){
-		if(contieneAgregadoDe(a.ingrediente)){
-			agregados.remove(agregadoDe(a.ingrediente))
-		}
+		agregados.remove(a.ingrediente)
 	}
 
 	def boolean contieneAgregadoDe(Ingrediente i){
-		agregados.stream.anyMatch([Agregado a | a.ingrediente == i])
+		agregados.containsKey(i)
 	}
 
 	def Agregado agregadoDe(Ingrediente i){
-		agregados.stream.filter([Agregado a | a.ingrediente == i]).findFirst.get
+		agregados.get(i)
 	}
 		
 }

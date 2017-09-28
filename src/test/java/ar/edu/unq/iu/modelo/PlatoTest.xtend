@@ -34,7 +34,7 @@ class PlatoTest {
     @Test
     def void UnaFamiliarDeMuzzaConMorronesTieneElPrecioCorrectoTest(){
         val plato = new Plato(muzza, new TamanioFamiliar) => [
-            agregados.add(new Agregado(morron, new LadoAmbos))
+            agregarAgregado(new Agregado(morron, new LadoAmbos))
         ]
         Assert.assertEquals(plato.precio, (70.0 * 1.25) + 20.0, 0.0)
     }
@@ -42,7 +42,7 @@ class PlatoTest {
     @Test
     def void UnaPorcionDeJamonYMorronesConAceitunasTieneElPrecioCorrectoTest(){
         val plato = new Plato(jym, new TamanioPorcion) => [
-            agregados.add(new Agregado(aceitunas, new LadoIzquierdo))
+            agregarAgregado(new Agregado(aceitunas, new LadoIzquierdo))
         ]
         Assert.assertEquals(plato.precio, (80.0 * 0.25) + 8.0, 0.0)
     }

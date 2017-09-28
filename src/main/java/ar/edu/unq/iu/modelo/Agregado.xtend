@@ -19,14 +19,16 @@ class Agregado {
 	def getPrecio() {
 		this.ingrediente.precio
 	}
-
-	override equals(Object o) {
-		this.class == o.class
-	}
 	
 }
 
-class Lado{}
+@Accessors
+@TransactionalAndObservable
+class Lado{
+	override equals(Object o) {
+		this.class == o.class
+	}
+}
 
 class LadoIzquierdo extends Lado{
 	override String toString(){

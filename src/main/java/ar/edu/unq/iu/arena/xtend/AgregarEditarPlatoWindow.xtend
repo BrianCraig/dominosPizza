@@ -21,7 +21,6 @@ import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import org.eclipse.xtend.lib.annotations.Accessors
 import ar.edu.unq.iu.modelo.Agregado
 import java.io.Serializable
-import org.uqbar.commons.model.annotations.Observable
 import ar.edu.unq.iu.modelo.LadoAmbos
 import ar.edu.unq.iu.modelo.LadoIzquierdo
 import ar.edu.unq.iu.modelo.LadoDerecho
@@ -70,7 +69,7 @@ class AgregarEditarPlatoWindow extends TransactionalDialog<PlatoAppModel> {
 
 
 	def mostrarIngredientes(Panel panel) {
-		for (ingrediente : repoIngrediente.getAllIngredientes()) {
+		for (ingrediente : modelObject.ingredientesPosibles()) {
 
 			val fila = new Panel(panel, new PlatoIngredienteModel(modelObject.plato, ingrediente)).layout = new HorizontalLayout
 
@@ -88,9 +87,7 @@ class AgregarEditarPlatoWindow extends TransactionalDialog<PlatoAppModel> {
 		}
 	}
 
-	def getRepoIngrediente() {
-		ApplicationContext.instance.getSingleton(typeof(Ingrediente)) as RepoIngrediente
-	}
+
 
 	override protected void addActions(Panel actions) {
 		new Button(actions) => [
@@ -127,11 +124,11 @@ class PlatoIngredienteModel implements Serializable {
 			this.agregado = new Agregado(ingrediente, new LadoAmbos)
 	}
 
-	def getContieneAgregado(){
+	def Boolean getContieneAgregado(){
 		plato.contieneAgregadoDe(ingrediente)
 	}
 
-	def setContieneAgregado(boolean agregar){
+	def void setContieneAgregado(Boolean agregar){
 		if(agregar){
 			plato.agregarAgregado(agregado)
 		} else {
