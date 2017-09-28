@@ -64,7 +64,7 @@ class DominosBootstrap extends CollectionBasedBootstrap {
         ]
 
         val plato1 = new Plato(jym, new TamanioPorcion) => [
-            agregarAgregado(new Agregado(morrones, new LadoIzquierdo))
+            agregarAgregado(new Agregado(panceta, new LadoIzquierdo))
         ]
 
         val plato2 = new Plato(pizzaPanceta, new TamanioFamiliar)
