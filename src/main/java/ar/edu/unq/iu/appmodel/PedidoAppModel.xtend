@@ -11,23 +11,13 @@ import org.uqbar.commons.model.annotations.Observable
 @Accessors
 class PedidoAppModel {
 	Plato platoSeleccionado
+	Pedido pedido
 	
-	
-	List<Plato> platos
-	
-	
-	new(List<Plato> ps) {
-		platos = ps
+	new(Pedido pedido) {
+		this.pedido = pedido
 	}
 	
 	def eliminarPlato() {
-		platos.remove(platoSeleccionado)
+		pedido.platos.remove(platoSeleccionado)
 	}
-	
-	
-
-	
-	
-	
-	
 }

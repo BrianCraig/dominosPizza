@@ -30,10 +30,10 @@ import ar.edu.unq.iu.modelo.Pizza
 import ar.edu.unq.iu.repo.RepoPedido
 import org.uqbar.arena.layout.HorizontalLayout
 
-class EditarPedidoWindow extends TransactionalDialog<Pedido> {
+class EditarPedidoWindow extends TransactionalDialog<PedidoAppModel> {
 
 	new(WindowOwner owner, Pedido model) {
-		super(owner, model)
+		super(owner, new PedidoAppModel(model))
 		title = defaultTitle
 	}
 
@@ -67,7 +67,7 @@ class EditarPedidoWindow extends TransactionalDialog<Pedido> {
 		{
 			new Label(panel).text = "Platos:"
 
-			val p = new Panel(panel, new PedidoAppModel(modelObject.platos)).layout = new HorizontalLayout()
+			val p = new Panel(panel).layout = new HorizontalLayout()
 
 			this.crearTablaPlato(p)
 			this.crearAccionesTabla(p)
@@ -78,7 +78,7 @@ class EditarPedidoWindow extends TransactionalDialog<Pedido> {
 		new Label(panel).text = "Aclaraciones:"
 
 		new TextBox(panel) => [
-			value <=> "aclaraciones"
+			value <=> "pedido.aclaraciones"
 			width = 400
 		]
 	}
@@ -89,14 +89,14 @@ class EditarPedidoWindow extends TransactionalDialog<Pedido> {
 		new Label(form).text = "Cliente:"
 
 		new Label(form) => [
-			value <=> "cliente.nombre"
+			value <=> "pedido.cliente.nombre"
 			alignLeft
 		]
 
 		new Label(form).text = "Costo de envio:"
 
 		new Label(form) => [
-			value <=> "envio.costo"
+			value <=> "pedido.envio.costo"
 			alignLeft
 		]
 
@@ -104,7 +104,7 @@ class EditarPedidoWindow extends TransactionalDialog<Pedido> {
 
 
 		new Label(form) => [
-			value <=> "monto"
+			value <=> "pedido.monto"
 			alignLeft
 		]
 
@@ -112,7 +112,7 @@ class EditarPedidoWindow extends TransactionalDialog<Pedido> {
 
 
 		new Label(form) => [
-			value <=> "fechaHora"
+			value <=> "pedido.fechaHora"
 			alignLeft
 		]
 	}
@@ -120,7 +120,7 @@ class EditarPedidoWindow extends TransactionalDialog<Pedido> {
 	def crearTablaPlato(Panel panel) {
 
 		val table = new Table<Plato>(panel, typeof(Plato)) => [
-			items <=> "platos"
+			items <=> "pedido.platos"
 			value <=> "platoSeleccionado"
 			numberVisibleRows = 4
 		]
@@ -157,37 +157,33 @@ class EditarPedidoWindow extends TransactionalDialog<Pedido> {
 
 		new Button(actionsPanel) => [
 			caption = "Editar"
-			onClick([|this.editarPlato(panel.modelObject)])
+			onClick([|this.editarPlato()])
 			bindEnabled(new NotNullObservable("platoSeleccionado"))
 		]
 
 		new Button(actionsPanel) => [
 			caption = "Eliminar"
-			onClick([|this.eliminarPlato(panel.modelObject)])
+			onClick([|this.eliminarPlato()])
 			bindEnabled(new NotNullObservable("platoSeleccionado"))
 
 		]
 	}
 
 	def agregarPlato() {
-
 		this.openDialog(new AgregarEditarPlatoWindow(this, new Plato(null, null)))
 	}
 
-	def editarPlato(Object o) {
-		var p = o as PedidoAppModel
-		this.openDialog(new AgregarEditarPlatoWindow(this, p.platoSeleccionado))
+	def editarPlato() {
+		this.openDialog(new AgregarEditarPlatoWindow(this, modelObject.platoSeleccionado))
 	}
 
 	def openDialog(Dialog<?> dialog) {
 		dialog.onAccept[|modelObject] // ??
 		dialog.open
-
 	}
 
 	def eliminarPlato(Object o) {
-		var p = o as PedidoAppModel
-		p.eliminarPlato()
+        modelObject.eliminarPlato()
 	}
 
 	override protected void addActions(Panel actions) {
@@ -211,10 +207,10 @@ class EditarPedidoWindow extends TransactionalDialog<Pedido> {
 	}
 	
 	override executeTask() {
-		if (modelObject.isNew) {
-			repoPedido.create(modelObject)
+		if (modelObject.pedido.isNew) {
+			repoPedido.create(modelObject.pedido)
 		} else {
-			repoPedido.update(modelObject)
+			repoPedido.update(modelObject.pedido)
 		}
 		super.executeTask()
 	}
