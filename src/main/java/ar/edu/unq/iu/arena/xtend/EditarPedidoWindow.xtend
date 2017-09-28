@@ -28,6 +28,7 @@ import org.uqbar.arena.layout.VerticalLayout
 import org.uqbar.arena.bindings.PropertyAdapter
 import ar.edu.unq.iu.modelo.Pizza
 import ar.edu.unq.iu.repo.RepoPedido
+import org.uqbar.arena.layout.HorizontalLayout
 
 class EditarPedidoWindow extends TransactionalDialog<Pedido> {
 
@@ -41,70 +42,79 @@ class EditarPedidoWindow extends TransactionalDialog<Pedido> {
 	}
 
 	override protected createFormPanel(Panel mainPanel) {
-		val form = new Panel(mainPanel).layout = new ColumnLayout(1)
+		this.panelDeEstado(mainPanel)
+		this.panelDePlatos(mainPanel)
+		this.panelDeAclaraciones(mainPanel)
+		this.panelDeInfo(mainPanel)
+	}
 
-		new Label(form).text = "Estado:"
+	def panelDeEstado(Panel panel){
+		val layout = new Panel(panel).layout = new ColumnLayout(2)
+		new Label(layout).text = "Estado:"
+		new Selector<EstadoPedido>(layout)
 
 		/*new Selector<EstadoPedido>(form) => [
 		  	allowNull(false)
 		  	value <=> "estado"
 		  	val estados = bindItems(new ObservableProperty(repoEstados, "estados"))
 		  	//estados.adaptWith(typeof(EstadoPedido), "nombre") // opci�n A
-		  
+
 		  	estados.adapter = new PropertyAdapter(typeof(EstadoPedido), "nombre") // opci�n B
 		 ]*/
-		 
-		this.panelDePlatos(mainPanel)
-
-		new Label(form).text = "Aclaraciones:"
-
-		new TextBox(form) => [
-			value <=> "aclaraciones"
-			width = 400
-		]
-
-		new Label(form).text = "Cliente:"
-
-		new TextBox(form) => [
-			value <=> "cliente.nombre"
-			
-			width = 200
-		]
-
-		new Label(form).text = "Costo de envio:"
-
-		new TextBox(form) => [
-			value <=> "envio.costo"
-			
-			width = 200
-		]
-
-		new Label(form).text = "Monto total:"
-
-		
-		new TextBox(form) => [
-			value <=> "monto"
-			width = 200
-		]
-
-		new Label(form).text = "Fecha:"
-
-		
-		new TextBox(form) => [
-			value <=> "fechaHora"
-			width = 200
-		]
 	}
 
 	def panelDePlatos(Panel panel) {
 		{
-			val p = new Panel(panel, new PedidoAppModel(modelObject.platos))
+			new Label(panel).text = "Platos:"
 
-			new Label(p).text = "Platos:"
+			val p = new Panel(panel, new PedidoAppModel(modelObject.platos)).layout = new HorizontalLayout()
 
 			this.crearTablaPlato(p)
 			this.crearAccionesTabla(p)
 		}
+	}
+
+	def panelDeAclaraciones(Panel panel){
+		new Label(panel).text = "Aclaraciones:"
+
+		new TextBox(panel) => [
+			value <=> "aclaraciones"
+			width = 400
+		]
+	}
+
+	def panelDeInfo(Panel panel){
+		val form = new Panel(panel).layout = new ColumnLayout(2)
+
+		new Label(form).text = "Cliente:"
+
+		new Label(form) => [
+			value <=> "cliente.nombre"
+			alignLeft
+		]
+
+		new Label(form).text = "Costo de envio:"
+
+		new Label(form) => [
+			value <=> "envio.costo"
+			alignLeft
+		]
+
+		new Label(form).text = "Monto total:"
+
+
+		new Label(form) => [
+			value <=> "monto"
+			alignLeft
+		]
+
+		new Label(form).text = "Fecha:"
+
+
+		new Label(form) => [
+			value <=> "fechaHora"
+			alignLeft
+		]
 	}
 
 	def crearTablaPlato(Panel panel) {
@@ -112,7 +122,7 @@ class EditarPedidoWindow extends TransactionalDialog<Pedido> {
 		val table = new Table<Plato>(panel, typeof(Plato)) => [
 			items <=> "platos"
 			value <=> "platoSeleccionado"
-			numberVisibleRows = 10
+			numberVisibleRows = 4
 		]
 
 		new Column<Plato>(table) => [
@@ -137,8 +147,6 @@ class EditarPedidoWindow extends TransactionalDialog<Pedido> {
 	}
 
 	def crearAccionesTabla(Panel panel) {
-		val elementSelected = new NotNullObservable("platoSeleccionado")
-
 		val actionsPanel = new Panel(panel).layout = new VerticalLayout
 
 		new Button(actionsPanel) => [
@@ -150,13 +158,13 @@ class EditarPedidoWindow extends TransactionalDialog<Pedido> {
 		new Button(actionsPanel) => [
 			caption = "Editar"
 			onClick([|this.editarPlato(panel.modelObject)])
-			bindEnabled(elementSelected)
+			bindEnabled(new NotNullObservable("platoSeleccionado"))
 		]
 
 		new Button(actionsPanel) => [
 			caption = "Eliminar"
 			onClick([|this.eliminarPlato(panel.modelObject)])
-			bindEnabled(elementSelected)
+			bindEnabled(new NotNullObservable("platoSeleccionado"))
 
 		]
 	}
