@@ -12,17 +12,25 @@ abstract class EstadoPedido extends Entity{
 	
 	def List<EstadoPedido> posiblesEstados(Pedido p) {}
 
-	def EstadoPedido estadoSiguiente(Envio envio) {}
+	def EstadoPedido estadoSiguiente(Envio envio) {
+		null;
+	}
 
-	def EstadoPedido estadoAnterior(Envio envio) {}
+	def EstadoPedido estadoAnterior(Envio envio) {
+		null;
+	}
 
 	override equals(Object o) {
 		this.class == o.class
 	}
 
 	def Boolean esAbierto()
+
+	def String nombre()
 	
-	override def toString()
+	override def toString(){
+		this.nombre
+	}
 
 }
 
@@ -40,20 +48,12 @@ class Preparando extends EstadoPedido {
 		}
 	}
 
-	override estadoAnterior(Envio e) {
-		throw new CambioDeEstadoException()
-	}
-
 	override esAbierto() {
 		true
 	}
 
-	def nombre(){
+	override nombre(){
 		"Preparando"
-	}
-
-	override def toString (){
-		nombre
 	}
 }
 
@@ -77,8 +77,8 @@ class ListoParaEnviar extends EstadoPedido {
 	override def toString (){
 		nombre
 	}
-	
-	def nombre() {
+
+	override nombre() {
 		"Listo Para Enviar"
 	}
 	
@@ -88,8 +88,8 @@ class EnViaje extends EstadoPedido {
 	new(){
 		
 	}
-	
-	def nombre(){
+
+	override nombre(){
 		"En Viaje"
 	}
 	
@@ -113,13 +113,9 @@ class EnViaje extends EstadoPedido {
 class Entregado extends EstadoPedido {
 	new(){
 	}
-	
-	def nombre(){
+
+	override nombre(){
 		"Entregado"
-	}
-	
-	override estadoSiguiente(Envio e) {
-		throw new CambioDeEstadoException()
 	}
 
 	override estadoAnterior(Envio e) {
@@ -143,8 +139,8 @@ class Entregado extends EstadoPedido {
 class ListoParaRetirar extends EstadoPedido {
 	new(){
 	}
-	
-	def nombre(){
+
+	override nombre(){
 		"Listo Para Retirar"
 	}
 	
@@ -169,17 +165,9 @@ class ListoParaRetirar extends EstadoPedido {
 class Cancelado extends EstadoPedido {
 	new(){
 	}
-	
-	def nombre(){
-		"Cancelado"
-	}
-	
-	override estadoSiguiente(Envio e) {
-		throw new CambioDeEstadoException()
-	}
 
-	override estadoAnterior(Envio e) {
-		throw new CambioDeEstadoException()
+	override nombre(){
+		"Cancelado"
 	}
 	
 	override esAbierto() {

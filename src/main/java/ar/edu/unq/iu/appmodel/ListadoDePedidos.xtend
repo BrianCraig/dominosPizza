@@ -8,12 +8,12 @@ import org.uqbar.commons.model.annotations.Observable
 import org.eclipse.xtend.lib.annotations.Accessors
 import ar.edu.unq.iu.repo.RepoPedido
 import org.uqbar.commons.applicationContext.ApplicationContext
+import org.uqbar.commons.model.utils.ObservableUtils
 
 @Observable
 @Accessors
 class ListadoDePedidos implements Serializable {
 	Pedido pedidoSeleccionado
-	
 
 	def cancelarPedido() {
 		pedidoSeleccionado.estado = new Cancelado
@@ -29,6 +29,10 @@ class ListadoDePedidos implements Serializable {
 	
 	def getPedidosCerrados() {
 		repoPedido.getPedidosCerrados()
+	}
+
+	def actualizar(){
+		ObservableUtils.firePropertyChanged(this, "pedidosAbiertos")
 	}
 	
 }

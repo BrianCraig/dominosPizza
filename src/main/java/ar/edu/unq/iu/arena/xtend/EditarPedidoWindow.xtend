@@ -52,7 +52,12 @@ class EditarPedidoWindow extends TransactionalDialog<PedidoAppModel> {
 	def panelDeEstado(Panel panel){
 		val layout = new Panel(panel).layout = new ColumnLayout(2)
 		new Label(layout).text = "Estado:"
-		new Selector<EstadoPedido>(layout)
+		new Selector<EstadoPedido>(layout)  => [
+			allowNull(false)
+			value <=> "pedido.estado"
+			items <=> "pedido.envio.posiblesEstados"
+		]
+
 
 		/*new Selector<EstadoPedido>(form) => [
 		  	allowNull(false)

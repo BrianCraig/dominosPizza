@@ -24,6 +24,8 @@ import ar.edu.unq.iu.appmodel.PedidoAppModel
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import ar.edu.unq.iu.modelo.CambioDeEstadoException
+import org.uqbar.commons.model.exceptions.UserException
 
 class ListadoDePedidosAbiertosWindow extends SimpleWindow<ListadoDePedidos> {
 	
@@ -64,13 +66,25 @@ class ListadoDePedidosAbiertosWindow extends SimpleWindow<ListadoDePedidos> {
 
 		new Button(horLayout) => [
 			caption = "<<"
-			onClick([|this.estadoAnterior(modelObject.pedidoSeleccionado)])
+			onClick([|
+				try {
+					this.estadoAnterior(modelObject.pedidoSeleccionado)
+				} catch (CambioDeEstadoException e) {
+					throw new UserException("imposible cambiar el estado del pedido")
+				}
+			])
 			bindEnabled(new NotNullObservable("pedidoSeleccionado"))
 		]
 		
 		new Button(horLayout) => [
 			caption = ">>"
-			onClick([|this.estadoSiguiente(modelObject.pedidoSeleccionado)])
+			onClick([|
+				try {
+					this.estadoSiguiente(modelObject.pedidoSeleccionado)
+				} catch (CambioDeEstadoException e) {
+					throw new UserException("imposible cambiar el estado del pedido")
+				}
+			])
 			bindEnabled(new NotNullObservable("pedidoSeleccionado"))
 		]
 		
@@ -90,7 +104,7 @@ class ListadoDePedidosAbiertosWindow extends SimpleWindow<ListadoDePedidos> {
 	}
 	
 	def openDialog(Dialog<?> dialog) {
-		dialog.onAccept[|modelObject]// ??
+		dialog.onAccept[|modelObject.actualizar]// ??
 		dialog.open
 	}
 	
@@ -127,7 +141,6 @@ class ListadoDePedidosAbiertosWindow extends SimpleWindow<ListadoDePedidos> {
 	}
 	
 	def openWindow(Window<?> window) {
-		//window.onAccept[|modelObject]// ??
 		window.open
 	}
 	
@@ -162,7 +175,4 @@ class ListadoDePedidosAbiertosWindow extends SimpleWindow<ListadoDePedidos> {
 			bindContentsToProperty("fechaHora").transformer = [ LocalDateTime fecha | DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm").format(fecha)]
 		]
 	}
-	
-	
-	
 }

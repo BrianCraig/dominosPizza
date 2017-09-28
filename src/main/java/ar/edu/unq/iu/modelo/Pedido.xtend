@@ -10,8 +10,9 @@ import org.simplejavamail.mailer.Mailer
 import org.uqbar.commons.model.Entity
 import org.uqbar.commons.model.annotations.Observable
 import org.uqbar.commons.model.annotations.Dependencies
+import org.uqbar.commons.model.annotations.TransactionalAndObservable
 
-@Observable
+@TransactionalAndObservable
 @Accessors
 class Pedido extends Entity{
 	ConstructorEmail email = new ConstructorEmail()
@@ -42,12 +43,12 @@ class Pedido extends Entity{
         }
         monto
 	}
-	@Dependencies("estado")
+
 	def cancelarPedido(){
 		this.estado = new Cancelado()
 	}
 	
-	@Dependencies("estado")
+
 	def enviar() {
 		this.estado = new EnViaje()
 		mail = email.pedidoATiempo(this.cliente.direccion)
@@ -55,7 +56,7 @@ class Pedido extends Entity{
 			.sendMail(mail)
 	}
 	
-	@Dependencies("estado")
+
 	def entregar(){
 		this.estado = new Entregado()
 		this.verificarTiempo()
@@ -74,18 +75,17 @@ class Pedido extends Entity{
 		estado.posiblesEstados(this)
 	}
 
-	@Dependencies("estado")
-	def setEstado(EstadoPedido estado) {
-		this.estado = estado
-	}
-	
-	@Dependencies("estado")
 	def pasarAlSiguienteEstado() {
+		if(null == estado.estadoSiguiente(envio)){
+			throw new CambioDeEstadoException
+		}
 		estado = estado.estadoSiguiente(envio)
 	}
-	
-	@Dependencies("estado")
+
 	def pasarAlEstadoAnterior() {
+		if(null == estado.estadoAnterior(envio)){
+			throw new CambioDeEstadoException
+		}
 		estado = estado.estadoAnterior(envio)
 	}
 	

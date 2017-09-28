@@ -11,6 +11,10 @@ abstract class Envio {
 	override equals(Object o) {
 		this.class == o.class
 	}
+
+	def getPosiblesEstados(){
+		#[]
+	}
 	
 }
 
@@ -19,6 +23,10 @@ class Retirar extends Envio {
 	new () {
 		super()
 		this.costo = 0.0
+	}
+
+	override getPosiblesEstados(){
+		#[new Preparando, new ListoParaRetirar, new Entregado, new Cancelado]
 	}
 
 }
@@ -33,5 +41,9 @@ class Delivery extends Envio {
 		this.costo = 15.0
 		this.direccion = direc
 
+	}
+
+	override getPosiblesEstados(){
+		#[new Preparando, new ListoParaEnviar, new EnViaje, new Entregado, new Cancelado]
 	}
 }
