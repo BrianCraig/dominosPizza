@@ -1,35 +1,28 @@
 package ar.edu.unq.iu.arena.xtend
 
-import ar.edu.unq.iu.modelo.Pedido
-import org.uqbar.arena.aop.windows.TransactionalDialog
-import org.uqbar.arena.windows.WindowOwner
-import org.uqbar.arena.widgets.Panel
-import org.uqbar.arena.layout.ColumnLayout
-import org.uqbar.arena.widgets.Label
-import org.uqbar.arena.widgets.Selector
+import ar.edu.unq.iu.appmodel.PedidoAppModel
 import ar.edu.unq.iu.modelo.EstadoPedido
-import org.uqbar.arena.bindings.ObservableProperty
+import ar.edu.unq.iu.modelo.Pedido
+import ar.edu.unq.iu.modelo.Plato
+import ar.edu.unq.iu.modelo.TamanioGrande
+import ar.edu.unq.iu.repo.RepoPedido
+import org.uqbar.arena.aop.windows.TransactionalDialog
+import org.uqbar.arena.bindings.NotNullObservable
+import org.uqbar.arena.layout.ColumnLayout
+import org.uqbar.arena.layout.HorizontalLayout
+import org.uqbar.arena.layout.VerticalLayout
+import org.uqbar.arena.widgets.Button
+import org.uqbar.arena.widgets.Label
+import org.uqbar.arena.widgets.Panel
+import org.uqbar.arena.widgets.Selector
+import org.uqbar.arena.widgets.TextBox
+import org.uqbar.arena.widgets.tables.Column
+import org.uqbar.arena.widgets.tables.Table
+import org.uqbar.arena.windows.Dialog
+import org.uqbar.arena.windows.WindowOwner
+import org.uqbar.commons.applicationContext.ApplicationContext
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
-import org.uqbar.commons.applicationContext.ApplicationContext
-import org.uqbar.arena.widgets.NumericField
-import org.uqbar.arena.widgets.TextBox
-import ar.edu.unq.iu.repo.RepoEstados
-import ar.edu.unq.iu.modelo.Envio
-import ar.edu.unq.iu.modelo.Cliente
-import ar.edu.unq.iu.modelo.Plato
-import org.uqbar.arena.widgets.tables.Table
-import org.uqbar.arena.widgets.tables.Column
-import org.uqbar.arena.widgets.Button
-import org.uqbar.arena.windows.Dialog
-import org.uqbar.arena.bindings.NotNullObservable
-import ar.edu.unq.iu.appmodel.PedidoAppModel
-import org.uqbar.arena.layout.VerticalLayout
-import org.uqbar.arena.bindings.PropertyAdapter
-import ar.edu.unq.iu.modelo.Pizza
-import ar.edu.unq.iu.repo.RepoPedido
-import org.uqbar.arena.layout.HorizontalLayout
-import ar.edu.unq.iu.modelo.TamanioGrande
 
 class EditarPedidoWindow extends TransactionalDialog<PedidoAppModel> {
 
@@ -58,15 +51,6 @@ class EditarPedidoWindow extends TransactionalDialog<PedidoAppModel> {
 			items <=> "pedido.envio.posiblesEstados"
 		]
 
-
-		/*new Selector<EstadoPedido>(form) => [
-		  	allowNull(false)
-		  	value <=> "estado"
-		  	val estados = bindItems(new ObservableProperty(repoEstados, "estados"))
-		  	//estados.adaptWith(typeof(EstadoPedido), "nombre") // opci�n A
-
-		  	estados.adapter = new PropertyAdapter(typeof(EstadoPedido), "nombre") // opci�n B
-		 ]*/
 	}
 
 	def panelDePlatos(Panel panel) {
@@ -206,10 +190,6 @@ class EditarPedidoWindow extends TransactionalDialog<PedidoAppModel> {
 			setAsDefault
 			disableOnError
 		]
-	}
-
-	def getRepoEstados() {
-		ApplicationContext.instance.getSingleton(typeof(EstadoPedido)) as RepoEstados
 	}
 	
 	override executeTask() {

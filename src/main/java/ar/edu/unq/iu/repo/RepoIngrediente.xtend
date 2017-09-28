@@ -1,7 +1,7 @@
 package ar.edu.unq.iu.repo
 
-import org.uqbar.commons.model.CollectionBasedRepo
 import ar.edu.unq.iu.modelo.Ingrediente
+import org.uqbar.commons.model.CollectionBasedRepo
 
 class RepoIngrediente extends CollectionBasedRepo<Ingrediente>{
 	

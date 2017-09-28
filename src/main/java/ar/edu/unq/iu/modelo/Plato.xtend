@@ -1,8 +1,8 @@
 package ar.edu.unq.iu.modelo
 
 import java.util.ArrayList
-import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.List
+import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.TransactionalAndObservable
 
 @TransactionalAndObservable

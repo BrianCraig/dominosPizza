@@ -1,10 +1,10 @@
 package ar.edu.unq.iu.appmodel
 
-import org.uqbar.commons.model.CollectionBasedRepo
 import java.io.Serializable
-import org.uqbar.commons.model.annotations.Observable
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.commons.model.CollectionBasedRepo
 import org.uqbar.commons.model.Entity
+import org.uqbar.commons.model.annotations.Observable
 import org.uqbar.commons.model.utils.ObservableUtils
 
 /*

@@ -1,14 +1,13 @@
 package ar.edu.unq.iu.appmodel
 
+import ar.edu.unq.iu.modelo.Pedido
+import ar.edu.unq.iu.modelo.Pizza
 import ar.edu.unq.iu.modelo.Plato
+import ar.edu.unq.iu.repo.RepoPizza
+import java.io.Serializable
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.applicationContext.ApplicationContext
-import java.util.List
-import ar.edu.unq.iu.modelo.Pedido
 import org.uqbar.commons.model.annotations.Observable
-import java.io.Serializable
-import ar.edu.unq.iu.repo.RepoPizza
-import ar.edu.unq.iu.modelo.Pizza
 
 @Observable
 @Accessors

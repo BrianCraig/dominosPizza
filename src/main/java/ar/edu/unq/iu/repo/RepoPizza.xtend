@@ -1,7 +1,7 @@
 package ar.edu.unq.iu.repo
 
-import org.uqbar.commons.model.CollectionBasedRepo
 import ar.edu.unq.iu.modelo.Pizza
+import org.uqbar.commons.model.CollectionBasedRepo
 import org.uqbar.commons.model.annotations.Observable
 
 @Observable

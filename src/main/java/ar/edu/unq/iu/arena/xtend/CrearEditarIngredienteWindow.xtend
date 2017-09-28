@@ -1,17 +1,17 @@
 package ar.edu.unq.iu.arena.xtend
 
-import org.uqbar.arena.aop.windows.TransactionalDialog
-import org.uqbar.arena.windows.WindowOwner
-import org.uqbar.arena.widgets.Panel
 import ar.edu.unq.iu.modelo.Ingrediente
+import ar.edu.unq.iu.repo.RepoIngrediente
+import org.uqbar.arena.aop.windows.TransactionalDialog
 import org.uqbar.arena.layout.ColumnLayout
-import org.uqbar.arena.widgets.Label
-import org.uqbar.arena.widgets.TextBox
 import org.uqbar.arena.widgets.Button
+import org.uqbar.arena.widgets.Label
+import org.uqbar.arena.widgets.Panel
+import org.uqbar.arena.widgets.TextBox
+import org.uqbar.arena.windows.WindowOwner
+import org.uqbar.commons.applicationContext.ApplicationContext
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
-import org.uqbar.commons.applicationContext.ApplicationContext
-import ar.edu.unq.iu.repo.RepoIngrediente
 
 class CrearEditarIngredienteWindow extends TransactionalDialog<Ingrediente> {
 	

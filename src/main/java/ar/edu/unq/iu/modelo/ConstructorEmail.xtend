@@ -1,8 +1,8 @@
 package ar.edu.unq.iu.modelo
 
+import org.eclipse.xtend.lib.annotations.Accessors
 import org.simplejavamail.email.Email
 import org.simplejavamail.email.EmailBuilder
-import org.eclipse.xtend.lib.annotations.Accessors
 
 @Accessors
 class ConstructorEmail {

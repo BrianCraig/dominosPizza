@@ -1,24 +1,23 @@
 package ar.edu.unq.iu.arena.xtend
 
-import org.uqbar.arena.aop.windows.TransactionalDialog
-import ar.edu.unq.iu.modelo.Pizza
-import org.uqbar.arena.windows.WindowOwner
-import org.uqbar.arena.widgets.Panel
-import org.uqbar.arena.layout.ColumnLayout
-import org.uqbar.arena.widgets.Label
-import org.uqbar.arena.widgets.TextBox
-import org.uqbar.commons.applicationContext.ApplicationContext
 import ar.edu.unq.iu.modelo.Ingrediente
+import ar.edu.unq.iu.modelo.Pizza
 import ar.edu.unq.iu.repo.RepoIngrediente
-import org.uqbar.arena.widgets.CheckBox
-import org.uqbar.arena.widgets.Button
-import java.util.List
 import ar.edu.unq.iu.repo.RepoPizza
-import org.uqbar.arena.layout.HorizontalLayout
+import java.util.List
+import org.uqbar.arena.aop.windows.TransactionalDialog
 import org.uqbar.arena.bindings.ValueTransformer
+import org.uqbar.arena.layout.ColumnLayout
+import org.uqbar.arena.widgets.Button
+import org.uqbar.arena.widgets.CheckBox
+import org.uqbar.arena.widgets.Label
+import org.uqbar.arena.widgets.Panel
+import org.uqbar.arena.widgets.TextBox
+import org.uqbar.arena.windows.WindowOwner
+import org.uqbar.common.transaction.Collection.TransacionalList
+import org.uqbar.commons.applicationContext.ApplicationContext
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
-import org.uqbar.common.transaction.Collection.TransacionalList
 
 class CrearEditarPizzaWindow extends TransactionalDialog<Pizza> {
 	

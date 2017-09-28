@@ -1,7 +1,7 @@
 package ar.edu.unq.iu.repo
 
-import org.uqbar.commons.model.CollectionBasedRepo
 import ar.edu.unq.iu.modelo.Cliente
+import org.uqbar.commons.model.CollectionBasedRepo
 
 class RepoCliente extends CollectionBasedRepo<Cliente> {
 	

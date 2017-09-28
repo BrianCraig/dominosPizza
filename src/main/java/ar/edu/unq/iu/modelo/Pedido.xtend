@@ -8,8 +8,6 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import org.simplejavamail.email.Email
 import org.simplejavamail.mailer.Mailer
 import org.uqbar.commons.model.Entity
-import org.uqbar.commons.model.annotations.Observable
-import org.uqbar.commons.model.annotations.Dependencies
 import org.uqbar.commons.model.annotations.TransactionalAndObservable
 
 @TransactionalAndObservable
@@ -95,7 +93,7 @@ class Pedido extends Entity{
 	
 	def calcularTiempoEspera() {
 		//calcula la diferencia en minutos y los devuelve en int - verificar si sirve
-		ChronoUnit.MINUTES.between(LocalDateTime.now, fechaHora).intValue 
+		ChronoUnit.MINUTES.between(LocalDateTime.now, fechaHora).intValue
 		
 		//tiempoEspera = LocalDateTime.now().hour - fechaHora.hour
 		//TODO: Comparar las fechas

@@ -1,27 +1,23 @@
 package ar.edu.unq.iu.arena.xtend
 
-import org.uqbar.arena.aop.windows.TransactionalDialog
-import org.uqbar.arena.windows.WindowOwner
-import ar.edu.unq.iu.modelo.Plato
-import org.uqbar.arena.widgets.Panel
-import org.uqbar.arena.layout.ColumnLayout
-import org.uqbar.arena.widgets.Selector
-import org.uqbar.arena.widgets.Label
-import ar.edu.unq.iu.modelo.Pizza
-import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
-import ar.edu.unq.iu.modelo.Tamanio
-import org.uqbar.arena.widgets.CheckBox
-import org.uqbar.commons.applicationContext.ApplicationContext
-import ar.edu.unq.iu.modelo.Ingrediente
-import ar.edu.unq.iu.repo.RepoIngrediente
-import org.uqbar.arena.widgets.TextBox
-import ar.edu.unq.iu.repo.RepoTamanio
-import org.uqbar.arena.bindings.ObservableProperty
-import ar.edu.unq.iu.repo.RepoPizza
-import org.uqbar.arena.widgets.Button
 import ar.edu.unq.iu.appmodel.PlatoAppModel
-import org.uqbar.arena.bindings.PropertyAdapter
+import ar.edu.unq.iu.modelo.Ingrediente
 import ar.edu.unq.iu.modelo.Pedido
+import ar.edu.unq.iu.modelo.Pizza
+import ar.edu.unq.iu.modelo.Plato
+import ar.edu.unq.iu.modelo.Tamanio
+import ar.edu.unq.iu.repo.RepoIngrediente
+import org.uqbar.arena.aop.windows.TransactionalDialog
+import org.uqbar.arena.layout.ColumnLayout
+import org.uqbar.arena.widgets.Button
+import org.uqbar.arena.widgets.CheckBox
+import org.uqbar.arena.widgets.Label
+import org.uqbar.arena.widgets.Panel
+import org.uqbar.arena.widgets.Selector
+import org.uqbar.arena.windows.WindowOwner
+import org.uqbar.commons.applicationContext.ApplicationContext
+
+import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 
 class AgregarEditarPlatoWindow extends TransactionalDialog<PlatoAppModel> {
 
