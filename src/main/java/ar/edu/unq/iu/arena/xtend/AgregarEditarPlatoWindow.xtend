@@ -18,6 +18,15 @@ import org.uqbar.arena.windows.WindowOwner
 import org.uqbar.commons.applicationContext.ApplicationContext
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
+import org.eclipse.xtend.lib.annotations.Accessors
+import ar.edu.unq.iu.modelo.Agregado
+import java.io.Serializable
+import ar.edu.unq.iu.modelo.LadoAmbos
+import ar.edu.unq.iu.modelo.LadoIzquierdo
+import ar.edu.unq.iu.modelo.LadoDerecho
+import org.uqbar.arena.layout.HorizontalLayout
+import org.uqbar.arena.widgets.RadioSelector
+import org.uqbar.commons.model.annotations.TransactionalAndObservable
 
 class AgregarEditarPlatoWindow extends TransactionalDialog<PlatoAppModel> {
 
@@ -52,7 +61,7 @@ class AgregarEditarPlatoWindow extends TransactionalDialog<PlatoAppModel> {
 			value <=> "plato.precio"
 		]
 
-		//this.mostrarIngredientes(mainPanel)
+		this.mostrarIngredientes(mainPanel)
 
 
 	}
@@ -60,22 +69,25 @@ class AgregarEditarPlatoWindow extends TransactionalDialog<PlatoAppModel> {
 
 
 	def mostrarIngredientes(Panel panel) {
-		var is = repoIngrediente.getAllIngredientes()
+		for (ingrediente : modelObject.ingredientesPosibles()) {
 
-		for (ingrediente : is) {
-			new Label(panel).text = ingrediente.getNombre() // TODO: adapt
-			new CheckBox(panel) => [
-				enabled <=> [Pizza p|p.agregarIngrediente(ingrediente)]
-				value <=> [Pizza p|p.tieneIngrediente(ingrediente)]
+			val fila = new Panel(panel, new PlatoIngredienteModel(modelObject.plato, ingrediente)).layout = new HorizontalLayout
+
+			new CheckBox(fila) => [
+				value <=> "contieneAgregado"
 			]
-		// TODO: poner los circulos de la distribucion de ingredientes 
+
+			new Label(fila).text = ingrediente.getNombre() // TODO: adapt
+
+
+			new RadioSelector(fila) => [
+			items <=> "posiblesLados"
+			value <=> "agregado.lado"
+			]
 		}
-
 	}
 
-	def getRepoIngrediente() {
-		ApplicationContext.instance.getSingleton(typeof(Ingrediente)) as RepoIngrediente
-	}
+
 
 	override protected void addActions(Panel actions) {
 		new Button(actions) => [
@@ -94,4 +106,37 @@ class AgregarEditarPlatoWindow extends TransactionalDialog<PlatoAppModel> {
 		super.executeTask()
 	}
 
+}
+
+@TransactionalAndObservable
+@Accessors
+class PlatoIngredienteModel implements Serializable {
+	Plato plato
+	Ingrediente ingrediente
+	Agregado agregado
+
+	new(Plato plato, Ingrediente ingrediente){
+		this.plato = plato
+		this.ingrediente = ingrediente
+		if(plato.contieneAgregadoDe(ingrediente))
+			this.agregado = plato.agregadoDe(ingrediente)
+		else
+			this.agregado = new Agregado(ingrediente, new LadoAmbos)
+	}
+
+	def Boolean getContieneAgregado(){
+		plato.contieneAgregadoDe(ingrediente)
+	}
+
+	def void setContieneAgregado(Boolean agregar){
+		if(agregar){
+			plato.agregarAgregado(agregado)
+		} else {
+			plato.quitarAgregado(agregado)
+		}
+	}
+
+	def getPosiblesLados() {
+		#[new LadoIzquierdo, new LadoAmbos, new LadoDerecho]
+	}
 }
