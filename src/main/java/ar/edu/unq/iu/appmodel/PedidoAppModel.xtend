@@ -6,10 +6,11 @@ import org.uqbar.commons.applicationContext.ApplicationContext
 import java.util.List
 import ar.edu.unq.iu.modelo.Pedido
 import org.uqbar.commons.model.annotations.Observable
+import java.io.Serializable
 
 @Observable
 @Accessors
-class PedidoAppModel {
+class PedidoAppModel implements Serializable {
 	Plato platoSeleccionado
 	Pedido pedido
 	

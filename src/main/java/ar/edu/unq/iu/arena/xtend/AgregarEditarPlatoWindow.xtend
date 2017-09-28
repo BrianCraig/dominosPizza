@@ -19,56 +19,48 @@ import ar.edu.unq.iu.repo.RepoTamanio
 import org.uqbar.arena.bindings.ObservableProperty
 import ar.edu.unq.iu.repo.RepoPizza
 import org.uqbar.arena.widgets.Button
+import ar.edu.unq.iu.appmodel.PlatoAppModel
+import org.uqbar.arena.bindings.PropertyAdapter
 
-class AgregarEditarPlatoWindow extends TransactionalDialog<Plato> {
+class AgregarEditarPlatoWindow extends TransactionalDialog<PlatoAppModel> {
 
 	new(WindowOwner owner, Plato model) {
-		super(owner, model)
+		super(owner, new PlatoAppModel(model))
 		title = "Editar Plato"
 	}
 
 	override protected createFormPanel(Panel mainPanel) {
 
-		val form = new Panel(mainPanel).layout = new ColumnLayout(3)
+		val form = new Panel(mainPanel).layout = new ColumnLayout(2)
 
 		new Label(form).text = "Pizza:"
 
 		new Selector<Pizza>(form) => [
 			allowNull(false)
-			value <=> "pizza"
-			val pizza = bindItems(new ObservableProperty(repoPizza.getPizza(modelObject.pizza), "pizza"))
-			pizza.adaptWith(typeof(Pizza), "nombre" + "precio")
-
+			value <=> "plato.pizza"
+			items <=> "repoPizza.objects"
 		]
 
 		new Label(form).text = "Tamaño:"
 
 		new Selector<Tamanio>(form) => [
 			allowNull(false)
-			value <=> "tamaño"
-			val tamaño = bindItems(new ObservableProperty(repoTamanio.getTamanio(modelObject.tamanio), "tamaño"))
-			tamaño.adaptWith(typeof(Tamanio), "nombre")
-
+			value <=> "plato.tamanio"
+			items <=> "tamanios"
 		]
-
-		this.mostrarIngredientes(mainPanel)
 
 		new Label(form).text = "Precio:"
 
-		new TextBox(form) => [
-			value <=> "precio"
-			width = 200
+		new Label(form) => [
+			value <=> "plato.precio"
 		]
 
+		//this.mostrarIngredientes(mainPanel)
+
+
 	}
 
-	def getRepoPizza() {
-		ApplicationContext.instance.getSingleton(typeof(Pizza)) as RepoPizza
-	}
 
-	def getRepoTamanio() {
-		ApplicationContext.instance.getSingleton(typeof(Tamanio)) as RepoTamanio
-	}
 
 	def mostrarIngredientes(Panel panel) {
 		var is = repoIngrediente.getAllIngredientes()

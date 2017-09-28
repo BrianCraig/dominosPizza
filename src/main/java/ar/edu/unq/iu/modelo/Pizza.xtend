@@ -37,5 +37,7 @@ class Pizza extends Entity{
 		ingredientes.contains(i)
 	}
 	
-	
+	override String toString(){
+		nombre
+	}
 }

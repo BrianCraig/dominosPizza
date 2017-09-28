@@ -7,6 +7,10 @@ import org.uqbar.commons.model.Entity
 abstract class Tamanio extends Entity {
 	double precio
 	String nombre
+
+	override toString(){
+		nombre
+	}
 }
 
 class TamanioPorcion extends Tamanio {
