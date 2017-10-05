@@ -77,7 +77,7 @@ class AgregarEditarPlatoWindow extends TransactionalDialog<PlatoAppModel> {
 				value <=> "contieneAgregado"
 			]
 
-			new Label(fila).text = ingrediente.getNombre() // TODO: adapt
+			new Label(fila).text = ingrediente.getNombre()
 
 
 			new RadioSelector(fila) => [
@@ -102,7 +102,7 @@ class AgregarEditarPlatoWindow extends TransactionalDialog<PlatoAppModel> {
 	}
 
 	override executeTask() {
-		modelObject.pedido.agregarPlato(modelObject.plato)
+		modelObject.agregarPlato
 		super.executeTask()
 	}
 
@@ -110,7 +110,7 @@ class AgregarEditarPlatoWindow extends TransactionalDialog<PlatoAppModel> {
 
 @TransactionalAndObservable
 @Accessors
-class PlatoIngredienteModel implements Serializable {
+class PlatoIngredienteModel implements Serializable { //modelo!
 	Plato plato
 	Ingrediente ingrediente
 	Agregado agregado

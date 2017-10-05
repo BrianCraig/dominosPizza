@@ -60,11 +60,7 @@ class ListadoDePedidosAbiertosWindow extends SimpleWindow<ListadoDePedidos> {
 		new Button(horLayout) => [
 			caption = "<<"
 			onClick([|
-				try {
-					this.estadoAnterior(modelObject.pedidoSeleccionado)
-				} catch (CambioDeEstadoException e) {
-					throw new UserException("imposible cambiar el estado del pedido")
-				}
+					modelObject.pasarAEstadoAnterior
 			])
 			bindEnabled(new NotNullObservable("pedidoSeleccionado"))
 		]
@@ -72,24 +68,11 @@ class ListadoDePedidosAbiertosWindow extends SimpleWindow<ListadoDePedidos> {
 		new Button(horLayout) => [
 			caption = ">>"
 			onClick([|
-				try {
-					this.estadoSiguiente(modelObject.pedidoSeleccionado)
-				} catch (CambioDeEstadoException e) {
-					throw new UserException("imposible cambiar el estado del pedido")
-				}
+					modelObject.pasarAEstadoSiguiente
 			])
 			bindEnabled(new NotNullObservable("pedidoSeleccionado"))
-		]
+		]	
 		
-		
-	}
-	
-	def estadoSiguiente(Pedido p) {
-		p.pasarAlSiguienteEstado
-	}
-	
-	def estadoAnterior(Pedido p) {
-		p.pasarAlEstadoAnterior
 	}
 	
 	def editarPedido() {

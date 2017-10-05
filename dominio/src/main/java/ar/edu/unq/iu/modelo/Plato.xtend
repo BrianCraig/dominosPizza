@@ -6,6 +6,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.annotations.TransactionalAndObservable
 import java.util.HashMap
 import java.util.Map
+import org.uqbar.commons.model.annotations.Dependencies
 
 @TransactionalAndObservable
 @Accessors
@@ -20,6 +21,7 @@ class Plato {
 		this.tamanio = tamanio
 	}
 	
+	@Dependencies("agregados", "pizza", "tamanio")
 	def getPrecio() {
 		var p = pizza.precio * tamanio.precio
 		for (a : agregados.values){

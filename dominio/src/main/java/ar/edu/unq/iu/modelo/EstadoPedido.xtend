@@ -3,6 +3,7 @@ package ar.edu.unq.iu.modelo
 import java.util.List
 import org.uqbar.commons.model.Entity
 import org.uqbar.commons.model.annotations.TransactionalAndObservable
+import org.uqbar.commons.model.exceptions.UserException
 
 @TransactionalAndObservable
 abstract class EstadoPedido extends Entity{
@@ -177,6 +178,10 @@ class Cancelado extends EstadoPedido {
 	}
 }
 
-class CambioDeEstadoException extends RuntimeException {
+class CambioDeEstadoException extends UserException {
+	
+	new(String message) {
+		super(message)
+	}
 	
 }

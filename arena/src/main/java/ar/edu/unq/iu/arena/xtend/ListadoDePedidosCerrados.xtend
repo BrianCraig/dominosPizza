@@ -19,7 +19,6 @@ class ListadoDePedidosCerrados extends SimpleWindow<ListadoDePedidos>{
 	
 	new(WindowOwner parent) {
 		super(parent, new ListadoDePedidos)
-		modelObject.pedidosCerrados
 	}
 	
 	
@@ -49,7 +48,7 @@ class ListadoDePedidosCerrados extends SimpleWindow<ListadoDePedidos>{
 	}
 	
 	
-	def verPedido() {
+	def verPedido() { //TODO aca un ver pedido
 		this.openDialog(new EditarPedidoWindow(this, modelObject.pedidoSeleccionado))
 	}
 	
@@ -98,7 +97,6 @@ class ListadoDePedidosCerrados extends SimpleWindow<ListadoDePedidos>{
 			alignRight
 			bindContentsToProperty("estado")
 		]
-		//TODO: adaptar
 
 		new Column<Pedido>(table) => [
 			title = "Fecha"

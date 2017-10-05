@@ -18,21 +18,31 @@ class ListadoDePedidos implements Serializable {
 	def cancelarPedido() {
 		pedidoSeleccionado.estado = new Cancelado
 	}
-	
-	def List<Pedido> getPedidosAbiertos(){
+
+	def List<Pedido> getPedidosAbiertos() {
 		repoPedido.getPedidosAbiertos()
 	}
-	
+
 	def RepoPedido getRepoPedido() {
 		ApplicationContext.instance.getSingleton(Pedido) as RepoPedido
 	}
-	
+
 	def getPedidosCerrados() {
 		repoPedido.getPedidosCerrados()
 	}
 
-	def actualizar(){
+	def actualizar() {
 		ObservableUtils.firePropertyChanged(this, "pedidosAbiertos")
 	}
-	
+
+	def pasarAEstadoSiguiente() {
+		pedidoSeleccionado.pasarAlSiguienteEstado
+		actualizar
+	}
+
+	def pasarAEstadoAnterior() {
+		pedidoSeleccionado.pasarAlEstadoAnterior
+		actualizar
+	}
+
 }

@@ -9,6 +9,7 @@ import org.simplejavamail.email.Email
 import org.simplejavamail.mailer.Mailer
 import org.uqbar.commons.model.Entity
 import org.uqbar.commons.model.annotations.TransactionalAndObservable
+import org.uqbar.commons.model.annotations.Dependencies
 
 @TransactionalAndObservable
 @Accessors
@@ -20,7 +21,7 @@ class Pedido extends Entity{
 	String aclaraciones = ""
 	Envio envio
 	EstadoPedido estado
-	LocalDateTime tiempoEspera
+	int tiempoEspera
 	Email mail
 	
 	
@@ -31,9 +32,10 @@ class Pedido extends Entity{
 		this.envio = envio
 		this.estado = new Preparando
 		cliente.agregarPedido(this)
-		this.tiempoEspera = null
+		this.tiempoEspera = 0
 	}
 	
+	@Dependencies("platos")
 	def getMonto() {
         var monto = envio.getCosto()
         for (p : platos) {
@@ -75,14 +77,14 @@ class Pedido extends Entity{
 
 	def pasarAlSiguienteEstado() {
 		if(null == estado.estadoSiguiente(envio)){
-			throw new CambioDeEstadoException
+			throw new CambioDeEstadoException("imposible cambiar el estado del pedido")
 		}
 		estado = estado.estadoSiguiente(envio)
 	}
 
 	def pasarAlEstadoAnterior() {
 		if(null == estado.estadoAnterior(envio)){
-			throw new CambioDeEstadoException
+			throw new CambioDeEstadoException("imposible cambiar el estado del pedido")
 		}
 		estado = estado.estadoAnterior(envio)
 	}
@@ -91,9 +93,9 @@ class Pedido extends Entity{
 		estado.esAbierto()
 	}
 	
-	def calcularTiempoEspera() {
+	def calcularTiempoEspera() { //TODO a arreglar
 		//calcula la diferencia en minutos y los devuelve en int - verificar si sirve
-		ChronoUnit.MINUTES.between(LocalDateTime.now, fechaHora).intValue
+		this.tiempoEspera = ChronoUnit.MINUTES.between(LocalDateTime.now, fechaHora).intValue
 		
 		//tiempoEspera = LocalDateTime.now().hour - fechaHora.hour
 		//TODO: Comparar las fechas

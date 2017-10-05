@@ -83,7 +83,7 @@ class CrearEditarPizzaWindow extends TransactionalDialog<Pizza> {
 		]
 	}
 
-	override executeTask() {
+	override executeTask() { //modelo!
 		if (modelObject.isNew) {
 			repoPizza.create(modelObject)
 		} else {

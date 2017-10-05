@@ -41,4 +41,9 @@ class PlatoAppModel implements Serializable {
     def ingredientesPosibles() {
         repoIngrediente.objects.filter [ ! plato.pizza.ingredientes.contains(it)  ]
     }
+	
+	def agregarPlato() {
+		pedido.agregarPlato(plato)
+	}
+	
 }

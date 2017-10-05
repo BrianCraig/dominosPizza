@@ -119,13 +119,13 @@ class EditarPedidoWindow extends TransactionalDialog<PedidoAppModel> {
 			title = "Nombre"
 			fixedSize = 200
 			alignRight
-			bindContentsToProperty("pizza.nombre") // TODO: Adapt 
+			bindContentsToProperty("pizza.nombre")
 		]
 
 		new Column<Plato>(table) => [
 			title = "Tamanio"
 			fixedSize = 200
-			bindContentsToProperty("tamanio.nombre") // TODO: Adapt 
+			bindContentsToProperty("tamanio.nombre")
 		]
 
 		new Column<Plato>(table) => [
@@ -160,7 +160,7 @@ class EditarPedidoWindow extends TransactionalDialog<PedidoAppModel> {
 	}
 
 	def agregarPlato() {
-		this.openDialog(new AgregarEditarPlatoWindow(this, modelObject.pedido, new Plato(modelObject.repoPizza.objects.get(0), new TamanioGrande)))
+		this.openDialog(new AgregarEditarPlatoWindow(this, modelObject.pedido, modelObject.getNuevoPlato))
 	}
 
 	def editarPlato() {
@@ -192,7 +192,7 @@ class EditarPedidoWindow extends TransactionalDialog<PedidoAppModel> {
 		]
 	}
 	
-	override executeTask() {
+	override executeTask() {//modelo!
 		if (modelObject.pedido.isNew) {
 			repoPedido.create(modelObject.pedido)
 		} else {

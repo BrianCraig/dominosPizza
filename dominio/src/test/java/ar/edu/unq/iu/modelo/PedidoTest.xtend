@@ -41,7 +41,7 @@ class PedidoTest {
 		Assert.assertTrue(pedidoSinPlatos.getEstado().class == Cancelado)
 	}
 	
-	@Test
+	@Test //TODO el test mas importante
 	def void testDadoUnPedidoQueTardoMasDe30MinutosEnserEntregadoSeVerificaQueElClienteRecibaElMailCorrespondiente(){
 		// para implementar
 		// se podria implementar creando el pedido, escuchando al observer del pedido
