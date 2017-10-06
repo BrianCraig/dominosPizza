@@ -19,6 +19,8 @@ import org.uqbar.common.transaction.Collection.TransacionalList
 import org.uqbar.commons.applicationContext.ApplicationContext
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
+import ar.edu.unq.iu.appmodel.PizzaIngredientesModel
+import org.uqbar.arena.layout.VerticalLayout
 
 class CrearEditarPizzaWindow extends TransactionalDialog<Pizza> {
 	
@@ -50,12 +52,14 @@ class CrearEditarPizzaWindow extends TransactionalDialog<Pizza> {
 	def mostrarIngredientes(Panel panel) {
 		for (ingrediente : repoIngredientes.getAllIngredientes()){
 
-			val selector = new Panel(panel).layout = new HorizontalLayout()
+			val selector = new Panel(panel, new PizzaIngredientesModel(modelObject, ingrediente)).layout = new HorizontalLayout()
 
 			new CheckBox(selector) => [
-				bindValueToProperty("ingredientes").setTransformer(new ContainsTransformer<Ingrediente>(ingrediente));
+				value <=> "contieneIngrediente"
 			]
-			new Label(selector).text = ingrediente.getNombre()
+			new Label(selector)=> [
+				value <=> "ingrediente.nombre"
+			]
 		}
 	}
 	
@@ -90,36 +94,5 @@ class CrearEditarPizzaWindow extends TransactionalDialog<Pizza> {
 			repoPizza.update(modelObject)
 		}
 		super.executeTask()
-	}
-}
-
-class ContainsTransformer<T> implements ValueTransformer<TransacionalList<T>, Boolean> {
-	TransacionalList<T> list
-	T model
-
-	new(T model) {
-		this.model = model
-	}
-
-	override TransacionalList<T> viewToModel(Boolean onList) {
-		if(onList){
-			list.add(model)
-		} else {
-			list.remove(model)
-		}
-		list
-	}
-
-	override Boolean modelToView(TransacionalList<T> list) {
-		this.list = list
-		list.contains(model)
-	}
-
-	override Class getModelType() {
-		List
-	}
-
-	override Class<Boolean> getViewType() {
-		Boolean
 	}
 }
