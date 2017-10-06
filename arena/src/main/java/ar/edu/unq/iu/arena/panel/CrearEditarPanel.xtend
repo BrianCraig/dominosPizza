@@ -1,4 +1,4 @@
-package ar.edu.unq.iu.arena.xtend
+package ar.edu.unq.iu.arena.panel
 
 import ar.edu.unq.iu.appmodel.CrearEditarRepoModel
 import org.uqbar.arena.bindings.NotNullObservable

@@ -1,10 +1,9 @@
-package ar.edu.unq.iu.arena.xtend
+package ar.edu.unq.iu.arena.window
 
 import ar.edu.unq.iu.appmodel.PedidoAppModel
 import ar.edu.unq.iu.modelo.EstadoPedido
 import ar.edu.unq.iu.modelo.Pedido
 import ar.edu.unq.iu.modelo.Plato
-import ar.edu.unq.iu.modelo.TamanioGrande
 import ar.edu.unq.iu.repo.RepoPedido
 import org.uqbar.arena.aop.windows.TransactionalDialog
 import org.uqbar.arena.bindings.NotNullObservable

@@ -1,4 +1,4 @@
-package ar.edu.unq.iu.arena.xtend
+package ar.edu.unq.iu.arena.window
 
 import ar.edu.unq.iu.modelo.Ingrediente
 import ar.edu.unq.iu.modelo.Pizza
@@ -8,6 +8,7 @@ import java.util.List
 import org.uqbar.arena.aop.windows.TransactionalDialog
 import org.uqbar.arena.bindings.ValueTransformer
 import org.uqbar.arena.layout.ColumnLayout
+import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.widgets.CheckBox
 import org.uqbar.arena.widgets.Label
@@ -18,7 +19,6 @@ import org.uqbar.common.transaction.Collection.TransacionalList
 import org.uqbar.commons.applicationContext.ApplicationContext
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
-import org.uqbar.arena.layout.HorizontalLayout
 
 class CrearEditarPizzaWindow extends TransactionalDialog<Pizza> {
 	

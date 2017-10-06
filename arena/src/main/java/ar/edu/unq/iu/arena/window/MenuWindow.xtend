@@ -1,6 +1,7 @@
-package ar.edu.unq.iu.arena.xtend
+package ar.edu.unq.iu.arena.window
 
 import ar.edu.unq.iu.appmodel.MenuAppModel
+import ar.edu.unq.iu.arena.panel.CrearEditarPanel
 import ar.edu.unq.iu.modelo.Ingrediente
 import ar.edu.unq.iu.modelo.Pizza
 import org.uqbar.arena.widgets.Button

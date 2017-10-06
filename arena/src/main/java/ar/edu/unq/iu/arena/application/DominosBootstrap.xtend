@@ -1,4 +1,4 @@
-package ar.edu.unq.iu.arena.xtend
+package ar.edu.unq.iu.arena.application
 
 import ar.edu.unq.iu.modelo.Agregado
 import ar.edu.unq.iu.modelo.Cancelado
@@ -33,7 +33,7 @@ class DominosBootstrap extends CollectionBasedBootstrap {
 	}
 	
 	
-	override run() {
+	override void run() {
 		
 		val repoPedido = ApplicationContext.instance.getSingleton(typeof(Pedido)) as RepoPedido
 		val repoIngrediente = ApplicationContext.instance.getSingleton(typeof(Ingrediente)) as RepoIngrediente
@@ -103,7 +103,7 @@ class DominosBootstrap extends CollectionBasedBootstrap {
         	create(pedidoE)
         ]
 
-        val menu = new Menu => [
+        new Menu => [
             agregarIngredienteExtra(panceta)
             agregarIngredienteExtra(morrones)
             agregarIngredienteExtra(jamon)

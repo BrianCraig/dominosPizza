@@ -1,4 +1,4 @@
-package ar.edu.unq.iu.arena.xtend
+package ar.edu.unq.iu.arena.window
 
 import ar.edu.unq.iu.modelo.Ingrediente
 import ar.edu.unq.iu.repo.RepoIngrediente

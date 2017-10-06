@@ -1,7 +1,6 @@
-package ar.edu.unq.iu.arena.xtend
+package ar.edu.unq.iu.arena.window
 
 import ar.edu.unq.iu.appmodel.ListadoDePedidos
-import ar.edu.unq.iu.modelo.CambioDeEstadoException
 import ar.edu.unq.iu.modelo.Pedido
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -16,7 +15,6 @@ import org.uqbar.arena.windows.Dialog
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.Window
 import org.uqbar.arena.windows.WindowOwner
-import org.uqbar.commons.model.exceptions.UserException
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 

@@ -1,32 +1,30 @@
-package ar.edu.unq.iu.arena.xtend
+package ar.edu.unq.iu.arena.window
 
 import ar.edu.unq.iu.appmodel.PlatoAppModel
+import ar.edu.unq.iu.modelo.Agregado
 import ar.edu.unq.iu.modelo.Ingrediente
+import ar.edu.unq.iu.modelo.LadoAmbos
+import ar.edu.unq.iu.modelo.LadoDerecho
+import ar.edu.unq.iu.modelo.LadoIzquierdo
 import ar.edu.unq.iu.modelo.Pedido
 import ar.edu.unq.iu.modelo.Pizza
 import ar.edu.unq.iu.modelo.Plato
 import ar.edu.unq.iu.modelo.Tamanio
-import ar.edu.unq.iu.repo.RepoIngrediente
+import java.io.Serializable
+import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.arena.aop.windows.TransactionalDialog
 import org.uqbar.arena.layout.ColumnLayout
+import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.widgets.CheckBox
 import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.widgets.Panel
+import org.uqbar.arena.widgets.RadioSelector
 import org.uqbar.arena.widgets.Selector
 import org.uqbar.arena.windows.WindowOwner
-import org.uqbar.commons.applicationContext.ApplicationContext
+import org.uqbar.commons.model.annotations.TransactionalAndObservable
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
-import org.eclipse.xtend.lib.annotations.Accessors
-import ar.edu.unq.iu.modelo.Agregado
-import java.io.Serializable
-import ar.edu.unq.iu.modelo.LadoAmbos
-import ar.edu.unq.iu.modelo.LadoIzquierdo
-import ar.edu.unq.iu.modelo.LadoDerecho
-import org.uqbar.arena.layout.HorizontalLayout
-import org.uqbar.arena.widgets.RadioSelector
-import org.uqbar.commons.model.annotations.TransactionalAndObservable
 
 class AgregarEditarPlatoWindow extends TransactionalDialog<PlatoAppModel> {
 
@@ -47,7 +45,7 @@ class AgregarEditarPlatoWindow extends TransactionalDialog<PlatoAppModel> {
 			items <=> "repoPizza.objects"
 		]
 
-		new Label(form).text = "Tamaño:"
+		new Label(form).text = "Tamaï¿½o:"
 
 		new Selector<Tamanio>(form) => [
 			allowNull(false)
