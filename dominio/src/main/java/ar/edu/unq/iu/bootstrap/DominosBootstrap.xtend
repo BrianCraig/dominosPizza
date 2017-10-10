@@ -1,4 +1,4 @@
-package ar.edu.unq.iu.arena.application
+package ar.edu.unq.iu.bootstrap
 
 import ar.edu.unq.iu.modelo.Agregado
 import ar.edu.unq.iu.modelo.Cancelado

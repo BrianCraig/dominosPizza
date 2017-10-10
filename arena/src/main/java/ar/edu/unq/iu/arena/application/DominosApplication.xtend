@@ -3,6 +3,7 @@ package ar.edu.unq.iu.arena.application
 import ar.edu.unq.iu.arena.window.ListadoDePedidosAbiertosWindow
 import org.uqbar.arena.Application
 import org.uqbar.arena.windows.Window
+import ar.edu.unq.iu.bootstrap.DominosBootstrap
 
 class DominosApplication extends Application {
 

@@ -4,19 +4,17 @@ import org.uqbar.xtrest.api.annotation.Controller
 import org.uqbar.xtrest.json.JSONUtils
 import org.uqbar.xtrest.api.annotation.Get
 import org.uqbar.xtrest.http.ContentType
-import ar.edu.unq.iu.repo.RepoIngrediente
+import ar.edu.unq.iu.appmodel.MenuAppModel
 
 @Controller
 class IngredientesController {
 	extension JSONUtils = new JSONUtils
+
+	MenuAppModel appModel = new MenuAppModel()
 	
 	@Get("/ingredientes")
 	def leer() {
 		response.contentType = ContentType.APPLICATION_JSON
-    	val ingredientes = new RepoIngrediente() => [
-    		create("Muzza", 10.0)
-    		create("Jamon", 100.0)
-    	]
-		ok(ingredientes.objects.toJson)
+		ok(appModel.repoIngrediente.objects.toJson)
 	}
 }
