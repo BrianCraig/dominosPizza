@@ -4,6 +4,7 @@ import org.uqbar.xtrest.api.XTRest
 import ar.edu.unq.iu.rest.controller.IngredientesController
 import ar.edu.unq.iu.bootstrap.DominosBootstrap
 import ar.edu.unq.iu.rest.controller.TamaniosController
+import ar.edu.unq.iu.rest.controller.PizzasController
 
 class Application {
 	def static void main(String[] args) {
@@ -12,7 +13,8 @@ class Application {
 		XTRest.start(
 			9000, 
 			IngredientesController,
-			TamaniosController
+			TamaniosController,
+			PizzasController
 		)
 	}
 }

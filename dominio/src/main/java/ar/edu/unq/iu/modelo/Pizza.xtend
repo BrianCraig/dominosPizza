@@ -6,9 +6,11 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.Entity
 import org.uqbar.commons.model.annotations.Dependencies
 import org.uqbar.commons.model.annotations.TransactionalAndObservable
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 
 @TransactionalAndObservable
 @Accessors
+@JsonIgnoreProperties(#["new"])
 class Pizza extends Entity{
 	String nombre
 	List<Ingrediente> ingredientes = new ArrayList()
