@@ -4,7 +4,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.Entity
 
 @Accessors
-abstract class Tamanio extends Entity {
+abstract class Tamanio {
 	double precio
 	String nombre
 
@@ -14,6 +14,10 @@ abstract class Tamanio extends Entity {
 
 	override equals(Object o) {
 		this.class == o.class
+	}
+	
+	def getId() {
+		nombre
 	}
 }
 
