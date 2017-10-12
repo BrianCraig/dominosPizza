@@ -4,9 +4,11 @@ import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.Entity
 import org.uqbar.commons.model.annotations.TransactionalAndObservable
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 
 @Accessors
 @TransactionalAndObservable
+@JsonIgnoreProperties(#["new", "password"])
 class Cliente extends Entity {
 	String nombre
 	String nick
