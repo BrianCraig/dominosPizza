@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 
 @Accessors
 @TransactionalAndObservable
-@JsonIgnoreProperties(#["new", "password"])
+@JsonIgnoreProperties(#["new", "password", "pedidos"]) // esto ignora las propiedades
 class Cliente extends Entity {
 	String nombre
 	String nick

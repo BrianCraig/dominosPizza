@@ -6,6 +6,10 @@ import org.uqbar.xtrest.api.annotation.Get
 import org.uqbar.xtrest.api.annotation.Post
 import ar.edu.unq.iu.appmodel.UsuariosAppModel
 import org.uqbar.xtrest.api.annotation.Put
+import org.uqbar.xtrest.api.annotation.Body
+import ar.edu.unq.iu.modelo.BadRequestError
+import ar.edu.unq.iu.modelo.Login
+import ar.edu.unq.iu.modelo.RequestError
 
 @Controller
 class UsuariosController {
@@ -14,8 +18,17 @@ class UsuariosController {
 	UsuariosAppModel appModel = new UsuariosAppModel()
 	
 	@Post("/ingreso")
-	def ingresar() {
-		ok(null)
+	def ingresar(@Body String bodyConLogin) {
+		try {
+			val login = bodyConLogin.fromJson(Login)
+			if(appModel.existeClienteCon(login.nick, login.password)){
+				ok(appModel.clienteCon(login.nick, login.password).toJson)
+			} else {
+				badRequest(new RequestError("el nick y la clave no coinciden").toJson)
+			}
+		} catch (Exception e){
+			badRequest(new BadRequestError().toJson)
+		}
 	}
 	
 	@Put("/usuarios/:id")
@@ -24,7 +37,7 @@ class UsuariosController {
 	}
 	
 	@Post("/usuarios") 
-	def crear() {
+	def crear(@Body String bodyConUsuario) {
 		ok(null)
 	}
 	

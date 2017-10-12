@@ -21,4 +21,16 @@ class UsuariosAppModel implements Serializable {
     def getClientes() {
     	repoCliente.objects
     }
+    
+    def existeClienteCon(String nick, String password){
+    	maybeClienteCon(nick, password).isPresent()
+    }
+    
+    def clienteCon(String nick, String password){
+    	maybeClienteCon(nick, password).get()
+    }
+    
+    def private maybeClienteCon(String nick, String password){
+    	clientes.stream().filter([ cli | cli.nick == nick && cli.password == password]).findFirst()
+    }
 }
