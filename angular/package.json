@@ -3,10 +3,14 @@
   "version": "1.0.0",
   "description": "aplicacion en angular de Dominos Pizza",
   "author": "",
+  "scripts": {
+    "start": "http-server"
+  },
   "dependencies": {
     "angular": "^1.5.8",
     "angular-animate": "^1.5.8",
     "bootstrap": "^3.3.5",
+    "http-server": "^0.10.0",
     "jquery": "^2.1.4"
   }
 }
