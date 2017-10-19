@@ -10,6 +10,7 @@ import org.uqbar.xtrest.api.annotation.Body
 import ar.edu.unq.iu.modelo.BadRequestError
 import ar.edu.unq.iu.modelo.Login
 import ar.edu.unq.iu.modelo.RequestError
+import ar.edu.unq.iu.modelo.NuevoUsuario
 
 @Controller
 class UsuariosController {
@@ -38,11 +39,20 @@ class UsuariosController {
 	
 	@Post("/usuarios") 
 	def crear(@Body String bodyConUsuario) {
-		ok(null)
+		val usuario = bodyConUsuario.fromJson(NuevoUsuario)
+		try{
+			if(!appModel.datosCorrectos(usuario.nombre, usuario.nick, usuario.pass, usuario.mail, usuario.direccion)){
+				ok(appModel.createCliente(usuario.nombre, usuario.nick, usuario.pass, usuario.mail, usuario.direccion).toJson)
+			} else {
+				badRequest(new RequestError("Ocurrio un error durante el procesamiento de datos para la creacion de un usuario nuevo.").toJson)
+			}
+		} catch (Exception e){
+			badRequest(new BadRequestError().toJson)
+		}
 	}
 	
 	@Get("/usuarios/:id/pedidos") 
 	def leerPedido() {
-		ok(null)
+		ok(null) //TODO busqueda pedidos por usuario
 	}
 }
