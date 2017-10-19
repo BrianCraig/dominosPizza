@@ -26,6 +26,14 @@ class UsuariosAppModel implements Serializable {
     	maybeClienteCon(nick, password).get()
     }
     
+    def clienteConId(String id){
+    	maybeClienteConId(Integer.parseInt(id)).get().pedidos
+    }
+    
+    def private maybeClienteConId(Integer id){
+    	clientes.stream().filter([ cli | cli.id == id]).findFirst()
+    }
+    
     def createCliente(String nombre, String nick, String pass, String mail, String direccion) {
     	repoCliente.create(nombre, nick, pass, mail, direccion)
     }

@@ -12,7 +12,7 @@ class Application {
 		(new DominosBootstrap).run()
 		
 		XTRest.start(
-			9000, 
+			5500, 
 			IngredientesController,
 			TamaniosController,
 			PizzasController,

@@ -11,6 +11,7 @@ import ar.edu.unq.iu.modelo.BadRequestError
 import ar.edu.unq.iu.modelo.Login
 import ar.edu.unq.iu.modelo.RequestError
 import ar.edu.unq.iu.modelo.NuevoUsuario
+import org.uqbar.xtrest.http.ContentType
 
 @Controller
 class UsuariosController {
@@ -53,6 +54,15 @@ class UsuariosController {
 	
 	@Get("/usuarios/:id/pedidos") 
 	def leerPedido() {
-		ok(null) //TODO busqueda pedidos por usuario
+		response.contentType = ContentType.APPLICATION_JSON
+		try{
+			if(!id.nullOrEmpty){
+				ok(appModel.clienteConId(id).toJson) 
+			} else {
+				badRequest(new RequestError("Error al procesar el ID.").toJson)
+			}
+		} catch (Exception e) {
+			badRequest(new BadRequestError().toJson)
+		}
 	}
 }
