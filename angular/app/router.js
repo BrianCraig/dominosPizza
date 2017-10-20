@@ -1,6 +1,6 @@
 'use strict';
 
-var AppConfig = class {
+class AppConfig {
     constructor($stateProvider, $urlRouterProvider) {
         $stateProvider
             .state('inicio', {

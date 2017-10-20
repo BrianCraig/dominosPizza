@@ -1,10 +1,10 @@
 'use strict';
 
-class IngresoController {
+class InicioController {
     constructor() {}
 }
 
 angular.module('dominosApp').component('inicio', {
     templateUrl: '/app/inicio/inicio.component.html',
-    controller: IngresoController
+    controller: InicioController
 });
