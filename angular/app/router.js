@@ -5,7 +5,7 @@ var AppConfig = class {
         $stateProvider
             .state('inicio', {
                 url: "/",
-                template: "<ingreso></ingreso>"
+                template: "<inicio></inicio>"
             });
 
         $urlRouterProvider.otherwise("/");
