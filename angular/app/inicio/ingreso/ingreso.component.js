@@ -1,12 +1,15 @@
 'use strict';
 
 class IngresoController {
-    constructor($state) {
+    constructor($state, UsuarioService) {
         this.$state = $state
+        this.usuarioS = UsuarioService
+        this.campos = {}
     }
 
     ingresar() {
         //verificacion de usuario
+        this.usuarioS.ingresar(this.campos);
         this.$state.go("seleccionarPizza")
     }
 }
