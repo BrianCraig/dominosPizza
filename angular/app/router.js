@@ -10,6 +10,10 @@ class AppConfig {
             .state('seleccionarPizza', {
                 url: "/pedir",
                 template: "<seleccionar-pizza></seleccionar-pizza>"
+            })
+            .state('editarUsuario', {
+                    url: "/usuario",
+                    template: "<editar-usuario></editar-usuario>"
             });
 
         $urlRouterProvider.otherwise("/");

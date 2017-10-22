@@ -1,9 +1,8 @@
 'use strict';
 
 class CabeceraController {
-    constructor($state, UsuarioService) {
+    constructor(UsuarioService) {
         this.usuarioS = UsuarioService;
-        this.$state = $state;
     }
 }
 
