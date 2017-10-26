@@ -1,7 +1,8 @@
 'use strict';
 
 class SeleccionarPizzaController {
-    constructor($state, UsuarioService) {
+    constructor($state, UsuarioService, PizzasService) {
+        this.pizzasS = PizzasService;
         this.usuarioS = UsuarioService;
         this.$state = $state;
     }
