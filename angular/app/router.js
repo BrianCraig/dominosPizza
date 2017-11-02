@@ -14,6 +14,10 @@ class AppConfig {
             .state('editarUsuario', {
                     url: "/usuario",
                     template: "<editar-usuario></editar-usuario>"
+            })
+            .state('confirmarPedido', {
+                url: "/confirmar",
+                template: "<confirmar-pedido></confirmar-pedido>"
             });
 
         $urlRouterProvider.otherwise("/");
