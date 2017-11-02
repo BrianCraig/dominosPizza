@@ -6,4 +6,8 @@ class Ingrediente {
         this.nombre = objeto.nombre;
         this.precio = objeto.precio;
     }
+
+    precioDoble() {
+        return this.precio * 2 ;
+    }
 }

@@ -8,9 +8,21 @@ class SeleccionarPizzaController {
         this.$state = $state;
     }
 
-    abrirPizza(unaPizza){
+    seleccionarPizza(unaPizza){
         this.pizzaSeleccionada = unaPizza;
-        $('#editarPizza').modal('show')
+        $('#seleccionarTamanio').modal('show')
+    }
+
+    seleccionarTamanio(unTamanio){
+        this.platoSeleccionado = new Plato({
+            pizza: this.pizzaSeleccionada,
+            tamanio: unTamanio
+        });
+        $('#seleccionarTamanio').modal('hide').after(() =>{
+            $('#seleccionarIngredientes').modal('show')
+        })
+
+
     }
 }
 
