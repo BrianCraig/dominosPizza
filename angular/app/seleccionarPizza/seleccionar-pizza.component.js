@@ -1,10 +1,16 @@
 'use strict';
 
 class SeleccionarPizzaController {
-    constructor($state, UsuarioService, PizzasService) {
+    constructor($state, UsuarioService, PizzasService, TamanioService) {
         this.pizzasS = PizzasService;
         this.usuarioS = UsuarioService;
+        this.tamanioS = TamanioService;
         this.$state = $state;
+    }
+
+    abrirPizza(unaPizza){
+        this.pizzaSeleccionada = unaPizza;
+        $('#editarPizza').modal('show')
     }
 }
 

@@ -2,10 +2,35 @@
 <div class="row">
     <div class="col-sm-4" ng-repeat="pizza in controller.pizzasS.objects">
         <div class="panel panel-default">
-            <div class="panel-body">
+            <div class="panel-body" ng-click="controller.abrirPizza(pizza)">
                 {{pizza.nombre}}
                 <span class="glyphicon glyphicon-menu-right pull-right" aria-hidden="true" style="font-size: 1.2em"></span>
                 <span class="badge pull-right">${{pizza.precio}}</span></div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="editarPizza" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">{{pizzaSeleccionada.nombre}}</h4>
+            </div>
+            <div class="modal-body">
+                <div class="col-sm-4" ng-repeat="tamanio in controller.tamanioS.objects">
+                    <div class="panel panel-default">
+                        <div class="panel-body" ><!--ng-click="controller.(pizza)"-->
+                            {{tamanio.toString()}}
+                            <span class="glyphicon glyphicon-menu-right pull-right" aria-hidden="true" style="font-size: 1.2em"></span>
+                            <span class="badge pull-right">${{tamanio.precio}}</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
         </div>
     </div>
 </div>
