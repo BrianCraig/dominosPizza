@@ -1,0 +1,6 @@
+<div ng-if="controller.pedidoS.tienePlatos()">
+    <h2>Tu pedido</h2>
+    <div ng-repeat="plato in controller.pedidoS.pedido.platos">
+        <p>{{plato.pizza.nombre}}, ${{plato.precio()}}</p>
+    </div>
+</div>

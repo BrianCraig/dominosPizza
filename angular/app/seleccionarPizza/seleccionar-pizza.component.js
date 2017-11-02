@@ -1,10 +1,11 @@
 'use strict';
 
 class SeleccionarPizzaController {
-    constructor($state, UsuarioService, PizzasService, TamanioService) {
+    constructor($state, UsuarioService, PizzasService, TamanioService, PedidoService) {
         this.pizzasS = PizzasService;
         this.usuarioS = UsuarioService;
         this.tamanioS = TamanioService;
+        this.pedidoS = PedidoService;
         this.$state = $state;
     }
 
@@ -21,8 +22,11 @@ class SeleccionarPizzaController {
         $('#seleccionarTamanio').modal('hide').after(() =>{
             $('#seleccionarIngredientes').modal('show')
         })
+    }
 
-
+    confirmarPlato(){
+        this.pedidoS.agregarPlato(this.platoSeleccionado);
+        $('#seleccionarIngredientes').modal('hide')
     }
 }
 

@@ -9,7 +9,7 @@ class AppConfig {
             })
             .state('seleccionarPizza', {
                 url: "/pedir",
-                template: "<seleccionar-pizza></seleccionar-pizza>"
+                template: "<ver-pedido></ver-pedido><seleccionar-pizza></seleccionar-pizza>"
             })
             .state('editarUsuario', {
                     url: "/usuario",
