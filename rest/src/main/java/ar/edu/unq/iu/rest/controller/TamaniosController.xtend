@@ -4,7 +4,6 @@ import org.uqbar.xtrest.api.annotation.Controller
 import org.uqbar.xtrest.json.JSONUtils
 import org.uqbar.xtrest.api.annotation.Get
 import org.uqbar.xtrest.http.ContentType
-import ar.edu.unq.iu.appmodel.MenuAppModel
 import ar.edu.unq.iu.modelo.TamanioChica
 import ar.edu.unq.iu.modelo.TamanioFamiliar
 import ar.edu.unq.iu.modelo.TamanioPorcion

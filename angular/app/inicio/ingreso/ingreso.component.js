@@ -8,9 +8,15 @@ class IngresoController {
     }
 
     ingresar() {
-        //verificacion de usuario
-        this.usuarioS.ingresar(this.campos);
-        this.$state.go("seleccionarPizza")
+        this.usuarioS.ingresar(this.campos).then(
+            () => this.$state.go("seleccionarPizza")
+        ).catch(
+            (request) => this.mostrarError(request.data.error)
+        )
+    }
+
+    mostrarError(texto) {
+        alert(texto)
     }
 }
 

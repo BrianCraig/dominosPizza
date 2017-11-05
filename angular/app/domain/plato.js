@@ -10,6 +10,6 @@ class Plato {
     }
 
     precio() {
-        return this.pizza.precio * this.tamanio.factor;
+        return this.pizza.precio * this.tamanio.precio;
     }
 }
