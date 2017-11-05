@@ -7,11 +7,11 @@ import org.uqbar.xtrest.api.annotation.Post
 import ar.edu.unq.iu.appmodel.UsuariosAppModel
 import org.uqbar.xtrest.api.annotation.Put
 import org.uqbar.xtrest.api.annotation.Body
-import ar.edu.unq.iu.modelo.BadRequestError
-import ar.edu.unq.iu.modelo.Login
-import ar.edu.unq.iu.modelo.RequestError
-import ar.edu.unq.iu.modelo.NuevoUsuario
 import org.uqbar.xtrest.http.ContentType
+import ar.edu.unq.iu.rest.modelo.Login
+import ar.edu.unq.iu.rest.modelo.RequestError
+import ar.edu.unq.iu.rest.modelo.BadRequestError
+import ar.edu.unq.iu.rest.modelo.NuevoUsuario
 
 @Controller
 class UsuariosController {

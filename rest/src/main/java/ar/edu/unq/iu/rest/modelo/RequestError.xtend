@@ -1,4 +1,4 @@
-package ar.edu.unq.iu.modelo
+package ar.edu.unq.iu.rest.modelo
 
 import org.eclipse.xtend.lib.annotations.Accessors
 
