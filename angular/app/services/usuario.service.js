@@ -1,8 +1,9 @@
 'use strict';
 
 class UsuarioService {
-    constructor() {
-        this.usuario = undefined; // sin usuario logeado
+    constructor($http) {
+        this.http = $http;
+        this.usuario = undefined;
     }
 
     estaLogeado() {
@@ -10,12 +11,9 @@ class UsuarioService {
     }
 
     ingresar(usuario) {
-        //MOCK
-        usuario.direccion = "Calle falsa 123"
-        usuario.id = 1
-        usuario.email = "mock@mock.com"
-        usuario.nombre = "Juan Perez"
-        this.usuario = new Usuario(usuario)
+        return this.http.post("http://localhost:5500/ingreso", usuario)
+            .then((request) => request.data)
+            .then((data) => this.usuario = new Usuario(data));
     }
 
     registro(usuario) {
