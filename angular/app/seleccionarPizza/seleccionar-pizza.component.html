@@ -24,7 +24,7 @@
                         <div class="panel-body" ng-click="controller.seleccionarTamanio(tamanio)">
                             {{tamanio.nombre}}
                             <span class="glyphicon glyphicon-menu-right pull-right" aria-hidden="true" style="font-size: 1.2em"></span>
-                            <span class="badge pull-right">${{tamanio.factor * controller.pizzaSeleccionada.precio}}</span>
+                            <span class="badge pull-right">${{tamanio.precio * controller.pizzaSeleccionada.precio}}</span>
                         </div>
                     </div>
                 </div>
