@@ -13,7 +13,7 @@ class UsuarioService {
     ingresar(usuario) {
         return this.http.post("http://localhost:5500/ingreso", usuario)
             .then((request) => request.data)
-            .then((data) => this.usuario = new Usuario(data));
+            .then((data) => this.usuario = new Usuario(data))
     }
 
     registro(usuario) {
