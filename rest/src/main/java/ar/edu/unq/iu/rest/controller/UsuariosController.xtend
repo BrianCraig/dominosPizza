@@ -42,8 +42,8 @@ class UsuariosController {
 	def crear(@Body String bodyConUsuario) {
 		val usuario = bodyConUsuario.fromJson(NuevoUsuario)
 		try{
-			if(!appModel.datosCorrectos(usuario.nombre, usuario.nick, usuario.pass, usuario.mail, usuario.direccion)){
-				ok(appModel.createCliente(usuario.nombre, usuario.nick, usuario.pass, usuario.mail, usuario.direccion).toJson)
+			if(!appModel.datosCorrectos(usuario.nombre, usuario.nick, usuario.password, usuario.mail, usuario.direccion)){
+				ok(appModel.createCliente(usuario.nombre, usuario.nick, usuario.password, usuario.mail, usuario.direccion).toJson)
 			} else {
 				badRequest(new RequestError("Ocurrio un error durante el procesamiento de datos para la creacion de un usuario nuevo.").toJson)
 			}

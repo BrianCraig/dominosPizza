@@ -8,14 +8,14 @@
             <div class="form-group">
                 <label for="registroNick" class="col-sm-4 control-label">Nick</label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control" name="nick" id="registroNick" placeholder="Nick">
+                    <input type="text" class="form-control" name="nick" ng-model="controller.campos.nick" id="registroNick" placeholder="Nick">
                 </div>
             </div>
             <!-- Clave -->
             <div class="form-group">
                 <label for="registroPassword" class="col-sm-4 control-label">Clave</label>
                 <div class="col-sm-8">
-                    <input type="password" class="form-control" name="password" id="registroPassword" placeholder="Clave">
+                    <input type="password" class="form-control" name="password" ng-model="controller.campos.password" id="registroPassword" placeholder="Clave">
                 </div>
             </div>
             <!-- Repita Clave -->
@@ -29,21 +29,21 @@
             <div class="form-group">
                 <label for="registroNombre" class="col-sm-4 control-label">Nombre</label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control" name="nombre" id="registroNombre" placeholder="Nombre">
+                    <input type="text" class="form-control" name="nombre" id="registroNombre" ng-model="controller.campos.nombre" placeholder="Nombre">
                 </div>
             </div>
             <!-- Email -->
             <div class="form-group">
                 <label for="registroEmail" class="col-sm-4 control-label">Email</label>
                 <div class="col-sm-8">
-                    <input type="email" class="form-control" name="email" id="registroEmail" placeholder="Email">
+                    <input type="email" class="form-control" name="mail" id="registroEmail" ng-model="controller.campos.mail" placeholder="Email">
                 </div>
             </div>
             <!-- Direccion -->
             <div class="form-group">
                 <label for="registroDireccion" class="col-sm-4 control-label">Direccion</label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control" name="direccion" id="registroDireccion" placeholder="Direccion">
+                    <input type="text" class="form-control" name="direccion" id="registroDireccion" ng-model="controller.campos.direccion" placeholder="Direccion">
                 </div>
             </div>
             <!-- Error -->
@@ -55,7 +55,7 @@
             <!-- Boton -->
             <div class="form-group">
                 <div class="col-sm-offset-4 col-sm-8">
-                    <button type="submit" class="btn btn-primary">Registrarse</button>
+                    <button type="submit" class="btn btn-primary" ng-click="controller.registrar()">Registrarse</button>
                 </div>
             </div>
         </form>

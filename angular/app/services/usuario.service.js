@@ -17,8 +17,9 @@ class UsuarioService {
     }
 
     registro(usuario) {
-        //MOCK
-        this.usuario = new Usuario(usuario)
+        return this.http.post("http://localhost:5500/usuarios", usuario)
+            .then((request) => request.data)
+            .then((data) => this.usuario = new Usuario(data))
     }
 
     salir() {

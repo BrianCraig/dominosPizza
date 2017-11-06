@@ -6,7 +6,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 class NuevoUsuario {
 	String nombre
 	String nick
-	String pass
+	String password
 	String direccion
 	String mail
 }

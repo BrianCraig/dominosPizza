@@ -51,6 +51,6 @@ class UsuariosAppModel implements Serializable {
     }
     
     def datosCorrectos(String nombre, String nick, String pass, String mail, String direccion){
-    	return (nombre.nullOrEmpty || nick.nullOrEmpty || direccion.nullOrEmpty || requerimientosPass(pass) || requerimientosMail(mail))
+    	return !(nombre.nullOrEmpty || nick.nullOrEmpty || direccion.nullOrEmpty || requerimientosPass(pass) || requerimientosMail(mail))
     }
 }

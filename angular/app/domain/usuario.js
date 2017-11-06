@@ -7,6 +7,6 @@ class Usuario {
         this.password = objeto.password;
         this.nombre = objeto.nombre;
         this.direccion = objeto.direccion;
-        this.email = objeto.email;
+        this.mail = objeto.mail;
     }
 }
