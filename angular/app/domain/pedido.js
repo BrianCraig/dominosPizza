@@ -2,7 +2,8 @@
 
 class Pedido {
     constructor() {
-        this.platos = []
+        this.platos = [];
+        this.envio = null
     }
 
     precio() {
@@ -14,5 +15,13 @@ class Pedido {
 
     agregarPlato(unPlato){
         this.platos.add(unPlato)
+    }
+
+    agregarTipoEnvio(unEnvio){
+        this.envio = unEnvio
+    }
+
+    precioTotal(){
+        return this.precio() + this.envio.costo
     }
 }

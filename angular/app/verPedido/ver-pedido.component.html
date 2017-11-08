@@ -1,6 +1,35 @@
 <div ng-if="controller.pedidoS.tienePlatos()">
     <h2>Tu pedido</h2>
+    <h3>Platos</h3>
     <div ng-repeat="plato in controller.pedidoS.pedido.platos">
-        <p>{{plato.pizza.nombre}}, ${{plato.precio()}}</p>
+        <div class="panel-body">
+            {{plato.pizza.nombre}}
+            <span class="badge pull-right">${{plato.precio}}</span>
+            <span class="glyphicon glyphicon-remove pull-right" aria-hidden="true" style="font-size: 1.2em"></span>
+            <sub>{{plato.pizza.ingrediente}}, {{plato.agregados.ingredientes}} </sub>
+        </div>
     </div>
+    <button type="button" class="btn btn-link" ng-click="controller.agregarMasPlatos()">Agregar mas platos</button>
+    <h3>Aclaraciones</h3>
+    <div class="form-group">
+        <label for="comment"></label>
+        <textarea class="form-control" rows="3" id="comment"></textarea>
+    </div>
+    <h3>Envio</h3>
+    <div class="radio" ng-click="controller.seleccionarTipoEnvio('Retirar', 0,controller.pedidoS.pedido)">
+        <label><input type="radio" name="optradio">Retiro por el local</label>
+    </div>
+    <div class="radio" ng-click="controller.seleccionarTipoEnvio('Delivery', 15,controller.pedidoS.pedido)">
+        <label><input type="radio" name="optradio">Delivery</label>
+        <span class="badge">$15</span>
+        <div class="form-group row">
+            <div class="col-xs-3">
+                <label for="ex1">Direccion:</label>
+                <input class="form-control" id="ex1" type="text">
+            </div>
+        </div>
+    </div>
+    <h2>Total a pagar:</h2>
+    <span class="badge pull-right">${{controller.pedidoS.pedido.precioTotal()}}</span>
+    <button type="button" ng-click="controller.realizarPedido()" class="btn btn-primary">Realizar Pedido!</button>
 </div>

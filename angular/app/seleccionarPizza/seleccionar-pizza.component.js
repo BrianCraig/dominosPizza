@@ -21,13 +21,14 @@ class SeleccionarPizzaController {
             tamanio: unTamanio
         });
         $('#seleccionarTamanio').modal('hide').after(() =>{
-            $('#seleccionarIngredientes').modal('show')
+            $('#verIngredientes').modal('show')
         })
     }
 
     confirmarPlato(){
         this.pedidoS.agregarPlato(this.platoSeleccionado);
-        $('#verIngredientes').modal('hide')
+        $('#verIngredientes').modal('hide').then(
+            () => this.$state.go("seleccionarPizza"))
     }
 
     seleccionarIngredientesExtras(){
