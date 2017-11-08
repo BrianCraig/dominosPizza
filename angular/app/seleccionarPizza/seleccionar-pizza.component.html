@@ -16,7 +16,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">{{controller.pizzaSeleccionada.nombre}}</h4>
+                <h4 class="modal-title" id="Label">{{controller.pizzaSeleccionada.nombre}}</h4>
             </div>
             <div class="modal-body" style="overflow:hidden">
                 <div class="col-sm-4" ng-repeat="tamanio in controller.tamanioS.objects">
@@ -37,7 +37,7 @@
 </div>
 
 <!-- Ingrediente -->
-<div class="modal fade" id="seleccionarIngredientes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="verIngredientes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -48,10 +48,70 @@
                 </h4>
             </div>
             <div class="modal-body">
-                ...
+                <div class="col-sm-4" ng-repeat="ingrediente in controller.platoSeleccionado.pizza.ingredientes">
+                    <div class="panel panel-default">
+                        <div class="panel-body">{{ingrediente.nombre}}
+                            <sub>Ambos lados</sub>
+                            <span class="glyphicon glyphicon-menu-right pull-right" aria-hidden="true" style="font-size: 1.2em"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4" ng-repeat="agregado in controller.platoSeleccionado.agregados">
+                    <div class="panel panel-default">
+                        <div class="panel-body">{{agregado.ingrediente.nombre}}
+                            <sub>agregado.lado</sub>
+                            <span class="glyphicon glyphicon-menu-right pull-right" aria-hidden="true" style="font-size: 1.2em"></span>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
+                <button type="button" ng-click="controller.seleccionarIngredientesExtras()" class="btn btn-primary btn-xs">Elegir ingredientes extras</button>
                 <button type="button" ng-click="controller.confirmarPlato()" class="btn btn-primary">Lo quiero!</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Ingredientes Extras -->
+<div class="modal fade" id="seleccionarIngredientesExtras" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modalLabel">Ingredientes Extras</h4>
+            </div>
+            <div class="modal-body">
+                <div class="col-sm-4" ng-repeat="ingrediente in controller.ingredienteS.objects">
+                    <div class="checkbox" ng-click="controller.seleccionarIngredienteAgregado(ingrediente)">
+                        <label><input type="checkbox" value="">
+                            {{ingrediente.nombre}}
+                            <span class="badge pull-right">${{ingrediente.precio}}</span>
+                        </label>
+                        <sub>
+                            <label class="custom-control custom-radio" ng-click="controller.agregarLadoAIngrediente(ingrediente, 'Lado Derecho')">
+                                <input id="ladoD" name="derecho" type="radio" class="custom-control-input">
+                                <span class="custom-control-indicator"></span>
+                                <span class="custom-control-description">Lado Derecho</span>
+                            </label>
+                            <label class="custom-control custom-radio" ng-click="controller.agregarLadoAIngrediente(ingrediente, 'Lado Izquierdo')">
+                                <input id="ladoI" name="izquierdo" type="radio" class="custom-control-input">
+                                <span class="custom-control-indicator"></span>
+                                <span class="custom-control-description">Lado Izquierdo</span>
+                            </label>
+                            <label class="custom-control custom-radio" ng-click="controller.agregarLadoAIngrediente(ingrediente, 'Ambos Lados')">
+                                <input id="ladoA" name="ambos" type="radio" class="custom-control-input">
+                                <span class="custom-control-indicator"></span>
+                                <span class="custom-control-description">Ambos Lados</span>
+                            </label>
+                        </sub>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" ng-click="controller.agregarIngredientesExtra()" class="btn btn-primary">Lo quiero!</button>
             </div>
         </div>
     </div>

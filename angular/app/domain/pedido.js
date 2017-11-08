@@ -11,4 +11,8 @@ class Pedido {
             .map((plato) => plato.precio())
             .reduce((sum, x) => sum + x, 0);
     }
+
+    agregarPlato(unPlato){
+        this.platos.add(unPlato)
+    }
 }
