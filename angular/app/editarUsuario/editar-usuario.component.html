@@ -1,1 +1,179 @@
-<p>Componente para editar el usuario {{controller.usuarioS.usuario.nick}}</p>
+<h2>Edita tu perfil</h2>
+    <div class="panel panel-primary">
+        <!-- Nick -->
+        <div class="panel panel-default">
+            <div class="panel-heading">Nick</div>
+            <div class="panel-body">
+                {{controller.usuarioS.usuario.nick}}
+                <span class="glyphicon glyphicon-pencil pull-right" ng-click="controller.editarNick()" aria-hidden="true" style="font-size: 1.2em"></span>
+            </div>
+        </div>
+        <!-- Nombre -->
+        <div class="panel panel-default">
+            <div class="panel-heading">Nombre</div>
+            <div class="panel-body">
+                {{controller.usuarioS.usuario.nombre}}
+                <span class="glyphicon glyphicon-pencil pull-right" ng-click="controller.editarNombre()" aria-hidden="true" style="font-size: 1.2em"></span>
+            </div>
+        </div>
+        <!-- Email -->
+        <div class="panel panel-default">
+            <div class="panel-heading">Email</div>
+            <div class="panel-body">
+                {{controller.usuarioS.usuario.mail}}
+                <span class="glyphicon glyphicon-pencil pull-right" ng-click="controller.editarMail()" aria-hidden="true" style="font-size: 1.2em"></span>
+            </div>
+        </div>
+        <!-- Direccion -->
+        <div class="panel panel-default">
+            <div class="panel-heading">Direccion</div>
+            <div class="panel-body">
+                {{controller.usuarioS.usuario.direccion}}
+                <span class="glyphicon glyphicon-pencil pull-right" ng-click="controller.editarDireccion()" aria-hidden="true" style="font-size: 1.2em"></span>
+            </div>
+        </div>
+        <!--Contraseña-->
+        <button type="button" class="btn btn-link" ng-click="controller.editarContrasenia()">Cambiar contraseña</button>
+        <!-- Boton -->
+        <div class="form-group">
+            <div class="col-sm-offset-4 col-sm-8">
+                <button type="submit" class="btn btn-primary" ng-click="controller.aceptar()">Aceptar</button>
+            </div>
+        </div>
+    </div>
+
+<!--Nick-->
+<div class="modal fade" id="editarNick" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Nuevo nick</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="loginNick" class="col-sm-4 control-label">Nick</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" ng-model="controller.usuariosS.usuario.nick" name="nick" id="loginNick" placeholder="Nick">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Nombre-->
+<div class="modal fade" id="editarNombre" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Nuevo nombre</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="loginNick" class="col-sm-4 control-label">Nombre</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" ng-model="controller.usuariosS.usuario.nombre" name="nombre" id="nombre" placeholder="Nombre">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Mail-->
+<div class="modal fade" id="editarMail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Nuevo mail</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="loginNick" class="col-sm-4 control-label">Mail</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" ng-model="controller.usuariosS.usuario.mail" name="mail" id="mail" placeholder="Mail">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Direccion-->
+<div class="modal fade" id="editarDirecion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Nueva direccion</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="loginNick" class="col-sm-4 control-label">Direccion</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" ng-model="controller.usuariosS.usuario.direccion" name="nick" id="direccion" placeholder="Direccion">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Contraseña-->
+<div class="modal fade" id="editarContrasenia" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Nueva contraseña</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="loginNick" class="col-sm-4 control-label">Contraseña</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" ng-model="controller.usuariosS.usuario.password" name="password" id="Password" placeholder="Password">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="loginNick" class="col-sm-4 control-label">Repetir contraseña</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" ng-model="controller.usuariosS.usuario.password" name="password" id="Password2" placeholder="Password2">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

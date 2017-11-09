@@ -27,8 +27,7 @@ class SeleccionarPizzaController {
 
     confirmarPlato(){
         this.pedidoS.agregarPlato(this.platoSeleccionado);
-        $('#verIngredientes').modal('hide').then(
-            () => this.$state.go("seleccionarPizza"))
+        this.$state.go("cofirmarPedido")
     }
 
     seleccionarIngredientesExtras(){
@@ -45,7 +44,8 @@ class SeleccionarPizzaController {
 
     agregarIngredientesExtra(){
         this.platoSeleccionado.agregados.add(this.extras);
-        $('#seleccionarIngredientesExtras').modal('hide')
+        $('#seleccionarIngredientesExtras').modal('hide').then(
+            () => this.$state.go("seleccionarPizza"))
     }
 
     agregarLadoAIngrediente(unIngrediente, unLado){
@@ -56,6 +56,10 @@ class SeleccionarPizzaController {
         if (extra.ingrediente.nombre == unIngrediente.nombre) {
             extra.lado = unLado
         }
+    }
+
+    editarUsuario(){
+        this.$state.go("editarUsuario")
     }
 }
 

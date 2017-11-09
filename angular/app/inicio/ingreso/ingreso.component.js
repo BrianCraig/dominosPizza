@@ -2,8 +2,8 @@
 
 class IngresoController {
     constructor($state, UsuarioService) {
-        this.$state = $state
-        this.usuarioS = UsuarioService
+        this.$state = $state;
+        this.usuarioS = UsuarioService;
         this.campos = {}
     }
 

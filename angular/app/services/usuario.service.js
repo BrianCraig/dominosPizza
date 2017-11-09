@@ -3,11 +3,11 @@
 class UsuarioService {
     constructor($http) {
         this.http = $http;
-        this.usuario = undefined;
+        this.usuario = null;
     }
 
     estaLogeado() {
-        return this.usuario !== undefined;
+        return this.usuario !== null;
     }
 
     ingresar(usuario) {
@@ -23,7 +23,7 @@ class UsuarioService {
     }
 
     salir() {
-        this.usuario = undefined;
+        this.usuario = null;
     }
 }
 

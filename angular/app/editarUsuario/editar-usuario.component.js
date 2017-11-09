@@ -1,8 +1,33 @@
 'use strict';
 
 class EditarUsuarioController {
-    constructor(UsuarioService) {
+    constructor($state, UsuarioService) {
+        this.$state = $state;
         this.usuarioS = UsuarioService;
+    }
+
+    editarNick(){
+        $('#ediarNick').modal('show')
+    }
+
+    editarNombre(){
+        $('#ediarNombre').modal('show')
+    }
+
+    editarMail(){
+        $('#ediarMail').modal('show')
+    }
+
+    editarDireccion(){
+        $('#editarDireccion').modal('show')
+    }
+
+    editarContrasenia(){
+        $('#editarContrasenia').modal('show')
+    }
+
+    aceptar(){
+        () => this.$state.go("seleccionarPizza")
     }
 }
 

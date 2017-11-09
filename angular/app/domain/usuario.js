@@ -8,5 +8,11 @@ class Usuario {
         this.nombre = objeto.nombre;
         this.direccion = objeto.direccion;
         this.mail = objeto.mail;
+        this.pedidos = objeto.pedidos;
+
+    }
+
+    agregarPedido(unPedido){
+        this.pedidos.add(unPedido)
     }
 }
